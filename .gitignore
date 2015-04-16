@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.Python
+.idea
+upload
+static
+themes/*
+!themes/THEMES.md
+env/.venv
+env/.virtualenv
+
+
