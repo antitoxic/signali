@@ -1,9 +1,11 @@
 from django.views.generic.base import View
 from restful.decorators import restful_view_templates
+from restful.http import HtmlOnlyRedirectSuccessDict
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
 from django.shortcuts import get_object_or_404
 from django import forms
 from django.forms import ModelForm
+from django.utils.translation import ugettext_lazy as _
 
 from ..models import ContactPoint
 
@@ -42,18 +44,14 @@ class ListView(View):
 
     def post(self, request):
         failure = VerboseHtmlOnlyRedirectException().set_redirect('contact-point-create')
-        raise failure.add_error('what', 'bat')
         form = CreationForm(data=request.params)
-        status = 200
 
-        if form.is_valid:
-            pass
+        if form.is_valid():
+            return HtmlOnlyRedirectSuccessDict({
+                "result": _("Successfully created a new contact point")
+            }).set_redirect('contact-point-list')
         else:
-            status = 400
-
-        return {
-            'status': 'success'
-        }, status
+            raise failure.add_error('form', form.errors)
 
 
 class CreationForm(ModelForm):
