@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -15,8 +16,11 @@ class ContactPoint(models.Model):
         (NO, _('No')),
         (DONTKNOW, _("I don't know")),
     )
+    RATING_KEY_USABILITY = 'usability'
+    RATING_KEY_RESPONSE_SPEED = 'speed'
 
     title = models.CharField(_('title'), max_length=250, blank=False)
+    slug = models.SlugField(_('slug'), max_length=255, blank=True)
     description = models.TextField(_('description'), blank=True)
     response_time = models.PositiveIntegerField(_('response time'), max_length=20, blank=True, null=True)
     is_multilingual = models.CharField(_('is multilingual'), max_length=20, choices=EXTENDED_BOOLEAN_CHOICES, default=DONTKNOW)
@@ -39,6 +43,8 @@ class ContactPoint(models.Model):
     organisation = models.ForeignKey('Orgаnisation', related_name="contact_points", verbose_name=_("organisation"))
     keywords = models.ManyToManyField('taxonomy.Keyword', related_name="contact_points", verbose_name=_("keywords"))
     category = models.ForeignKey('taxonomy.Category', related_name="contact_points", verbose_name=_("category"))
+    rating_usability = GenericRelation('rating.Rating', related_query_name='contact_points')
+    rating_response_speed = GenericRelation('rating.Rating', related_query_name='contact_points')
 
 
 class ContactPointRequirement(models.Model):

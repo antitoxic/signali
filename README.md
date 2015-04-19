@@ -12,7 +12,7 @@ Place the default or your theme in the `themes` directory and set its name as va
 ## Setup
 ### OS
 
-```
+```sh
 # depending on distribution you might want to install 
 python-dev, python-devel, or python3-devel
 postgresql-devel
@@ -25,7 +25,10 @@ change `host all all 127.0.0.1/32 ident` to md5
 ```
 
 ### Project
-```
+
+> The following is not made into a script, because it serves educational purposes
+ 
+```sh
 cd <project dir>
 # create virtualenv (skip if you already have one)
 python3 -m venv ./env/.virtualenv
@@ -39,6 +42,8 @@ pip install -r env/requirements.txt
 sudo su - postgres
 createuser -S -D -R -P signali
 createdb -O signali signali -E utf-8 -l bg_BG.utf8 -T template0
+# create db
+python manage.py migrate
 # run app
 python manage.py runserver
 # go to http://127.0.0.1:8000/
@@ -52,6 +57,7 @@ python manage.py collectstatic
 
 #### Dev hints:
 
+The following will read a `.ini`-like file and export each definition as environment variables.
 ```
 export $(cat path/to/env/file | xargs)
 ```

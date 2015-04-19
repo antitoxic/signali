@@ -59,6 +59,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'redactor',
+    'rating',
     'contact',
     'taxonomy',
     'siteguide',
@@ -71,12 +73,14 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'restful.middleware.HttpMergeParameters',
     'restful.middleware.HttpMethodOverride',
+    'restful.middleware.ResponseFormatDetection',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'restful.middleware.ResponseFormatDetection',
+    'restful.error_handler.ErrorHandler',
+    'restful.middleware.TemplateExtensionByAcceptedType',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -129,6 +133,14 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, "upload")
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
+
+# Third-party packages options
+REDACTOR_OPTIONS = {
+    'lang': 'bg',
+    'buttons': ['formatting', 'bold', 'italic','unorderedlist', 'orderedlist','image', 'link'],
+    'formatting': ['p', 'h4', 'h3', 'h2', 'h1']
+}
+REDACTOR_UPLOAD = "redactor/"
 
 
 SUIT_CONFIG = {
