@@ -19,21 +19,21 @@ class PasswordResetAbstractView(View):
     def post(self, request):
         raise NotImplementedError()
 
-    def get_user_and_reset_url(self, request, failure):
+    def get_user_and_reset_url(self, request, routename, failure):
         form = PasswordResetForm(request.params)
         if not form.is_valid():
             raise failure.set_errors(form.errors)
 
         UserModel = get_user_model()
         try:
-            user = UserModel.get(email__iexact=form.cleaned_data['email'])
+            user = UserModel.objects.get(email__iexact=form.cleaned_data['email'])
         except:
             raise failure.add_error('generic', _('No user registered with this email'))
 
         token = default_token_generator.make_token(user)
         uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
         url = request.build_absolute_uri(
-            reverse('security:password-reset-confirm', uidb64=uidb64, token=token)
+            reverse(routename, kwargs={'uidb64': uidb64, 'token': token})
         )
         return user, url
 
@@ -44,7 +44,7 @@ class PasswordResetConfirmAbstractView(View):
         uid = urlsafe_base64_decode(uidb64)
         user = UserModel.objects.get(pk=uid)
         assert uidb64 is not None and token is not None
-        assert default_token_generator.check_token(token)
+        assert default_token_generator.check_token(user, token)
         return user
 
     def reset_password(self, request, uidb64, token, failure):
@@ -53,7 +53,7 @@ class PasswordResetConfirmAbstractView(View):
         except:
             raise failure.add_error('generic', 'Invalid reset password link')
 
-        form = SetPasswordForm(user, request.params)
+        form = SetPasswordForm(request.params)
         if not form.is_valid():
             raise failure.set_errors(form.errors)
 

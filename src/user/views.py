@@ -59,9 +59,9 @@ class PasswordResetView(PasswordResetAbstractView):
         return {}
     def post(self, request):
         failure = VerboseHtmlOnlyRedirectException().set_redirect('user:password-reset')
-        user, url = self.get_user_and_reset_url(request, failure)
+        user, url = self.get_user_and_reset_url(request, 'user:password-reset-confirm', failure)
         try:
-            email.send('user/password_reset_email', user.email, user=user, url=url)
+            email.send('user/password_reset_email', user.email, request=request, user=user, url=url)
         except:
             raise failure.add_error('generic', 'Could not email reset link')
         return redirect('user:password-reset-sent')

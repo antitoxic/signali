@@ -97,14 +97,14 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 EMAIL_CONNECTIONS = {
     'internal': {
         'host': env('EMAIL_CONNECTION_INTERNAL_HOST'),
-        'username':  env('EMAIL_CONNECTION_INTERNAL_HOST'),
+        'username':  env('EMAIL_CONNECTION_INTERNAL_USER'),
         'password':  env('EMAIL_CONNECTION_INTERNAL_PASS'),
         'port':  env('EMAIL_CONNECTION_INTERNAL_PORT'),
         'use_tls': env('EMAIL_CONNECTION_INTERNAL_TLS'),
     },
     'public': {
         'host': env('EMAIL_CONNECTION_PUBLIC_HOST'),
-        'username':  env('EMAIL_CONNECTION_PUBLIC_HOST'),
+        'username':  env('EMAIL_CONNECTION_PUBLIC_USER'),
         'password':  env('EMAIL_CONNECTION_PUBLIC_PASS'),
         'port':  env('EMAIL_CONNECTION_PUBLIC_PORT'),
         'use_tls': env('EMAIL_CONNECTION_PUBLIC_TLS'),

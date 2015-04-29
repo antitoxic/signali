@@ -1,4 +1,4 @@
-from django.template import RequestContext
+from django.template import RequestContext, Context
 from django.conf import settings
 from django.template.loader import get_template
 from django.core.mail import EmailMessage, EmailMultiAlternatives, get_connection as django_get_connection
@@ -10,8 +10,9 @@ class MissingConnectionException(Exception):
 
 
 def send(template_without_ext, to, sender=settings.DEFAULT_FROM_EMAIL, reply_to=settings.DEFAULT_FROM_EMAIL, request=None, internal=False, **kwargs):
-    context = kwargs
-    if request is not None:
+    if request is None:
+        context = Context(kwargs)
+    else:
         context = RequestContext(request, kwargs)
 
     text_template = get_template(template_without_ext+'.txt')
