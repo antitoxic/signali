@@ -68,6 +68,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
+    'security.pipeline.prevent_duplicate_signup',
     'security.pipeline.user_password',
     'user.pipeline.signupcheckpoint',
     'social.pipeline.mail.mail_validation',
@@ -85,6 +86,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.profile'
 ]
 SOCIAL_AUTH_URL_NAMESPACE = 'security'
+SOCIAL_AUTH_FORM_URL = '/user/join/'
 SOCIAL_AUTH_EMAIL_VALIDATION_FUNCTION = 'user.utils.send_validation'
 SOCIAL_AUTH_EMAIL_VALIDATION_URL = '/security/email-validation/'
 
@@ -245,3 +247,5 @@ if not DEBUG:
         },
       )
     }
+
+PUBLIC_SETTINGS = ['SOCIAL_AUTH_FACEBOOK_KEY', 'SOCIAL_AUTH_FACEBOOK_SCOPE']

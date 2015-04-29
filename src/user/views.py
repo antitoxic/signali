@@ -1,5 +1,6 @@
 from django.views.generic.base import View
 from django.shortcuts import redirect
+from django.contrib.auth import get_user_model
 
 from restful.decorators import restful_view_templates
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
@@ -43,7 +44,7 @@ class SignUpCheckpointView(View):
             if form.is_valid():
                 data = form.cleaned_data
                 request.session['saved_email'] = data['email']
-                request.session['saved_name'] = data['name']
+                request.session['saved_name'] = data['fullname']
                 backend = request.session['partial_pipeline']['backend']
                 return redirect('security:complete', backend=backend)
             else:
@@ -57,6 +58,7 @@ class SignUpCheckpointView(View):
 class PasswordResetView(PasswordResetAbstractView):
     def get(self, request):
         return {}
+
     def post(self, request):
         failure = VerboseHtmlOnlyRedirectException().set_redirect('user:password-reset')
         user, url = self.get_user_and_reset_url(request, 'user:password-reset-confirm', failure)
@@ -91,3 +93,16 @@ class PasswordResetConfirmView(PasswordResetConfirmAbstractView):
 class PasswordResetCompleteView(View):
     def get(self, request):
         return {}
+
+
+@restful_view_templates
+class ProfileView(View):
+    def get(self, request, pk):
+        UserModel = get_user_model()
+        user = UserModel.objects.get(pk=pk)
+        return {
+            'user': user
+        }
+
+    def post(self, request):
+        UserModel = get_user_model()

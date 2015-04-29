@@ -4,4 +4,4 @@ from notification import email
 
 def send_validation(strategy, backend, code):
     url = get_validation_url(strategy, backend, code)
-    email.send('accountt_validation_email', code.email, url=url)
+    email.send('user/account_validation_email', code.email, url=url)

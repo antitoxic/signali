@@ -10,7 +10,7 @@ from restful.exception.verbose import VerboseHtmlOnlyRedirectException
 from social.apps.django_app.utils import psa
 from social.apps.django_app.views import auth, complete, _do_login as login
 
-from ..exceptions import WrongPasswordException, AuthException
+from ..exceptions import WrongPasswordException, AuthException, UserExistsException
 
 
 @restful_view_templates
@@ -46,7 +46,7 @@ class TokenView(View):
                         "last_name": auth_result.last_name,
                         "username": auth_result.username,
                         "pk": auth_result.pk,
-                    }
+                       }
                 }
             }
 
@@ -54,12 +54,19 @@ class TokenView(View):
 @restful_view_templates
 class RegisterView(View):
     def get(self, request, backend, *args, **kwargs):
-        failure = VerboseHtmlOnlyRedirectException().set_redirect('security:join')
+        failure = VerboseHtmlOnlyRedirectException()
+        failure_redirect = request.params.get('retry')
+        if failure_redirect:
+            failure.set_redirect(failure_redirect)
+        else:
+            failure.set_redirect('security:begin', backend=backend)
 
         try:
             return complete(request, backend, *args, **kwargs)
         except WrongPasswordException as e:
             raise failure.add_error('password', str(e))
+        except UserExistsException as e:
+            raise failure.add_error('email', str(e))
         except AuthException as e:
             raise failure.add_error('auth', str(e))
 

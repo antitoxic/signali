@@ -1,5 +1,8 @@
 from django.shortcuts import redirect
+
 from social.pipeline.partial import partial
+from social.backends.email import EmailAuth
+from social.backends.username import UsernameAuth
 
 @partial
 def signupcheckpoint(strategy, details, is_new=False, *args, **kwargs):
@@ -8,9 +11,10 @@ def signupcheckpoint(strategy, details, is_new=False, *args, **kwargs):
 
     if strategy.session_get('saved_email'):
         details['email'] = strategy.session_pop('saved_email')
-        name = strategy.session_pop('saved_name').split(' ', 1)
-        details['first_name'] = name[0]
-        details['last_name'] = name[1]
+        details['fullname'] = fullname = strategy.session_pop('saved_name')
+        fullname = fullname.split(' ', 1)
+        details['first_name'] = fullname[0]
+        details['last_name'] = fullname[1]
     else:
         return redirect('user:signup-checkpoint')
 
