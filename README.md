@@ -58,6 +58,24 @@ python manage.py collectstatic
 ## Dev hints
 
 ### Architecture decisions
+
+#### Conventions
+ - This project tries to follow the [12factor](http://12factor.net/) specs with addition of some 
+ **REST**ful conventions provided by the [django-restful](https://github.com/obshtestvo-utilities/django-restful) package. 
+ Other common good practices are also followed.
+ Example conventions followed:
+  - not in the way, only use what you want from the conventions, i.e. it can work as standard django install
+  - handle all errors in one place
+  - all requests and all calls should be as stateless as possible, pass what you need
+  - all http methods should be simulatable 
+  - response format should be extracted from http header but should also be simulatable
+  - template names can be auto-detected based on Controller name and request method, so they should 
+  - developers should have full control of data transformation in the template for any format
+  - DRY, use single codebase where possible
+  - always think modular, extract topical, not simply common logic
+  - if requesting html (commonly web) always redirect after anything other than 'GET'
+
+#### Specificity
  - Sensitive settings and those specific to deployment are retrieved from ENV variables or `.django` file in the `env`
  directory
  - If you are making a deployment you shouldn't have to modify the `src` directory. The `env` directory holds
