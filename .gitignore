@@ -11,5 +11,6 @@ themes/*
 !themes/THEMES.md
 env/.venv
 env/.virtualenv
+env/.django
 
 
