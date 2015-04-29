@@ -50,6 +50,77 @@ WSGI_APPLICATION = 'env.wsgi.application'
 
 ################### Project-specific ###################
 
+
+AUTHENTICATION_BACKENDS = (
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOpenId',
+    'social.backends.google.GooglePlusAuth',
+    'social.backends.open_id.OpenIdAuth',
+    'social.backends.email.EmailAuth',
+    'django.contrib.auth.backends.ModelBackend',
+    # 'guardian.backends.ObjectPermissionBackend',
+)
+
+SOCIAL_AUTH_PIPELINE = (
+    'security.pipeline.load_user',
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'security.pipeline.user_password',
+    'user.pipeline.signupcheckpoint',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'security.pipeline.save_password',
+    'user.pipeline.save_checkpoint_changes',
+    'social.pipeline.social_auth.associate_user', # creates a social user record
+    'social.pipeline.social_auth.load_extra_data', # adds provider metadata like "expire" or "id"
+    'social.pipeline.user.user_details' # tops up User model fields with what's available in "details" parameter
+)
+LOGIN_URL = '/join/'
+LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.profile'
+]
+SOCIAL_AUTH_URL_NAMESPACE = 'security'
+SOCIAL_AUTH_EMAIL_VALIDATION_FUNCTION = 'user.utils.send_validation'
+SOCIAL_AUTH_EMAIL_VALIDATION_URL = '/security/email-validation/'
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1623717401196966'
+SOCIAL_AUTH_FACEBOOK_SECRET = env("SOCIAL_AUTH_FACEBOOK_SECRET")
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'bg_BG'}
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+
+
+EMAIL_CONNECTIONS = {
+    'internal': {
+        'host': env('EMAIL_CONNECTION_INTERNAL_HOST'),
+        'username':  env('EMAIL_CONNECTION_INTERNAL_HOST'),
+        'password':  env('EMAIL_CONNECTION_INTERNAL_PASS'),
+        'port':  env('EMAIL_CONNECTION_INTERNAL_PORT'),
+        'use_tls': env('EMAIL_CONNECTION_INTERNAL_TLS'),
+    },
+    'public': {
+        'host': env('EMAIL_CONNECTION_PUBLIC_HOST'),
+        'username':  env('EMAIL_CONNECTION_PUBLIC_HOST'),
+        'password':  env('EMAIL_CONNECTION_PUBLIC_PASS'),
+        'port':  env('EMAIL_CONNECTION_PUBLIC_PORT'),
+        'use_tls': env('EMAIL_CONNECTION_PUBLIC_TLS'),
+    },
+}
+
+DEFAULT_FROM_EMAIL = 'info@signali.bg'
+EMAIL_CONNECTION_LABEL_INTERNAL = 'internal'
+EMAIL_CONNECTION_LABEL_PUBLIC = 'public'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = EMAIL_CONNECTIONS['internal']["host"]
+EMAIL_HOST_USER = EMAIL_CONNECTIONS['internal']["username"]
+EMAIL_HOST_PASSWORD = EMAIL_CONNECTIONS['internal']["password"]
+EMAIL_PORT = EMAIL_CONNECTIONS['internal']["port"]
+EMAIL_USE_TLS = EMAIL_CONNECTIONS['internal']["use_tls"]
+
 # Application definition
 INSTALLED_APPS = (
     'suit',
@@ -59,7 +130,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'redactor',
+    'notification',
+    'security',
+    'user',
     'rating',
     'contact',
     'taxonomy',
@@ -79,7 +154,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'restful.error_handler.ErrorHandler',
+    # 'restful.error_handler.ErrorHandler',
     'restful.middleware.TemplateExtensionByAcceptedType',
 )
 
@@ -91,7 +166,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.static",
     "django.core.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
     'django.core.context_processors.request',
+    'siteguide.context_processors.site_settings',
+    'siteguide.context_processors.public_settings',
     "django.core.context_processors.csrf",
 )
 
@@ -142,26 +221,27 @@ REDACTOR_OPTIONS = {
 }
 REDACTOR_UPLOAD = "redactor/"
 
-
-SUIT_CONFIG = {
-  'SEARCH_URL': '',
-  'ADMIN_NAME': 'Signali.bg',
-  'MENU': (
-    {
-      'label': _('Contact points'),
-      'icon': 'icon-star',
-      'models': (
-          {'model': 'contact.contactpoint', 'label': _('Contact points')},
-          {'model': 'contact.organisation', 'label': _('Organisations')},
-          {'model': 'contact.contactpointrequirement', 'label': _('Contact point requirements')},
+if not DEBUG:
+    SUIT_CONFIG = {
+      'SEARCH_URL': '',
+      'ADMIN_NAME': 'Signali.bg',
+      'MENU': (
+        {
+          'label': _('Contact points'),
+          'icon': 'icon-star',
+          'models': (
+              {'model': 'contact.contactpoint', 'label': _('Contact points')},
+              {'model': 'contact.organisation', 'label': _('Organisations')},
+              {'model': 'contact.contactpointrequirement', 'label': _('Contact point requirements')},
+          )
+        },
+        {
+          'label': _('System'),
+          'icon': 'icon-barcode',
+          'models': (
+              {'model': 'siteguide.setting', 'label': _('Settings')},
+              {'model': 'auth.user', 'label': _('users')},
+          )
+        },
       )
-    },
-    {
-      'label': _('System'),
-      'icon': 'icon-barcode',
-      'models': (
-          {'model': 'siteguide.setting', 'label': _('Settings')},
-      )
-    },
-  )
-}
+    }

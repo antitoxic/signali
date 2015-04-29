@@ -8,6 +8,8 @@ from django.contrib import admin
 urlpatterns = patterns('',
     url(r'^$', IntroView.as_view(), name='home'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^security/', include('security.urls', namespace='security')),
+    url(r'^user/', include('user.urls', namespace='user')),
     url(r'^contact-points/$', contactpoint.ListView.as_view(), name='contact-point-list'),
     url(r'^contact-points/new$', contactpoint.CreateView.as_view(), name='contact-point-create'),
     url(r'^contact-points/(?P<slug>[^/]+)/$', contactpoint.SingleView.as_view(), name='contact-point'),

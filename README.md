@@ -55,15 +55,11 @@ python manage.py runserver
 python manage.py collectstatic
 ```
 
-## Dev hints:
-
-The following will read a `.ini`-like file and export each definition as environment variables.
-```
-export $(cat path/to/env/file | xargs)
-```
+## Dev hints
 
 ### Architecture decisions
-
+ - Sensitive settings and those specific to deployment are retrieved from ENV variables or `.django` file in the `env`
+ directory
  - If you are making a deployment you shouldn't have to modify the `src` directory. The `env` directory holds
    all environment-specific settings. If this is not the case please open an issue or submit a pull request. Changing
    things in `src` should only happen when you want to change the functionality of the project 
@@ -72,10 +68,23 @@ export $(cat path/to/env/file | xargs)
   - project dependencies descriptor
   - the actual project dependencies
   - environment-specific project settings
- - `src` directory 
  - `src` directory is not "*just API*". It holds all sorts server-code and non-html templates
  - `themes` directory is where you can place your themes
- 
+ - The `user` and `security` apps has similar purposes 
+   - The main difference between `user` app and `security` app is that `user` app includes the more project-specific 
+   user things (like prepping pages and forms for login, profile editing, and making use of `security` app ).
+   The `security` app also includes user-related stuff but it limits itself to more generic and security-related 
+   logic (auth, validation, tokens, logout). 
+   - The logic for the data checkpoint in the signup process is in `user` app instead of `security` app. The logic is closer to
+   the security app because it handles required data before the user is allowed to register, **but** that data usually changes
+   from project to project which goes against keeping `security` app the more reusable one
+
+
+#### Settings in environment variables
+The following will read a `.ini`-like file and export each definition as environment variables.
+```
+export $(cat ./env/.django | xargs)
+```
  
 ### Common scenarios
 
@@ -84,8 +93,8 @@ export $(cat path/to/env/file | xargs)
 Example 1:
 
 ```python
-failure = VerboseException("Error occurred")
-# ...
+failure = VerboseException("Error occurred") # prepare for failure
+# ... error happens
 failure.add_error('password', "Password too long")
 failure.add_error('email', "Not a valid email")
 raise failure
@@ -94,7 +103,7 @@ raise failure
 ```
 
 The code above will render a `error/get` template, *(or other defined by the `RESTFUL_ERROR_TEMPLATE` setting)* and
-pass all error to it.
+pass all errors to it.
 
 Example 2:
 
@@ -108,7 +117,7 @@ raise failure
 
 ```
 
-The code above will behave the same as "Example 1" unless the client requests html response.
+The code above will behave the same as "Example 1" unless the client requests data in html format.
 If the client requests html response the code above will put all errors in a session variable 
 and redirect to `route-name`. Useful when you want to show errors in the same form the input originated from.
  
@@ -142,3 +151,9 @@ return HtmlOnlyRedirectSuccessDict({
 The code above will behave the same as "Example 1" **unless** the client requests html response. 
 If the client requests html response the code above will put all data in a session variable and 
 redirect to `route-name`. Useful when you want to redirect users to the page they originated from.
+
+### Social auth related
+
+```
+manage.py makemigrations
+```

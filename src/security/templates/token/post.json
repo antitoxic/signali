@@ -1,0 +1,2 @@
+{% load restful %}
+{{ result|jsonify|safe }}
