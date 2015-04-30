@@ -12,9 +12,7 @@ def signupcheckpoint(strategy, details, is_new=False, *args, **kwargs):
     if strategy.session_get('saved_email'):
         details['email'] = strategy.session_pop('saved_email')
         details['fullname'] = fullname = strategy.session_pop('saved_name')
-        fullname = fullname.split(' ', 1)
-        details['first_name'] = fullname[0]
-        details['last_name'] = fullname[1]
+        details['first_name'], details['last_name'] = fullname.split(' ', 1)
     else:
         return redirect('user:signup-checkpoint')
 

@@ -103,7 +103,11 @@ The following will read a `.ini`-like file and export each definition as environ
 ```
 export $(cat ./env/.django | xargs)
 ```
- 
+
+### Useful packages for debugging
+ - Login as another user: [impersonate](https://bitbucket.org/petersanchez/django-impersonate) or [hijack](https://github.com/arteria/django-hijack)
+ - Security checkup: https://github.com/carljm/django-secure
+
 ### Common scenarios
 
 #### Posting to a page and handling error, in a django view:

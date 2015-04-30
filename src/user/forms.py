@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth import get_user_model
+
 from security.forms import SetPasswordForm
 
 
@@ -20,3 +22,14 @@ class ProfileUpdateForm(SignUpCheckpointForm, SetPasswordForm):
             return self.cleaned_data.get('new_password2')
 
         return super().clean_new_password2()
+
+    def clean(self):
+        data = self.cleaned_data
+        data['password'] = data['new_password1']
+        data['first_name'], data['last_name'] = data['fullname'].split(' ', 1)
+        return data
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'first_name', 'last_name', 'password']

@@ -57,8 +57,8 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.google.GooglePlusAuth',
     'social.backends.open_id.OpenIdAuth',
     'social.backends.email.EmailAuth',
+    'rules.permissions.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
-    # 'guardian.backends.ObjectPermissionBackend',
 )
 
 SOCIAL_AUTH_PIPELINE = (
@@ -80,7 +80,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.load_extra_data', # adds provider metadata like "expire" or "id"
     'social.pipeline.user.user_details' # tops up User model fields with what's available in "details" parameter
 )
-LOGIN_URL = '/join/'
+LOGIN_URL = '/user/join/'
 LOGIN_REDIRECT_URL = '/'
 SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.profile'
@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'social.apps.django_app.default',
     'redactor',
+    'rules.apps.AutodiscoverRulesConfig',
     'notification',
     'security',
     'user',

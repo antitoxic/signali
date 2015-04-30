@@ -5,16 +5,15 @@ from django.contrib.auth import get_user_model
 from restful.decorators import restful_view_templates
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
 
-from .forms import SignUpCheckpointForm
+from .forms import SignUpCheckpointForm, UserForm, ProfileUpdateForm
 from notification import email
 from security.views.password import PasswordResetAbstractView, PasswordResetConfirmAbstractView
+from security.views.mixin import SecuredViewMixin
+from security.decorators import security_rule
 
 @restful_view_templates
 class LoginView(View):
     def get(self, request):
-        if request.user.is_authenticated():
-            return redirect('home')
-
         return {}
 
 
@@ -96,13 +95,33 @@ class PasswordResetCompleteView(View):
 
 
 @restful_view_templates
-class ProfileView(View):
-    def get(self, request, pk):
+class ProfileView(View, SecuredViewMixin):
+
+    def extract_permission_args(self, request, pk):
+        return (self._get_user(request, pk),)
+
+    def _get_user(self, request, pk):
         UserModel = get_user_model()
         user = UserModel.objects.get(pk=pk)
+        return user
+
+
+    @security_rule('user.profile_view')
+    def get(self, request, pk):
         return {
-            'user': user
+            'user': self._get_user(request, pk)
         }
 
-    def post(self, request):
-        UserModel = get_user_model()
+    @security_rule('user.profile_change')
+    def post(self, request, pk):
+        failure = VerboseHtmlOnlyRedirectException().set_redirect('user:profile')
+        user = self._get_user(request, pk)
+        form = ProfileUpdateForm(request.params)
+        if not form.is_valid():
+            raise failure.set_errors(form.errors)
+
+        form = UserForm(instance=user, data=form.cleaned_data)
+        if not form.is_valid():
+            raise failure.set_errors(form.errors)
+
+        form.save()
