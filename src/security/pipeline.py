@@ -35,16 +35,6 @@ def save_password(backend, user=None, is_new=False, *args, **kwargs):
         raise WrongPasswordException(backend)
 
 
-def load_user(strategy, *args, **kwargs):
-    UserModel = get_user_model()
-    try:
-        return {
-            "user": UserModel.objects.get(email=strategy.request.params.get('email'))
-        }
-    except Exception:
-        return None
-
-
 def prevent_duplicate_signup(backend, strategy, is_new=False, *args, **kwargs):
     cancel = not (isinstance(backend, UsernameAuth) or isinstance(backend, EmailAuth))
     cancel = cancel or 'disallow_existing' not in strategy.request.params
@@ -53,3 +43,27 @@ def prevent_duplicate_signup(backend, strategy, is_new=False, *args, **kwargs):
 
     if not is_new:
         raise UserExistsException(backend)
+
+
+# fork of : python social auth pipeline with the same name: social/pipeline/user.py
+def user_details(strategy, details, is_new=False, user=None, *args, **kwargs):
+    """Update user details using data from provider."""
+    if user and is_new:
+        changed = False  # flag to track changes
+        protected = ('username', 'id', 'pk', 'email') + \
+            tuple(strategy.setting('PROTECTED_USER_FIELDS', []))
+
+        # Update user model attributes with the new data sent by the current
+        # provider. Update on some attributes is disabled by default, for
+        # example username and id fields. It's also possible to disable update
+        # on fields defined in SOCIAL_AUTH_PROTECTED_FIELDS.
+        for name, value in details.items():
+            if not hasattr(user, name):
+                continue
+            current_value = getattr(user, name, None)
+            if not current_value or name not in protected:
+                changed |= current_value != value
+                setattr(user, name, value)
+
+        if changed:
+            strategy.storage.user.changed(user)

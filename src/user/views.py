@@ -1,15 +1,18 @@
 from django.views.generic.base import View
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
+from django.utils.translation import ugettext as _
+
 
 from restful.decorators import restful_view_templates
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
+from restful.http import HtmlOnlyRedirectSuccessDict
 
-from .forms import SignUpCheckpointForm, UserForm, ProfileUpdateForm
 from notification import email
 from security.views.password import PasswordResetAbstractView, PasswordResetConfirmAbstractView
 from security.views.mixin import SecuredViewMixin
 from security.decorators import security_rule
+from .forms import SignUpCheckpointForm, UserForm, UserFormNoPassword, ProfileUpdateForm
 
 @restful_view_templates
 class LoginView(View):
@@ -114,14 +117,23 @@ class ProfileView(View, SecuredViewMixin):
 
     @security_rule('user.profile_change')
     def post(self, request, pk):
-        failure = VerboseHtmlOnlyRedirectException().set_redirect('user:profile')
+        failure = VerboseHtmlOnlyRedirectException().set_redirect('user:profile', pk=pk)
         user = self._get_user(request, pk)
         form = ProfileUpdateForm(request.params)
         if not form.is_valid():
             raise failure.set_errors(form.errors)
 
-        form = UserForm(instance=user, data=form.cleaned_data)
+        UserUpdateForm = UserForm if 'password' in form.cleaned_data else UserFormNoPassword
+        form = UserUpdateForm(instance=user, data=form.cleaned_data)
         if not form.is_valid():
             raise failure.set_errors(form.errors)
 
-        form.save()
+        try:
+            form.save()
+        except:
+            failure.add_error('Problems with the database')
+
+
+        return HtmlOnlyRedirectSuccessDict({
+            "result": _("Successfully updated profile")
+        }).set_redirect('user:profile', pk=pk)

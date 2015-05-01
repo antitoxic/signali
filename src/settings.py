@@ -62,7 +62,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIAL_AUTH_PIPELINE = (
-    'security.pipeline.load_user',
     'social.pipeline.social_auth.social_details',
     'social.pipeline.social_auth.social_uid',
     'social.pipeline.social_auth.auth_allowed',
@@ -78,7 +77,7 @@ SOCIAL_AUTH_PIPELINE = (
     'user.pipeline.save_checkpoint_changes',
     'social.pipeline.social_auth.associate_user', # creates a social user record
     'social.pipeline.social_auth.load_extra_data', # adds provider metadata like "expire" or "id"
-    'social.pipeline.user.user_details' # tops up User model fields with what's available in "details" parameter
+    'security.pipeline.user_details' # tops up User model fields with what's available in "details" parameter
 )
 LOGIN_URL = '/user/join/'
 LOGIN_REDIRECT_URL = '/'

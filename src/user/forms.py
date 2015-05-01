@@ -25,11 +25,24 @@ class ProfileUpdateForm(SignUpCheckpointForm, SetPasswordForm):
 
     def clean(self):
         data = self.cleaned_data
-        data['password'] = data['new_password1']
-        data['first_name'], data['last_name'] = data['fullname'].split(' ', 1)
+        if data['new_password1']:
+            data['password'] = data['new_password1']
+        data['first_name'], data['last_name'] = data['fullname'].strip().split(' ', 1)
         return data
 
 class UserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ['email', 'first_name', 'last_name', 'password']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password"])
+        if commit:
+            user.save()
+        return user
+
+class UserFormNoPassword(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ['email', 'first_name', 'last_name']

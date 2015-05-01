@@ -15,10 +15,10 @@ class Setting(models.Model):
 
 
 class Page(models.Model):
-    title = models.CharField(max_length=255, verbose_name=_('Заглавие'))
-    slug = models.SlugField(max_length=255, verbose_name=_('URL част'))
-    contents = RedactorField(verbose_name=_('Съдържание'))
-    created_at = models.DateTimeField(_('added at'), default=timezone.now)
-    changed_at = models.DateTimeField(_('added at'), default=timezone.now)
-    is_public = models.BooleanField(default=False, verbose_name=_('Публикувана'))
-    style = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('Стил [технически]'))
+    title = models.CharField(max_length=255, verbose_name=_('Title'))
+    slug = models.SlugField(max_length=255, verbose_name=_('URL part'))
+    contents = RedactorField(verbose_name=_('Content'))
+    created_at = models.DateTimeField(_('Added at'), default=timezone.now)
+    changed_at = models.DateTimeField(_('Added at'), default=timezone.now)
+    is_public = models.BooleanField(default=False, verbose_name=_('Published'))
+    style = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('Style [technical]'))
