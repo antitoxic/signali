@@ -74,7 +74,8 @@ python manage.py collectstatic
   - DRY, use single codebase where possible
   - always think modular, extract topical, not simply common logic
   - if requesting html (commonly web) always redirect after anything other than 'GET'
-
+  - let html be html, don't use framework-specific or package-specific html generators (like form-element generators)  
+  
 #### Specificity
  - Sensitive settings and those specific to deployment are retrieved from ENV variables or `.django` file in the `env`
  directory
