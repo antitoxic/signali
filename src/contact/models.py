@@ -31,8 +31,8 @@ class ContactPoint(models.Model):
     is_final_destination = models.CharField(_('is final destination'), max_length=20, choices=EXTENDED_BOOLEAN_CHOICES, default=DONTKNOW)
     is_anonymous_allowed = models.CharField(_('allows anonymous requests'), max_length=20, choices=EXTENDED_BOOLEAN_CHOICES, default=DONTKNOW)
 
-    is_registration_required = models.BooleanField(_('required registration '), default=False)
-    is_photo_required = models.BooleanField(_('photo registration '), default=False)
+    is_registration_required = models.BooleanField(_('required registration'), default=False)
+    is_photo_required = models.BooleanField(_('photo registration'), default=False)
     is_esign_required = models.BooleanField(_('required e-signature'), default=False)
     is_name_required = models.BooleanField(_('required name'), default=False)
     is_email_required = models.BooleanField(_('required email'), default=False)

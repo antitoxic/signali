@@ -101,6 +101,9 @@ python manage.py collectstatic
    the security app because it handles required data before the user is allowed to register, **but** that data usually changes
    from project to project which goes against keeping `security` app the more reusable one
 
+#### Database
+
+If you're not familiar with Postgres but you are with Mysql [this article could be useful](http://crashmag.net/mysql-and-postgresql-rosetta-stone).
 
 #### Settings in environment variables
 The following will read a `.ini`-like file and export each definition as environment variables.
