@@ -205,6 +205,7 @@ TIME_ZONE = 'Europe/Sofia'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+AUTH_USER_MODEL = 'user.User'
 
 
 # Static files / Asset files (CSS, JavaScript, Images)
@@ -242,7 +243,7 @@ if not DEBUG:
           'icon': 'icon-barcode',
           'models': (
               {'model': 'siteguide.setting', 'label': _('Settings')},
-              {'model': 'auth.user', 'label': _('users')},
+              {'model': AUTH_USER_MODEL.lower(), 'label': _('users')},
           )
         },
       )
