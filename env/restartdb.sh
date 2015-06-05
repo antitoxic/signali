@@ -1,5 +1,2 @@
-#!/usr/bin/env bash
-su postgres <<'EOF'
-dropdb signali
-createdb -O signali signali
-EOF
+su postgres -c 'dropdb signali'
+su postgres -c 'createdb -O signali signali'
