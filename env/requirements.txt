@@ -11,3 +11,4 @@ pillow==2.7.0
 django-wysiwyg-redactor>=0.4.4.1
 python-social-auth==0.2.7
 rules==0.4
+singlemodeladmin==0.4
