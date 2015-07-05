@@ -1,7 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+def user_file_name(instance, filename):
+    return '/'.join(['user', filename])
+
 
 class User(AbstractUser):
+    avatar = models.ImageField(_('avatar'), upload_to=user_file_name, blank=True, null=True)
+
     def get_avatar(self, uid=None):
         if self.avatar:
             src = settings.MEDIA_URL + self.avatar.url()

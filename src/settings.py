@@ -69,7 +69,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.get_username',
     'security.pipeline.prevent_duplicate_signup',
     'security.pipeline.user_password',
-    'user.pipeline.signupcheckpoint',
+    # uncomment the next line to present the user with an option to doublecheck details provided by social auth upon registration
+    # 'user.pipeline.signupcheckpoint',
     'social.pipeline.mail.mail_validation',
     'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.user.create_user',

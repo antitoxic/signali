@@ -16,6 +16,7 @@ Place the default or your theme in the `themes` directory and set its name as va
 # depending on distribution you might want to install 
 python-dev, python-devel, or python3-devel libpq-dev
 postgresql-devel postgresql-... python3-venv
+# for correct mimetypes installing or updating the `mailcap` package on a RedHat-based distribution, or `mime-support` on a Debian distribution.
 
 sudo su - postgres
 psql
