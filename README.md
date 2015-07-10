@@ -27,7 +27,7 @@ change `host all all 127.0.0.1/32 ident` to md5
 
 ### Project
 
-> The following is not made into a script, because it serves as educational purposes
+> The following is not made into a script, because it serves educational purposes
  
 ```sh
 cd <project dir>
@@ -48,6 +48,8 @@ cp env/.django-sample env/.django
 ...edit .django to your needs ....
 # initialise db
 python manage.py migrate
+# load data seed
+bash env/load_dev_fixtures.sh
 # run signali
 python manage.py runserver
 # go to http://127.0.0.1:8000/
