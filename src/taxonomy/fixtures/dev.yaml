@@ -1,0 +1,29 @@
+- model: taxonomy.category
+  pk: 1
+  fields:
+    title: Престъпност
+- model: taxonomy.category
+  pk: 2
+  fields:
+    parent: 1
+    title: Корупция
+- model: taxonomy.category
+  pk: 3
+  fields:
+    parent: 1
+    title: Измами
+- model: taxonomy.category
+  pk: 4
+  fields:
+    parent: 1
+    title: Пътно-транспортни
+- model: taxonomy.category
+  pk: 5
+  fields:
+    parent: 1
+    title: Изборни нарушения
+- model: taxonomy.category
+  pk: 6
+  fields:
+    parent: 1
+    title: Бракониерство

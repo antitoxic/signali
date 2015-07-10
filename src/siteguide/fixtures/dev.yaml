@@ -1,0 +1,6 @@
+- model: siteguide.setting
+  pk: 1
+  fields:
+    title: Signali.bg
+    description: Намери и подай сигнал към институции и организации в различни райнони на България.
+    google_analytics: none

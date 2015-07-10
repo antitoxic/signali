@@ -1,0 +1,17 @@
+- model: user.user
+  pk: 1
+  fields:
+    first_name: Ивана
+    last_name: Иванова
+    username: i.ivanova
+    password: pbkdf2_sha256$15000$vaH30cMkZPpx$Bn3zxMxSpbY9vafOA8HDirmJotp9MZwRctACRG38APw= # ivana
+    email: noreply@obshtestvo.bg
+- model: user.user
+  pk: 2
+  fields:
+    first_name: Човек
+    username: admin
+    is_staff: true
+    is_superuser: true
+    password: pbkdf2_sha256$15000$IPb47IJbAx1V$mnK4/v7YtvGoewDdJpjq31QMQ5c067hk7l3ZNZ5u71I= # obshtestvo
+    email: info@obhstestvo.bg
