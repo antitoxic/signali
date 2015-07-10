@@ -1,9 +1,9 @@
-from contact import apps
+from contact import apps as conttactapps
 
 
-class ContactConfig(apps.ContactConfig):
+class ContactConfig(conttactapps.ContactConfig):
     name = 'contact'
 
     def init_setting_loader(self):
         from siteguide.utils import setting
-        apps.setting = setting
+        conttactapps.setting = setting
