@@ -27,7 +27,9 @@ def send(template_without_ext, to, sender=settings.DEFAULT_FROM_EMAIL, reply_to=
 
     headers = {'Reply-To': reply_to}
 
-    if type(to) not in (list, tuple):
+    try:
+        iter(to)
+    except:
         to = [to]
 
     connection_label = settings.EMAIL_CONNECTION_LABEL_INTERNAL if internal else None

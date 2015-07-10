@@ -1,15 +1,14 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 
-from social.backends.email import EmailAuth
-from social.backends.username import UsernameAuth
+from social.backends.legacy import LegacyAuth
 
 from .exceptions import WrongPasswordException, UserExistsException
 from .forms import SetPasswordForm
 
 
 def user_password(backend, strategy, user=None, is_new=False, *args, **kwargs):
-    if not (isinstance(backend, UsernameAuth) or isinstance(backend, EmailAuth)):
+    if not isinstance(backend, LegacyAuth):
         return
 
     if is_new:
@@ -25,20 +24,19 @@ def user_password(backend, strategy, user=None, is_new=False, *args, **kwargs):
 
 
 def save_password(backend, user=None, is_new=False, *args, **kwargs):
-    if not is_new or not (isinstance(backend, UsernameAuth) or isinstance(backend, EmailAuth)):
+    if not is_new or not isinstance(backend, LegacyAuth):
         return
 
-    if 'hashed_password' in kwargs:
+    try:
         user.password = kwargs['hashed_password']
-        user.save()
-    else:
+    except:
         raise WrongPasswordException(backend)
+
+    user.save()
 
 
 def prevent_duplicate_signup(backend, strategy, is_new=False, *args, **kwargs):
-    cancel = not (isinstance(backend, UsernameAuth) or isinstance(backend, EmailAuth))
-    cancel = cancel or 'disallow_existing' not in strategy.request.params
-    if cancel:
+    if not (isinstance(backend, LegacyAuth) and 'disallow_existing' in strategy.request.params):
         return
 
     if not is_new:
@@ -58,9 +56,10 @@ def user_details(strategy, details, is_new=False, user=None, *args, **kwargs):
         # example username and id fields. It's also possible to disable update
         # on fields defined in SOCIAL_AUTH_PROTECTED_FIELDS.
         for name, value in details.items():
-            if not hasattr(user, name):
+            try:
+                current_value = getattr(user, name)
+            except:
                 continue
-            current_value = getattr(user, name, None)
             if not current_value or name not in protected:
                 changed |= current_value != value
                 setattr(user, name, value)
