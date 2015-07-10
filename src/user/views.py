@@ -108,7 +108,6 @@ class ProfileView(View, SecuredViewMixin):
         user = UserModel.objects.get(pk=pk)
         return user
 
-
     @security_rule('user.profile_view')
     def get(self, request, pk):
         return {
