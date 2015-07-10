@@ -39,11 +39,11 @@ if os.path.isfile(PROJECT_ENV_FILE):
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = env('DEBUG', False)
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.signali.bg']
 
 WSGI_APPLICATION = 'env.wsgi.application'
 
@@ -127,6 +127,7 @@ EMAIL_USE_TLS = EMAIL_CONNECTIONS['internal']["use_tls"]
 INSTALLED_APPS = (
     'suit',
     'django.contrib.admin',
+    'adminextra',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -138,8 +139,9 @@ INSTALLED_APPS = (
     'notification',
     'security',
     'user',
-    'rating',
-    'contact',
+    'feedback',
+    'location',
+    'apps.ContactConfig',
     'taxonomy',
     'siteguide',
     'django_select2',
@@ -172,8 +174,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
     'django.core.context_processors.request',
-    'siteguide.context_processors.site_settings',
-    'siteguide.context_processors.public_settings',
     "django.core.context_processors.csrf",
 )
 
@@ -227,27 +227,27 @@ REDACTOR_UPLOAD = "redactor/"
 
 if not DEBUG:
     SUIT_CONFIG = {
-      'SEARCH_URL': '',
-      'ADMIN_NAME': 'Signali.bg',
-      'MENU': (
-        {
-          'label': _('Contact points'),
-          'icon': 'icon-star',
-          'models': (
-              {'model': 'contact.contactpoint', 'label': _('Contact points')},
-              {'model': 'contact.organisation', 'label': _('Organisations')},
-              {'model': 'contact.contactpointrequirement', 'label': _('Contact point requirements')},
-          )
-        },
-        {
-          'label': _('System'),
-          'icon': 'icon-barcode',
-          'models': (
-              {'model': 'siteguide.setting', 'label': _('Settings')},
-              {'model': AUTH_USER_MODEL.lower(), 'label': _('users')},
-          )
-        },
-      )
+        'SEARCH_URL': '',
+        'ADMIN_NAME': 'Signali.bg',
+        'MENU': (
+            {
+                'label': _('Contact points'),
+                'icon': 'icon-star',
+                'models': (
+                    {'model': 'contact.contactpoint', 'label': _('Contact points')},
+                    {'model': 'contact.organisation', 'label': _('Organisations')},
+                    {'model': 'contact.contactpointrequirement', 'label': _('Contact point requirements')},
+                )
+            },
+            {
+                'label': _('System'),
+                'icon': 'icon-barcode',
+                'models': (
+                    {'model': 'siteguide.setting', 'label': _('Settings')},
+                    {'model': AUTH_USER_MODEL.lower(), 'label': _('users')},
+                )
+            },
+        )
     }
 
 PUBLIC_SETTINGS = ['SOCIAL_AUTH_FACEBOOK_KEY', 'SOCIAL_AUTH_FACEBOOK_SCOPE']
