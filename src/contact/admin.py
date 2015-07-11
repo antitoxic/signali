@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import ContactPoint, Organisation, ContactPointRating
-from location.models import Area, AreaSize
+from location.models import Area
 from adminextra.reverseadmin import ReverseModelAdmin
 from django.forms import ModelForm
 
