@@ -9,5 +9,5 @@ class ContactConfig(conttactapps.ContactConfig):
         #@todo bind signals and handlers
 
     def init_setting_loader(self):
-        from siteguide.utils import setting
+        from .utils import setting
         conttactapps.setting = setting

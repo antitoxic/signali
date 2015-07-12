@@ -1,4 +1,4 @@
-- model: siteguide.setting
+- model: signali.setting
   pk: 1
   fields:
     title: Signali.bg

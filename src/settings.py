@@ -136,16 +136,17 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'redactor',
     'rules.apps.AutodiscoverRulesConfig',
+    'django_select2',
+    'restful',
     'notification',
     'security',
     'user',
     'feedback',
     'location',
-    'apps.ContactConfig',
+    'signali.apps.ContactConfig',
     'taxonomy',
-    'siteguide',
-    'django_select2',
-    'restful',
+    'accessibility',
+    'signali',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -243,7 +244,7 @@ if not DEBUG:
                 'label': _('System'),
                 'icon': 'icon-barcode',
                 'models': (
-                    {'model': 'siteguide.setting', 'label': _('Settings')},
+                    {'model': 'signali.setting', 'label': _('Settings')},
                     {'model': AUTH_USER_MODEL.lower(), 'label': _('users')},
                 )
             },

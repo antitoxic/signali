@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
-from siteguide.views.intro import IntroView
-from siteguide.views.page import PageView
+from accessibility.views.intro import IntroView
+from accessibility.views.page import PageView
 from contact.views import contactpoint
 from django.conf import settings
 from django.contrib import admin
