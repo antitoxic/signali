@@ -13,7 +13,14 @@ class Keyword(models.Model):
         return self.title
 
 
+
+class CategoryManager(models.Manager):
+    def root_categories_plus_children(self):
+        return self.filter(parent__isnull=True).prefetch_related('children')
+
 class Category(models.Model):
+    objects = CategoryManager()
+
     class Meta:
         verbose_name = _('category')
         verbose_name_plural = _('categories')

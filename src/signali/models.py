@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from accessibility.models import AbstractVisibility
+from taxonomy.models import Category, CategoryManager
 
 
 class Setting(models.Model):
@@ -21,7 +22,26 @@ class Setting(models.Model):
 
 
 class Visibility(AbstractVisibility):
-    page = models.OneToOneField('accessibility.Page', related_name="visibility", verbose_name=_("page"), blank=True, null=True)
-    category = models.OneToOneField('taxonomy.Category', related_name="visibility", verbose_name=_("category"), blank=True, null=True)
-    contactpoint = models.OneToOneField('contact.ContactPoint', related_name="visibility", verbose_name=_("contact point"), blank=True, null=True)
-    area = models.OneToOneField('location.Area', related_name="visibility", verbose_name=_("area"), blank=True, null=True)
+    page = models.OneToOneField('accessibility.Page', related_name="visibility", verbose_name=_("page"), blank=True,
+                                null=True)
+    category = models.OneToOneField('taxonomy.Category', related_name="visibility", verbose_name=_("category"),
+                                    blank=True, null=True)
+    contactpoint = models.OneToOneField('contact.ContactPoint', related_name="visibility",
+                                        verbose_name=_("contact point"), blank=True, null=True)
+    area = models.OneToOneField('location.Area', related_name="visibility", verbose_name=_("area"), blank=True,
+                                null=True)
+
+
+class CategoryManagerProxy(CategoryManager):
+    def popular(self):
+        return self\
+                   .all()\
+                   .extra(select={'is_featured': Visibility._meta.db_table + '.is_featured OR NULL'})\
+                   .order_by('visibility__popularity', 'is_featured')
+
+
+class CategoryProxy(Category):
+    objects = CategoryManagerProxy()
+
+    class Meta:
+        proxy = True
