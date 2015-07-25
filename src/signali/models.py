@@ -35,7 +35,7 @@ class Visibility(AbstractVisibility):
 class CategoryManagerProxy(CategoryManager):
     def popular(self):
         return self\
-                   .all()\
+                   .children()\
                    .extra(select={'is_featured': Visibility._meta.db_table + '.is_featured OR NULL'})\
                    .order_by('visibility__popularity', 'is_featured')
 

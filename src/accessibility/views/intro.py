@@ -7,7 +7,6 @@ from restful.shortcuts import errors, success
 class IntroView(View):
     def get(self, request):
         return {
-            "test": ":)",
             "errors": errors(request),
             "success": success(request),
         }

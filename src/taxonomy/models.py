@@ -18,6 +18,10 @@ class CategoryManager(models.Manager):
     def root_categories_plus_children(self):
         return self.filter(parent__isnull=True).prefetch_related('children')
 
+    def children(self):
+        return self.exclude(parent__isnull=True)
+
+
 class Category(models.Model):
     objects = CategoryManager()
 
