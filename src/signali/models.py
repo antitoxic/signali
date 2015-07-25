@@ -24,3 +24,4 @@ class Visibility(AbstractVisibility):
     page = models.OneToOneField('accessibility.Page', related_name="visibility", verbose_name=_("page"), blank=True, null=True)
     category = models.OneToOneField('taxonomy.Category', related_name="visibility", verbose_name=_("category"), blank=True, null=True)
     contactpoint = models.OneToOneField('contact.ContactPoint', related_name="visibility", verbose_name=_("contact point"), blank=True, null=True)
+    area = models.OneToOneField('location.Area', related_name="visibility", verbose_name=_("area"), blank=True, null=True)

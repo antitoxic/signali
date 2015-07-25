@@ -1,0 +1,7 @@
+- model: accessibility.page
+  pk: 1
+  fields:
+    title: За нас
+    slug: about-us
+    contents: lorem ipsum
+    areasize_address: 6

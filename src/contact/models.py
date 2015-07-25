@@ -1,11 +1,34 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from .signals import pre_sorting, pre_criteria
 
+
+class ContactPointManager(models.Manager):
+    def apply_criteria(self, criteria=None):
+        #@todo process criteria before applying it
+        queryset = self.filter(**criteria)
+        filtered_querysets = pre_criteria.send(sender=ContactPoint, queryset=queryset)
+        for receiver, q in filtered_querysets:
+            try:
+                queryset = queryset & q
+            except AttributeError:
+                pass
+
+        sorted_querysets = pre_sorting.send(sender=ContactPoint, queryset=queryset)
+        sorted_querysets = [q for receiver, q in sorted_querysets if q is not None]
+        try:
+            queryset = sorted_querysets[0]
+        except IndexError:
+            queryset = queryset.order_by(criteria['sorting'])
+
+        return queryset
 
 class ContactPoint(models.Model):
     class Meta:
         verbose_name = _('contact point')
         verbose_name_plural = _('contact points')
+
+    objects = ContactPointManager()
 
     YES = 'yes'
     NO = 'no'

@@ -4,7 +4,6 @@ from restful.http import HtmlOnlyRedirectSuccessDict
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
 from django.shortcuts import get_object_or_404
 from django import forms
-from ..signals import pre_sorting
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
@@ -38,16 +37,11 @@ class ListView(View):
             "start": 0,
             "limit": 20,
         }
-        queryset = ContactPoint.objects.filter(**criteria)
         criteria.update(request.params)
-        sorted_querysets = pre_sorting.send(sender=ContactPoint, queryset=queryset)
-        try:
-            queryset = tuple(filter(None, sorted_querysets))[0]
-        except IndexError:
-            queryset = queryset.order_by(criteria['sorting'])
+        points = ContactPoint.objects.apply_criteria(criteria)
 
         return {
-             "points": queryset[int(criteria['start']):int(criteria['limit'])]
+             "points": points[int(criteria['start']):int(criteria['limit'])]
         }
 
     def post(self, request):

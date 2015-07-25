@@ -8,19 +8,19 @@ class Page(models.Model):
     class Meta:
         verbose_name = _('page')
         verbose_name_plural = _('pages')
-    title = models.CharField(max_length=255, verbose_name=_('Title'))
-    slug = models.SlugField(max_length=255, verbose_name=_('URL part'))
+    title = models.CharField(_('Title'), max_length=255)
+    slug = models.SlugField(_('URL part'), max_length=255)
     contents = RedactorField(verbose_name=_('Content'))
     created_at = models.DateTimeField(_('Added at'), default=timezone.now)
     changed_at = models.DateTimeField(_('Added at'), default=timezone.now)
-    is_public = models.BooleanField(default=False, verbose_name=_('Published'))
+    is_public = models.BooleanField(_('Published'), default=False)
 
 
 class AbstractVisibility(models.Model):
     class Meta:
         abstract = True
         verbose_name = _('visibility')
-        verbose_name_plural = _('visibility records')
+        verbose_name_plural = _('visibility options')
     popularity = models.PositiveIntegerField(_('popularity'), default=0)
     views = models.PositiveIntegerField(_('popularity'), default=0)
     is_featured = models.BooleanField(_('is featured'), default=False)

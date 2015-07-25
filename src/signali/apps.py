@@ -6,7 +6,7 @@ class ContactConfig(conttactapps.ContactConfig):
 
     def ready(self):
         super().ready()
-        #@todo bind signals and handlers
+        from .signals import handlers
 
     def init_setting_loader(self):
         from .utils import setting

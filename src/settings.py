@@ -123,6 +123,14 @@ EMAIL_HOST_PASSWORD = EMAIL_CONNECTIONS['internal']["password"]
 EMAIL_PORT = EMAIL_CONNECTIONS['internal']["port"]
 EMAIL_USE_TLS = EMAIL_CONNECTIONS['internal']["use_tls"]
 
+THEME = 'default'
+# register theme files
+THEME_DIR = os.path.join(THEMES_ROOT, THEME)
+if not os.path.isdir(THEME_DIR):
+    raise Exception('Improperly configured theme')
+TEMPLATE_DIRS = (os.path.join(THEME_DIR ,'templates'),)
+STATICFILES_DIRS = [os.path.join(THEME_DIR, 'build'), os.path.join(THEME_DIR),]
+
 # Application definition
 INSTALLED_APPS = (
     'suit',
@@ -147,6 +155,7 @@ INSTALLED_APPS = (
     'taxonomy',
     'accessibility',
     'signali',
+    'themes.default.widgets',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -177,14 +186,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     "django.core.context_processors.csrf",
 )
-
-THEME = 'default'
-# register theme files
-THEME_DIR = os.path.join(THEMES_ROOT, THEME)
-if not os.path.isdir(THEME_DIR):
-    raise Exception('Improperly configured theme')
-TEMPLATE_DIRS = (os.path.join(THEME_DIR ,'templates'),)
-STATICFILES_DIRS = [os.path.join(THEME_DIR, 'build'), os.path.join(THEME_DIR),]
 
 ROOT_URLCONF = 'urls'
 
