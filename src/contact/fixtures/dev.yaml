@@ -4,21 +4,21 @@
     title: Общество.бг
     email: info@obshtestvo.bg
     address: 4
-    operational_area: 4
+    operational_area: 9
 - model: contact.organisation
   pk: 2
   fields: 
     title: Национален Омбудсман
     email: priemna@ombudsman.bg
     address: 6
-    operational_area: 4
+    operational_area: 2
 - model: contact.contactpoint
   pk: 1
   fields: 
     title: Национален Омбудсман
     slug: natsionalen_ombudsman
     description: осъществяването на правораздаване от съдебната власт – съд, прокуратура и следствие, когато има влязло в сила съдебно решение, акт на прокуратурата или следствието; или пък по съществото на висящи съдебни или досъдебни производства
-    operational_area: 4
+    operational_area: 7
     organisation: 2
     category: 2
     is_multilingual: no

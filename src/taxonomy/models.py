@@ -11,6 +11,9 @@ class Keyword(models.Model):
     def __str__(self):
         return self.title
 
+    def site_wide_pk(self):
+        return 'taxonomy-keyword-'+str(self.pk)
+
 
 
 class CategoryManager(models.Manager):
@@ -34,3 +37,7 @@ class Category(models.Model):
         if self.parent is None:
             return self.title
         return '{} ({})'.format(self.title, self.parent)
+
+    def site_wide_pk(self):
+        return 'taxonomy-category-'+str(self.pk)
+

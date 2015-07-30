@@ -52,3 +52,38 @@
   fields:
     title: ул. Джордж Вашингтон № 22
     size: 6
+- model: location.area
+  pk: 7
+  fields:
+    title: гр. София
+    size: 5
+- model: location.area
+  pk: 8
+  fields:
+    title: Благоевград
+    size: 5
+- model: location.area
+  pk: 9
+  fields:
+    title: Бургас
+    size: 5
+- model: location.area
+  pk: 10
+  fields:
+    title: Пловдив
+    size: 5
+- model: location.area
+  pk: 11
+  fields:
+    title: Варна
+    size: 5
+- model: location.area
+  pk: 12
+  fields:
+    title: Русе
+    size: 5
+- model: location.area
+  pk: 13
+  fields:
+    title: Стара Загора
+    size: 5
