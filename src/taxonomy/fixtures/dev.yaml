@@ -27,3 +27,54 @@
   fields:
     parent: 1
     title: Бракониерство
+
+
+# KEYWORDS
+- model: taxonomy.keyword
+  pk: 1
+  fields:
+    title: Сеч
+- model: taxonomy.keyword
+  pk: 2
+  fields:
+    title: Гора
+- model: taxonomy.keyword
+  pk: 3
+  fields:
+    title: Пушене
+- model: taxonomy.keyword
+  pk: 4
+  fields:
+    title: Катастрофа
+- model: taxonomy.keyword
+  pk: 5
+  fields:
+    title: Надценка
+- model: taxonomy.keyword
+  pk: 6
+  fields:
+    title: Счупен продукт
+- model: taxonomy.keyword
+  pk: 7
+  fields:
+    title: Кражба
+- model: taxonomy.keyword
+  pk: 8
+  fields:
+    title: Заплаха
+- model: taxonomy.keyword
+  pk: 9
+  fields:
+    title: Проблеми с работодателя
+- model: taxonomy.keyword
+  pk: 10
+  fields:
+    title: Проблеми със служители
+- model: taxonomy.keyword
+  pk: 11
+  fields:
+    title: Расизъм
+- model: taxonomy.keyword
+  pk: 12
+  fields:
+    title: Ксенофобия

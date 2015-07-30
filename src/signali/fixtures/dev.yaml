@@ -65,3 +65,9 @@
     category: 6
     is_featured: True
     style: green
+
+- model: signali.visibility
+  pk: 11
+  fields:
+    contactpoint: 1
+    is_featured: True

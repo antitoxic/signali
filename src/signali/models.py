@@ -39,8 +39,8 @@ class VisibilityManagerMixin(object):
     def popular(self):
         return self \
             .select_related('visibility') \
-            .extra(select={'is_featured': Visibility._meta.db_table + '.is_featured OR NULL'}) \
-            .order_by('visibility__popularity', 'is_featured')
+            .extra(select={'is_featured_bool': Visibility._meta.db_table + '.is_featured OR NULL'}) \
+            .order_by('visibility__popularity', 'is_featured_bool')
 
     def featured(self):
         return self.filter(visibility__is_featured=True)

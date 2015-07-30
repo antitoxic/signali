@@ -5,6 +5,7 @@ from accessibility.models import Page
 from django import forms
 from taxonomy.admin import CategoryAdmin
 from location.admin import Area
+from contact.admin import ContactPointAdmin
 
 
 class SettingAdmin(SingleModelAdmin):
@@ -12,15 +13,6 @@ class SettingAdmin(SingleModelAdmin):
 
 
 class VisibilityForm(forms.ModelForm):
-    STYLE_CHOICES = (
-        ('purple', 'Purple'),
-        ('green', 'Green'),
-        ('yellow', 'Yellow'),
-        ('blue', 'Blue'),
-        ('red', 'Red'),
-    )
-    style = forms.ChoiceField(choices=STYLE_CHOICES)
-
     class Meta:
         model = Visibility
         fields = ('is_featured', 'style')
@@ -56,6 +48,7 @@ class PageAdmin(admin.ModelAdmin):
 
 
 CategoryAdmin.inlines = CategoryAdmin.inlines + [VisibilityInline]
+ContactPointAdmin.inlines = ContactPointAdmin.inlines + [VisibilityInline]
 
 class AreaAdmin(admin.ModelAdmin):
     inlines = [AreaVisibilityInline]

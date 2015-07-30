@@ -21,6 +21,7 @@
     operational_area: 7
     organisation: 2
     category: 2
+    keywords: [8,11,12]
     is_multilingual: no
     is_response_guaranteed: no
     is_verifiable: no
