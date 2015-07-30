@@ -7,7 +7,6 @@ class Keyword(models.Model):
         verbose_name = _('keyword')
         verbose_name_plural = _('keywords')
     title = models.CharField(_('title'), max_length=250, blank=False)
-    style = models.CharField(_('style'), max_length=250, blank=False)
 
     def __str__(self):
         return self.title

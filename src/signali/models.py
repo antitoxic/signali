@@ -27,6 +27,8 @@ class Visibility(AbstractVisibility):
                                 null=True)
     category = models.OneToOneField('taxonomy.Category', related_name="visibility", verbose_name=_("category"),
                                     blank=True, null=True)
+    keyword = models.OneToOneField('taxonomy.Keyword', related_name="visibility", verbose_name=_("keyword"), blank=True,
+                                   null=True)
     contactpoint = models.OneToOneField('contact.ContactPoint', related_name="visibility",
                                         verbose_name=_("contact point"), blank=True, null=True)
     area = models.OneToOneField('location.Area', related_name="visibility", verbose_name=_("area"), blank=True,
@@ -35,14 +37,13 @@ class Visibility(AbstractVisibility):
 
 class CategoryManagerProxy(CategoryManager):
     def popular(self):
-        return self\
-                   .children()\
-                   .extra(select={'is_featured': Visibility._meta.db_table + '.is_featured OR NULL'})\
-                   .order_by('visibility__popularity', 'is_featured')
+        return self \
+            .children() \
+            .extra(select={'is_featured': Visibility._meta.db_table + '.is_featured OR NULL'}) \
+            .order_by('visibility__popularity', 'is_featured')
 
     def featured(self):
         return self.filter(visibility__is_featured=True)
-
 
 
 class CategoryProxy(Category):
@@ -54,10 +55,10 @@ class CategoryProxy(Category):
 
 class ContactPointManagerProxy(ContactPointManager):
     def popular(self):
-        return self\
-                   .all()\
-                   .extra(select={'is_featured': Visibility._meta.db_table + '.is_featured OR NULL'})\
-                   .order_by('visibility__popularity', 'is_featured')
+        return self \
+            .all() \
+            .extra(select={'is_featured': Visibility._meta.db_table + '.is_featured OR NULL'}) \
+            .order_by('visibility__popularity', 'is_featured')
 
     def featured(self):
         return self.filter(visibility__is_featured=True)
