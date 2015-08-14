@@ -5,7 +5,7 @@ Web app for browsing, rating and commenting contact points of organisations.
 ** IN ACTIVE DEVELOPMENT. DO NOT USE UNTIL STABLE **
 
 ## Related projects
-Themes are not bundled. Main theme is located at: .....
+Themes are not bundled. Main theme is located at: [obshtestvo/signali-theme](https://github.com/obshtestvo/signali-theme)
 
 Place the default or your theme in the `themes` directory and set its name as value for `THEME` setting. 
 
