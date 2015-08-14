@@ -4,22 +4,24 @@ from .signals import pre_sorting, pre_criteria
 
 
 class ContactPointManager(models.Manager):
-    def apply_criteria(self, criteria=None):
-        #@todo process criteria before applying it
-        queryset = self.filter(**criteria)
-        filtered_querysets = pre_criteria.send(sender=ContactPoint, queryset=queryset)
-        for receiver, q in filtered_querysets:
+    def apply_criteria(self, filters, sorting):
+        queryset = self.all()
+
+        enriched_querysets = pre_criteria.send(sender=ContactPoint, queryset=queryset)
+        for receiver, q in enriched_querysets:
             try:
-                queryset = queryset & q
+                queryset = q & queryset
             except AttributeError:
                 pass
 
-        sorted_querysets = pre_sorting.send(sender=ContactPoint, queryset=queryset)
+        queryset = queryset.filter(filters)
+
+        sorted_querysets = pre_sorting.send(sender=ContactPoint, queryset=queryset, sorting=sorting)
         sorted_querysets = [q for receiver, q in sorted_querysets if q is not None]
         try:
             queryset = sorted_querysets[0]
         except IndexError:
-            queryset = queryset.order_by(criteria['sorting'])
+            queryset = queryset.order_by(sorting)
 
         return queryset
 

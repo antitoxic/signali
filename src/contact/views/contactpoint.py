@@ -3,24 +3,25 @@ from restful.decorators import restful_view_templates
 from restful.http import HtmlOnlyRedirectSuccessDict
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
 from django.shortcuts import get_object_or_404
-from django import forms
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
 from ..models import ContactPoint
+from ..forms import UserCriteriaForm
+from ..apps import setting
 
 
 @restful_view_templates
 class SingleView(View):
     def post(self, request, slug):
-        contact_point = get_object_or_404(ContactPoint, slug=slug, is_public=True)
+        contact_point = get_object_or_404(ContactPoint, slug=slug, visibility__is_public=True)
         return {
             'contact_point': contact_point
         }
 
     def get(self, request, slug):
         return {
-            "contact_point": get_object_or_404(ContactPoint, slug=slug, is_public=True)
+            "contact_point": get_object_or_404(ContactPoint, slug=slug, visibility__is_public=True)
         }
 
 
@@ -33,15 +34,16 @@ class CreateView(View):
 @restful_view_templates
 class ListView(View):
     def get(self, request):
-        criteria = {
-            "start": 0,
-            "limit": 20,
-        }
-        criteria.update(request.params)
-        points = ContactPoint.objects.apply_criteria(criteria)
+        failure = VerboseHtmlOnlyRedirectException().set_redirect('contact-point-list')
+        UserCriteriaFormClass = setting('CONTACT_USER_CRITERIA_FORM', UserCriteriaForm)
+        form = UserCriteriaFormClass(data=request.params)
 
+        if not form.is_valid():
+            raise failure.add_error('form', form.errors)
+
+        points = ContactPoint.objects.apply_criteria(form.to_filters(), form.get_sorting())
         return {
-             "points": points[int(criteria['start']):int(criteria['limit'])]
+             "points": points[form.get_start():form.get_limit()]
         }
 
     def post(self, request):
