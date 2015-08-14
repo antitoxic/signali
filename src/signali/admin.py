@@ -15,7 +15,7 @@ class SettingAdmin(SingleModelAdmin):
 class VisibilityForm(forms.ModelForm):
     class Meta:
         model = Visibility
-        fields = ('is_featured', 'style')
+        fields = ('is_public', 'is_featured', 'style')
 
 
 class AreaVisibilityForm(VisibilityForm):
