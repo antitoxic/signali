@@ -71,3 +71,4 @@
   fields:
     contactpoint: 1
     is_featured: True
+    is_public: True
