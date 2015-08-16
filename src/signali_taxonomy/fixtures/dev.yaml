@@ -1,0 +1,95 @@
+- model: signali_taxonomy.category
+  pk: 1
+  fields:
+    title: Престъпност
+- model: signali_taxonomy.category
+  pk: 2
+  fields:
+    parent: 1
+    title: Корупция
+    is_featured: True
+    is_public: True
+    style: purple
+- model: signali_taxonomy.category
+  pk: 3
+  fields:
+    parent: 1
+    title: Измами
+    is_featured: True
+    is_public: True
+    style: blue
+- model: signali_taxonomy.category
+  pk: 4
+  fields:
+    parent: 1
+    title: Пътно-транспортни
+    is_featured: True
+    is_public: True
+    style: red
+- model: signali_taxonomy.category
+  pk: 5
+  fields:
+    parent: 1
+    title: Изборни нарушения
+    is_featured: True
+    is_public: True
+    style: yellow
+- model: signali_taxonomy.category
+  pk: 6
+  fields:
+    parent: 1
+    title: Бракониерство
+    is_featured: True
+    is_public: True
+    style: green
+
+
+# KEYWORDS
+- model: signali_taxonomy.keyword
+  pk: 1
+  fields:
+    title: Сеч
+- model: signali_taxonomy.keyword
+  pk: 2
+  fields:
+    title: Гора
+- model: signali_taxonomy.keyword
+  pk: 3
+  fields:
+    title: Пушене
+- model: signali_taxonomy.keyword
+  pk: 4
+  fields:
+    title: Катастрофа
+- model: signali_taxonomy.keyword
+  pk: 5
+  fields:
+    title: Надценка
+- model: signali_taxonomy.keyword
+  pk: 6
+  fields:
+    title: Счупен продукт
+- model: signali_taxonomy.keyword
+  pk: 7
+  fields:
+    title: Кражба
+- model: signali_taxonomy.keyword
+  pk: 8
+  fields:
+    title: Заплаха
+- model: signali_taxonomy.keyword
+  pk: 9
+  fields:
+    title: Проблеми с работодателя
+- model: signali_taxonomy.keyword
+  pk: 10
+  fields:
+    title: Проблеми със служители
+- model: signali_taxonomy.keyword
+  pk: 11
+  fields:
+    title: Расизъм
+- model: signali_taxonomy.keyword
+  pk: 12
+  fields:
+    title: Ксенофобия

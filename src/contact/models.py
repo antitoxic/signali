@@ -1,32 +1,27 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from .signals import pre_sorting, pre_criteria
 
+from .apps import setting
 
 class ContactPointManager(models.Manager):
     def apply_criteria(self, filters, sorting):
         queryset = self.all()
-
-        enriched_querysets = pre_criteria.send(sender=ContactPoint, queryset=queryset)
-        for receiver, q in enriched_querysets:
-            try:
-                queryset = q & queryset
-            except AttributeError:
-                pass
-
-        queryset = queryset.filter(filters)
-
-        sorted_querysets = pre_sorting.send(sender=ContactPoint, queryset=queryset, sorting=sorting)
-        sorted_querysets = [q for receiver, q in sorted_querysets if q is not None]
         try:
-            queryset = sorted_querysets[0]
-        except IndexError:
-            queryset = queryset.order_by(sorting)
-
+            queryset = self._transform_criteria_base(queryset)
+        except AttributeError:
+            pass
+        queryset = queryset.filter(filters)
+        queryset = self._apply_criteria_sorting(queryset, sorting)
         return queryset
 
-class ContactPoint(models.Model):
+
+    def _apply_criteria_sorting(self, queryset, sorting):
+        return queryset.order_by(sorting)
+
+
+class BaseContactPoint(models.Model):
     class Meta:
+        abstract = True
         verbose_name = _('contact point')
         verbose_name_plural = _('contact points')
 
@@ -44,13 +39,11 @@ class ContactPoint(models.Model):
     title = models.CharField(_('title'), max_length=250, blank=False)
     slug = models.SlugField(_('slug'), max_length=255, blank=True)
     description = models.TextField(_('description'), blank=True)
-    operational_area = models.ForeignKey('location.Area', related_name="contact_points", verbose_name=_("operational area"))
+    operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL'), related_name="contact_points", verbose_name=_("operational area"))
 
-    organisation = models.ForeignKey('Organisation', related_name="contact_points", verbose_name=_("organisation"))
-    keywords = models.ManyToManyField('taxonomy.Keyword', related_name="contact_points", verbose_name=_("keywords"))
-    category = models.ForeignKey('taxonomy.Category', related_name="contact_points", verbose_name=_("category"))
-    response_time = models.PositiveIntegerField(_('response time'), max_length=20, blank=True, null=True)
-    ratings = models.ManyToManyField('feedback.Rating', verbose_name=_("Ratings"), through='ContactPointRating')
+    organisation = models.ForeignKey(setting('CONTACT_ORGANISATION_MODEL'), related_name="contact_points", verbose_name=_("organisation"))
+    keywords = models.ManyToManyField(setting('CONTACT_KEYWORD_MODEL'), related_name="contact_points", verbose_name=_("keywords"))
+    category = models.ForeignKey(setting('CONTACT_CATEGORY_MODEL'), related_name="contact_points", verbose_name=_("category"))
 
     # features
     is_multilingual = models.CharField(_('is multilingual'), max_length=20, choices=EXTENDED_BOOLEAN_CHOICES, default=DONTKNOW)
@@ -71,37 +64,20 @@ class ContactPoint(models.Model):
     is_address_required = models.BooleanField(_('required address'), default=False)
     is_location_required = models.BooleanField(_('required location'), default=False)
 
-    @property
-    def rating_usability(self):
-        for r in self.ratings.all():
-            if r.rating.criteria == ContactPointRating.RATING_KEY_USABILITY:
-                return r
-
     def __str__(self):
         return self.title
 
 
-class ContactPointRating(models.Model):
-    RATING_KEY_USABILITY = 'usability'
-    RATING_KEY_RESPONSE_SPEED = 'speed'
-    RATING_TYPE_CHOICES = (
-        (RATING_KEY_USABILITY, _('Usability')),
-        (RATING_KEY_RESPONSE_SPEED, _('Response speed')),
-    )
 
+class BaseOrganisation(models.Model):
     class Meta:
-        unique_together = [('contactpoint', 'rating')]
-    contactpoint = models.ForeignKey('ContactPoint', related_name='skills_portfolio')
-    rating = models.ForeignKey('feedback.Rating', related_name='talents_portfolio')
-    criteria_guide = models.TextField(_("What is this rating indicating?."), blank=True, null=True)
-
-
-
-class Organisation(models.Model):
-    address = models.OneToOneField('location.Area', blank=True, null=True, on_delete=models.SET_NULL)
+        abstract = True
+        verbose_name = _('organisation')
+        verbose_name_plural = _('organisations')
+    address = models.OneToOneField(setting('CONTACT_AREA_MODEL'), blank=True, null=True, on_delete=models.SET_NULL)
     title = models.CharField(_('title'), max_length=250, blank=False)
     email = models.EmailField(_('email'), max_length=250, blank=False)
-    operational_area = models.ForeignKey('location.Area',
+    operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL'),
                                          related_name="organisations",
                                          verbose_name=_("operational area"),
                                          blank=True,

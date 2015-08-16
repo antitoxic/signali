@@ -1,0 +1,101 @@
+- model: signali_location.areasize
+  pk: 1
+  fields:
+    title: Градска община
+- model: signali_location.areasize
+  pk: 2
+  fields:
+    title: Кврартална община
+- model: signali_location.areasize
+  pk: 3
+  fields:
+    title: Област
+- model: signali_location.areasize
+  pk: 4
+  fields:
+    title: Национална
+- model: signali_location.areasize
+  pk: 5
+  fields:
+    title: Град
+- model: signali_location.areasize
+  pk: 6
+  fields:
+    title: Адрес
+- model: signali_location.area
+  pk: 1
+  fields:
+    title: Област София
+    size: 1
+- model: signali_location.area
+  pk: 2
+  fields:
+    title: Столична община
+    size: 3
+- model: signali_location.area
+  pk: 3
+  fields:
+    title: Община средец
+    size: 2
+- model: signali_location.area
+  pk: 4
+  fields:
+    title: Цялата страна
+    size: 4
+- model: signali_location.area
+  pk: 5
+  fields:
+    title: бул. „Васил Левски“ 35Б
+    size: 6
+- model: signali_location.area
+  pk: 6
+  fields:
+    title: ул. Джордж Вашингтон № 22
+    size: 6
+- model: signali_location.area
+  pk: 7
+  fields:
+    title: гр. София
+    size: 5
+    is_featured: True
+    is_public: True
+- model: signali_location.area
+  pk: 8
+  fields:
+    title: Благоевград
+    size: 5
+    is_featured: True
+    is_public: True
+- model: signali_location.area
+  pk: 9
+  fields:
+    title: Бургас
+    size: 5
+    is_featured: True
+    is_public: True
+- model: signali_location.area
+  pk: 10
+  fields:
+    title: Пловдив
+    size: 5
+    is_featured: True
+    is_public: True
+- model: signali_location.area
+  pk: 11
+  fields:
+    title: Варна
+    size: 5
+    is_featured: True
+    is_public: True
+- model: signali_location.area
+  pk: 12
+  fields:
+    title: Русе
+    size: 5
+    is_featured: True
+    is_public: True
+- model: signali_location.area
+  pk: 13
+  fields:
+    title: Стара Загора
+    size: 5

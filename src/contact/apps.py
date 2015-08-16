@@ -14,9 +14,5 @@ class ContactConfig(AppConfig):
     verbose_name = "Managing contact points of organisations"
 
     def ready(self):
-        self.init_setting_loader()
         if setting is None:
             raise ImportError(missing_setting_warning)
-
-    def init_setting_loader(self):
-        pass

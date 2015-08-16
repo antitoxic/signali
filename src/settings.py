@@ -150,11 +150,15 @@ INSTALLED_APPS = (
     'notification',
     'security',
     'user',
-    'feedback',
     'location',
-    'signali.apps.ContactConfig',
     'taxonomy',
     'accessibility',
+    'signali_contact.apps.ContactConfig',
+    'contact_feedback',
+    'signali_contact',
+    'signali_accessibility',
+    'signali_location',
+    'signali_taxonomy',
     'signali',
     'themes.default.widgets',
 )
@@ -228,7 +232,15 @@ REDACTOR_OPTIONS = {
 }
 REDACTOR_UPLOAD = "redactor/"
 
-CONTACT_USER_CRITERIA_FORM = 'signali.forms.ContactUserCriteriaForm'
+CONTACT_POINT_MODEL = 'signali_contact.models.ContactPoint'
+CONTACT_USER_CRITERIA_FORM = 'signali_contact.forms.UserCriteriaForm'
+
+CONTACT_ORGANISATION_MODEL = 'signali_contact.Organisation'
+CONTACT_KEYWORD_MODEL = 'signali_taxonomy.Keyword'
+CONTACT_CATEGORY_MODEL = 'signali_taxonomy.Category'
+CONTACT_AREA_MODEL = 'signali_location.Area'
+
+ACCESSIBILITY_PAGE_MODEL = 'signali_accessibility.Page'
 
 THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
 THUMBNAIL_QUALITY = 100
@@ -273,4 +285,7 @@ if not DEBUG:
     }
 
 PUBLIC_SETTINGS = ['SOCIAL_AUTH_FACEBOOK_KEY', 'SOCIAL_AUTH_FACEBOOK_SCOPE']
-CLASS_SETTINGS = ['CONTACT_USER_CRITERIA_FORM']
+CLASS_SETTINGS = [
+    'CONTACT_USER_CRITERIA_FORM',
+    'CONTACT_POINT_MODEL'
+]

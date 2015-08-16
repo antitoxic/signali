@@ -9,22 +9,23 @@ class AreaManager(models.Manager):
         else:
             return self.filter(size__in=[include]).count()
 
-class Area(models.Model):
+class BaseArea(models.Model):
     objects = AreaManager()
 
     class Meta:
+        abstract = True
         verbose_name = _('area')
         verbose_name_plural = _('areas')
 
     title = models.CharField(_('title'), max_length=250, blank=False)
     parent = models.ForeignKey('self', related_name="children", verbose_name=_('parent area'), blank=True, null=True)
-    size = models.ForeignKey('AreaSize', related_name="areas", verbose_name=_("size"), blank=True, null=True)
 
     def __str__(self):
         return '{} ({})'.format(self.title, self.size)
 
-class AreaSize(models.Model):
+class BaseAreaSize(models.Model):
     class Meta:
+        abstract = True
         verbose_name = _('area size')
         verbose_name_plural = _('area sizes')
 

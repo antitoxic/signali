@@ -2,8 +2,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
-class Keyword(models.Model):
+class BaseKeyword(models.Model):
     class Meta:
+        abstract = True
         verbose_name = _('keyword')
         verbose_name_plural = _('keywords')
     title = models.CharField(_('title'), max_length=250, blank=False)
@@ -24,10 +25,11 @@ class CategoryManager(models.Manager):
         return self.exclude(parent__isnull=True)
 
 
-class Category(models.Model):
+class BaseCategory(models.Model):
     objects = CategoryManager()
 
     class Meta:
+        abstract = True
         verbose_name = _('category')
         verbose_name_plural = _('categories')
     parent = models.ForeignKey('self', verbose_name=_('parent category'), related_name='children', blank=True, null=True)

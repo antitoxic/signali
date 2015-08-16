@@ -6,23 +6,26 @@ from django.shortcuts import get_object_or_404
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
-from ..models import ContactPoint
-from ..forms import UserCriteriaForm
+from ..forms import BaseUserCriteriaForm
 from ..apps import setting
 
 
 @restful_view_templates
 class SingleView(View):
+    def _get(self, slug):
+        ContactPointModel = setting('CONTACT_POINT_MODEL')
+        return get_object_or_404(ContactPointModel, slug=slug, is_public=True)
+
     def post(self, request, slug):
-        contact_point = get_object_or_404(ContactPoint, slug=slug, visibility__is_public=True)
         return {
-            'contact_point': contact_point
+            "point": self._get(slug)
         }
 
     def get(self, request, slug):
         return {
-            "contact_point": get_object_or_404(ContactPoint, slug=slug, visibility__is_public=True)
+            "point": self._get(slug)
         }
+
 
 
 @restful_view_templates
@@ -35,13 +38,14 @@ class CreateView(View):
 class ListView(View):
     def get(self, request):
         failure = VerboseHtmlOnlyRedirectException().set_redirect('contact-point-list')
-        UserCriteriaFormClass = setting('CONTACT_USER_CRITERIA_FORM', UserCriteriaForm)
+        ContactPointModel = setting('CONTACT_POINT_MODEL')
+        UserCriteriaFormClass = setting('CONTACT_USER_CRITERIA_FORM', BaseUserCriteriaForm)
         form = UserCriteriaFormClass(data=request.params)
 
         if not form.is_valid():
             raise failure.add_error('form', form.errors)
 
-        points = ContactPoint.objects.apply_criteria(form.to_filters(), form.get_sorting())
+        points = ContactPointModel.objects.apply_criteria(form.to_filters(), form.get_sorting())
         return {
              "points": points[form.get_start():form.get_limit()]
         }
@@ -62,5 +66,5 @@ class CreationForm(ModelForm):
     # email = forms.EmailField(required=True)
 
     class Meta:
-        model = ContactPoint
+        model = setting('CONTACT_POINT_MODEL')
         fields = ['title', 'description', ]

@@ -1,0 +1,6 @@
+- model: signali_accessibility.page
+  pk: 1
+  fields:
+    title: За нас
+    slug: about-us
+    contents: lorem ipsum

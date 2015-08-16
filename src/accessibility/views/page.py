@@ -1,12 +1,14 @@
 from django.views.generic.base import View
-from restful.decorators import restful_view_templates
 from django.shortcuts import get_object_or_404
-from ..models import Page
+from django.apps import apps as django_apps
+from django.conf import settings
 
+from restful.decorators import restful_view_templates
 
 @restful_view_templates
 class PageView(View):
     def get(self, request, slug):
+        PageModel = django_apps.get_model(settings.ACCESSIBILITY_PAGE_MODEL)
         return {
-            "page": get_object_or_404(Page, slug=slug, is_public=True),
+            "page": get_object_or_404(PageModel, slug=slug, is_public=True),
         }

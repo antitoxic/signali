@@ -1,10 +1,14 @@
 from django import forms
 from django.db.models import Q
+from django.apps import apps as django_apps
+from django.conf import settings
 
-from taxonomy.models import Category, Keyword
-from location.models import Area
 
-class UserCriteriaForm(forms.Form):
+Category = django_apps.get_model(settings.CONTACT_CATEGORY_MODEL)
+Keyword = django_apps.get_model(settings.CONTACT_KEYWORD_MODEL)
+Area =  django_apps.get_model(settings.CONTACT_AREA_MODEL)
+
+class BaseUserCriteriaForm(forms.Form):
     start = forms.IntegerField(required=False, min_value=0, initial=0)
     limit = forms.IntegerField(required=False, min_value=1, initial=20)
     sorting = forms.CharField(required=False, initial='title')
