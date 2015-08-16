@@ -12,6 +12,14 @@ Place the default or your theme in the `themes` directory and set its name as va
 ## Setup
 ### OS
 
+> The following is not made into a script, because it serves educational purposes
+
+ - python3
+ - python3 virtualenv
+ - postgres
+ - redis
+ - image manupulation libraries
+
 ```sh
 # depending on distribution you might want to install 
 python-dev, python-devel, or python3-devel libpq-dev
@@ -23,6 +31,11 @@ psql
 SHOW hba_file;
 vim <the path to hba file>
 change `host all all 127.0.0.1/32 ident` to md5
+
+# image manipulation support
+# for debian-based: apt-get install libjpeg62 libjpeg62-dev zlib1g-dev
+
+# redis should be smth like: apt-get install redis-server
 ```
 
 ### Project

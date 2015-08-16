@@ -1,11 +1,14 @@
 from django.contrib import admin
-from singlemodeladmin import SingleModelAdmin
-from .models import Setting, Visibility
-from accessibility.models import Page
 from django import forms
+
+from singlemodeladmin import SingleModelAdmin
+from sorl.thumbnail.admin import AdminImageMixin
+
+from accessibility.models import Page
 from taxonomy.admin import CategoryAdmin
 from location.admin import Area
 from contact.admin import ContactPointAdmin
+from .models import Setting, Visibility
 
 
 class SettingAdmin(SingleModelAdmin):
@@ -15,7 +18,7 @@ class SettingAdmin(SingleModelAdmin):
 class VisibilityForm(forms.ModelForm):
     class Meta:
         model = Visibility
-        fields = ('is_public', 'is_featured', 'style')
+        fields = ('is_public', 'is_featured', 'style', 'preview', 'cover')
 
 
 class AreaVisibilityForm(VisibilityForm):
@@ -29,7 +32,7 @@ class AreaVisibilityForm(VisibilityForm):
     style = forms.ChoiceField(choices=STYLE_CHOICES)
 
 
-class VisibilityInline(admin.StackedInline):
+class VisibilityInline(AdminImageMixin, admin.StackedInline):
     seamless = True
     form = VisibilityForm
     model = Visibility

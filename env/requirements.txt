@@ -13,3 +13,6 @@ python-social-auth==0.2.7
 rules==0.4
 singlemodeladmin==0.4
 PyYAML
+redis==2.10.3
+sorl-thumbnail==12.3
+django-cacheops==2.4

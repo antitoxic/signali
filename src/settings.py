@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'redactor',
     'rules.apps.AutodiscoverRulesConfig',
     'django_select2',
+    'sorl.thumbnail',
     'restful',
     'notification',
     'security',
@@ -229,6 +230,23 @@ REDACTOR_UPLOAD = "redactor/"
 
 CONTACT_USER_CRITERIA_FORM = 'signali.forms.ContactUserCriteriaForm'
 
+THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
+THUMBNAIL_QUALITY = 100
+THUMBNAIL_REDIS_HOST = env('REDIS_HOST')
+THUMBNAIL_REDIS_PORT = env('REDIS_PORT')
+THUMBNAIL_REDIS_DB = env('REDIS_CACHE_DB')
+
+CACHEOPS_REDIS = {
+    'host': env('REDIS_HOST'),
+    'port': env('REDIS_PORT'),
+    'db': env('REDIS_CACHE_DB')
+}
+CACHEOPS = {}
+
+# If you are developing without access to images, please refer to:
+# http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html#thumbnail-dummy
+
+# Admin menu config
 if not DEBUG:
     SUIT_CONFIG = {
         'SEARCH_URL': '',

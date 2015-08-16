@@ -10,11 +10,13 @@
   fields:
     area: 7
     is_featured: True
+    is_public: True
 - model: signali.visibility
   pk: 2
   fields:
     area: 8
     is_featured: True
+    is_public: True
 - model: signali.visibility
   pk: 3
   fields:
@@ -25,45 +27,53 @@
   fields:
     area: 10
     is_featured: True
+    is_public: True
 - model: signali.visibility
   pk: 5
   fields:
     area: 11
     is_featured: True
+    is_public: True
 - model: signali.visibility
   pk: 6
   fields:
     area: 12
     is_featured: True
+    is_public: True
 - model: signali.visibility
   pk: 7
   fields:
     category: 2
     is_featured: True
+    is_public: True
     style: purple
 - model: signali.visibility
   pk: 8
   fields:
     category: 3
     is_featured: True
+    is_public: True
     style: blue
 - model: signali.visibility
   pk: 9
   fields:
     category: 4
     is_featured: True
+    is_public: True
     style: red
 - model: signali.visibility
   pk: 10
   fields:
     category: 5
     is_featured: True
+    is_public: True
     style: yellow
 - model: signali.visibility
   pk: 11
   fields:
     category: 6
     is_featured: True
+    is_public: True
     style: green
 
 - model: signali.visibility
@@ -71,4 +81,5 @@
   fields:
     contactpoint: 1
     is_featured: True
+    preview: test.jpg
     is_public: True

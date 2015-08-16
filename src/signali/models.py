@@ -1,10 +1,12 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+
 from accessibility.models import AbstractVisibility
 from taxonomy.models import Category, CategoryManager
 from contact.models import ContactPoint, ContactPointManager
 from location.models import Area, AreaManager
-
+from sorl.thumbnail import ImageField
+from .uploads import Uploader
 
 class Setting(models.Model):
     class Meta:
@@ -34,6 +36,9 @@ class Visibility(AbstractVisibility):
                                         verbose_name=_("contact point"), blank=True, null=True)
     area = models.OneToOneField('location.Area', related_name="visibility", verbose_name=_("area"), blank=True,
                                 null=True)
+
+    preview = ImageField(verbose_name=_("preview"), null=True, blank=True, upload_to=Uploader('visibility'))
+    cover = ImageField(verbose_name=_("cover"), null=True, blank=True, upload_to=Uploader('visibility'))
 
 class VisibilityManagerMixin(object):
     def popular(self):

@@ -1,6 +1,8 @@
+import importlib
+
 from django.conf import settings
 from .models import Setting
-import importlib
+
 
 def setting(name, default=None):
     try:
