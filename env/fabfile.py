@@ -53,9 +53,10 @@ def deploy(context=default_deployment, static=False):
         if static:
             with cd(THEME_DIR.replace(PROJECT_ROOT, deploy_path.rstrip('/')+'/')):
                 run('git pull')
-            put(THEME_STATIC_DIR, './'+THEME_STATIC_DIR.replace(PROJECT_ROOT, '').lstrip('/'))
-            run('./manage.py collectstatic --noinput')
+            run('mkdir -p themes/default/build')
+            put(os.path.join(THEME_STATIC_DIR, '*'), THEME_STATIC_DIR.replace(PROJECT_ROOT, '').strip('/')+'/')
+            run('python manage.py collectstatic --noinput')
         # uncomment when translation is enabled:
         # run('./manage.py compilemessages -l bg')
-        run('./manage.py migrate')
+        run('python manage.py migrate')
         run('touch ' + './'+os.path.join(ENV_ROOT.replace(PROJECT_ROOT, '').lstrip('/'), 'wsgi.py'))
