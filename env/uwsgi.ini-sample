@@ -1,0 +1,21 @@
+[uwsgi]
+master = true
+workers = 2
+# if no memory leaks remove max-requests
+max-requests = 50
+processes = 2
+# the socket (use the full path to be safe)
+# with appropriate permissions - *may* be needed
+socket = /var/www/signali.bg/env/uwsgi.sock
+logto = /var/www/signali.bg/env/logs/uwsgi.log
+chmod-socket = 777
+virtualenv = /var/www/signali.bg/env/.venv
+chdir = /var/www/signali.bg/
+module = env.wsgi
+file = env/wsgi.py
+# make sure all required plugins are loaded
+plugins = python
+# clear environment on exit
+vacuum = true
+post-buffering = 1
+touch-reload = /var/www/signali.bg/env/wsgi.py

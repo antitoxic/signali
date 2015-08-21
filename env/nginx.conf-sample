@@ -1,0 +1,28 @@
+upstream django {
+  server unix:///var/www/signali.bg/env/uwsgi.sock;
+  keepalive 64;
+}
+
+server {
+    listen 80;
+
+    server_name demo.signali.bg;
+    access_log /var/www/signali.bg/env/logs/access.log;
+
+    location ~ ^/(?:static/|upload/) {
+      root /var/www/signali.bg;
+      access_log off;
+      expires max;
+    }
+
+    location ~ ^/(?:robots.txt|humans.txt|favicon.ico|favicon.png) {
+      root /var/www/signali.bg/static;
+      access_log off;
+      expires max;
+    }
+
+    location / {
+      include /etc/nginx/uwsgi_params;
+      uwsgi_pass django;
+    }
+}
