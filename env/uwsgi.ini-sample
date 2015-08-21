@@ -14,8 +14,6 @@ chdir = /var/www/signali.bg/
 module = env.wsgi
 pythonpath = /var/www/signali.bg/src
 file = env/wsgi.py
-# make sure all required plugins are loaded
-plugins = python
 # clear environment on exit
 vacuum = true
 post-buffering = 1

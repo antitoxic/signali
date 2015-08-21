@@ -37,3 +37,21 @@ apt-get install redis-server
 apt-get install nginx-full
 
 # uwsgi
+pip3 install uwsgi
+#copy uwsgi.upstart as /etc/init.d/uwsgi
+# edit /etc/init.d/uwsgi and point to correct pip-installed binary by searching for <VERSION>
+# and replace it with the python installed
+
+
+# uwsgi
+# install both from pip and debian-specific
+pip3 install uwsgi
+# we need the debian-specific to get premade init.d scripts
+apt-get install uwsgi
+# edit /etc/init.d/uwsgi and point to correct pip-installed binary by searching for `DAEMON=`
+# and replace it with the python installed
+
+
+# copy nginx and uwsgi sample files
+cp env/uwsgi.ini-sample /etc/uwsgi/apps-enabled/live.ini
+cp env/nginx.conf-sample /etc/nginx/sites-enabled/live.conf
