@@ -29,13 +29,10 @@ PROJECT_ENV_FILE = env('PROJECT_ENV_FILE', os.path.join(ENV_ROOT, '.django'))
 if os.path.isfile(PROJECT_ENV_FILE):
     dotenv.load_dotenv(PROJECT_ENV_FILE)
 
-# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG', False)
 
 TEMPLATE_DEBUG = DEBUG

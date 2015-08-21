@@ -2,6 +2,7 @@ import os
 from contextlib import contextmanager as _contextmanager
 
 from fabric.api import prefix, local, cd, run, put, env
+from fabric.context_managers import shell_env
 from fabric.colors import red, green
 from getenv import env as getenv
 
@@ -45,7 +46,7 @@ def deploy(context=default_deployment, static=False):
     if static:
         local(os.path.join(THEME_DIR, 'build.sh'))
 
-    with virtualenv(context):
+    with virtualenv(context), shell_env(PYTHONPATH=os.path.join(PROJECT_ROOT, 'src')):
         with cd(deploy_path):
             run('git pull')
             if static:
