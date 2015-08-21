@@ -24,9 +24,6 @@ PROJECT_ROOT = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__
 ENV_ROOT = os.path.realpath(os.path.join(PROJECT_ROOT, 'env'))
 THEMES_ROOT = os.path.realpath(env('THEMES_ROOT', os.path.join(PROJECT_ROOT, 'themes')))
 
-# add src dir to include path
-sys.path.append(os.path.join(PROJECT_ROOT, "src"))
-
 # load .env file if existing
 PROJECT_ENV_FILE = env('PROJECT_ENV_FILE', os.path.join(ENV_ROOT, '.django'))
 if os.path.isfile(PROJECT_ENV_FILE):
@@ -126,10 +123,11 @@ EMAIL_USE_TLS = EMAIL_CONNECTIONS['internal']["use_tls"]
 THEME = 'default'
 # register theme files
 THEME_DIR = os.path.join(THEMES_ROOT, THEME)
+THEME_STATIC_DIR = os.path.join(THEME_DIR, 'build')
 if not os.path.isdir(THEME_DIR):
     raise Exception('Improperly configured theme')
-TEMPLATE_DIRS = (os.path.join(THEME_DIR ,'templates'),)
-STATICFILES_DIRS = [os.path.join(THEME_DIR, 'build'), os.path.join(THEME_DIR),]
+TEMPLATE_DIRS = (os.path.join(THEME_DIR, 'templates'),)
+STATICFILES_DIRS = [THEME_STATIC_DIR,]
 
 # Application definition
 INSTALLED_APPS = (

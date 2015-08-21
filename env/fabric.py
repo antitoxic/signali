@@ -1,4 +1,57 @@
-# compile theme
-#fabric.operations.local('(cd /theme/dir && webpack ')
-# upload theme built files
-#fabric.operations.put(local_path='/path/to/theme/build/*', remote_path='/var/www/path/to/theme/build/')
+import os
+from contextlib import contextmanager as _contextmanager
+
+from fabric.api import prefix, local, cd, run, put
+from fabric.colors import red, green
+from getenv import env
+
+from settings import THEME_DIR, THEME_STATIC_DIR, PROJECT_ROOT, ENV_ROOT
+
+
+deployments = {
+    'live': {
+        "host": "signali.bg",
+        "user": env('DEPLOYMENT_USER_LIVE'),
+        "path": env('DEPLOYMENT_PATH_LIVE'),
+        "venv": env('DEPLOYMENT_VENV_PATH_LIVE'),
+    }
+}
+default_deployment = 'live'
+
+@_contextmanager
+def virtualenv(context):
+    if context not in deployments.keys():
+        yield
+        return
+    with prefix('source ' + deployments[context]["venv"] + '/bin/activate'):
+        yield
+
+
+def deploy(context=default_deployment, static=False):
+    dep = deployments[context]
+    env.host_string = dep["host"]
+    env.user = dep["user"]
+    deploy_path = dep["path"]
+
+    if context != 'live':
+        print(green(context.upper() + ' deploy'))
+    else:
+        print(red("LIVE DEPLOY WITH STATIC" if static else "LIVE DEPLOY"))
+
+    if static:
+        print("rebuilding static files included")
+
+    if static:
+        local(os.path.join(THEME_DIR, 'build.sh'))
+
+    with virtualenv(context):
+        with cd(deploy_path):
+            run('git pull')
+            if static:
+                with cd(THEME_DIR.replace(PROJECT_ROOT, deploy_path.rstrip('/')+'/')):
+                    run('git pull')
+                put(THEME_STATIC_DIR, './'+THEME_STATIC_DIR.replace(PROJECT_ROOT, '').lstrip('/'))
+                run('./manage.py collectstatic --noinput')
+            # run('./manage.py compilemessages -l bg')
+            run('./manage.py migrate')
+            run('touch ' + os.path.join(ENV_ROOT.replace(PROJECT_ROOT, ''), 'wsgi.py'))

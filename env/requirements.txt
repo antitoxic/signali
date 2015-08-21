@@ -1,4 +1,5 @@
 Django==1.7.7
+Fabric==1.10.2
 -e git+https://github.com/obshtestvo-utilities/django-restful.git@python3#egg=restful
 psycopg2
 python-dotenv==0.1.2

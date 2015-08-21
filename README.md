@@ -59,6 +59,9 @@ createdb -O signali signali -E utf-8 -l bg_BG.utf8 -T template0
 # set local settings
 cp env/.django-sample env/.django
 ...edit .django to your needs ....
+# include src in PYTHON_PATH
+# for bash shell: export PYTHONPATH=$PWD/src
+# for fish shell: set -x PYTHONPATH $PWD/src
 # initialise db
 python manage.py migrate
 # load data seed

@@ -26,3 +26,7 @@ EMAIL_CONNECTION_PUBLIC_PORT=port
 EMAIL_CONNECTION_PUBLIC_TLS=True
 
 SOCIAL_AUTH_FACEBOOK_SECRET=secret-provided-by-facebook
+
+DEPLOYMENT_PATH_LIVE=/var/www/signali.bg
+DEPLOYMENT_VENV_PATH_LIVE=/var/www/signali.bg/env/.venv
+DEPLOYMENT_USER_LIVE=www-data
