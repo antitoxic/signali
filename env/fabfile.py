@@ -2,7 +2,6 @@ import os
 from contextlib import contextmanager as _contextmanager
 
 from fabric.api import prefix, local, cd, run, put, env
-from fabric.context_managers import shell_env
 from fabric.colors import red, green
 from getenv import env as getenv
 
@@ -34,6 +33,9 @@ def deploy(context=default_deployment, static=False):
     env.host_string = dep["host"]+':'+str(dep["port"])
     env.user = dep["user"]
     deploy_path = dep["path"]
+    env.shell_env = {
+        "PYTHONPATH": os.path.join(deploy_path, 'src')
+    }
 
     if context != 'live':
         print(green(context.upper() + ' deploy'))
@@ -46,14 +48,13 @@ def deploy(context=default_deployment, static=False):
     if static:
         local(os.path.join(THEME_DIR, 'build.sh'))
 
-    with virtualenv(context), shell_env(PYTHONPATH=os.path.join(PROJECT_ROOT, 'src')):
-        with cd(deploy_path):
-            run('git pull')
-            if static:
-                with cd(THEME_DIR.replace(PROJECT_ROOT, deploy_path.rstrip('/')+'/')):
-                    run('git pull')
-                put(THEME_STATIC_DIR, './'+THEME_STATIC_DIR.replace(PROJECT_ROOT, '').lstrip('/'))
-                run('./manage.py collectstatic --noinput')
-            # run('./manage.py compilemessages -l bg')
-            run('./manage.py migrate')
-            run('touch ' + os.path.join(ENV_ROOT.replace(PROJECT_ROOT, ''), 'wsgi.py'))
+    with virtualenv(context), cd(deploy_path):
+        run('git pull')
+        if static:
+            with cd(THEME_DIR.replace(PROJECT_ROOT, deploy_path.rstrip('/')+'/')):
+                run('git pull')
+            put(THEME_STATIC_DIR, './'+THEME_STATIC_DIR.replace(PROJECT_ROOT, '').lstrip('/'))
+            run('./manage.py collectstatic --noinput')
+        # run('./manage.py compilemessages -l bg')
+        run('./manage.py migrate')
+        run('touch ' + './'+os.path.join(ENV_ROOT.replace(PROJECT_ROOT, '').lstrip('/'), 'wsgi.py'))
