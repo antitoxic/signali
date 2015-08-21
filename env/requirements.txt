@@ -1,3 +1,4 @@
+uwsgi
 Django==1.7.7
 -e git+https://github.com/obshtestvo-utilities/django-restful.git@python3#egg=restful
 psycopg2

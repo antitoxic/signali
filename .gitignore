@@ -9,6 +9,7 @@ upload
 static
 themes/*
 !themes/THEMES.md
+env/logs
 env/.venv
 env/.virtualenv
 env/.django

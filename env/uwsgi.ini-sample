@@ -12,6 +12,7 @@ chmod-socket = 777
 virtualenv = /var/www/signali.bg/env/.venv
 chdir = /var/www/signali.bg/
 module = env.wsgi
+pythonpath = /var/www/signali.bg/src
 file = env/wsgi.py
 # make sure all required plugins are loaded
 plugins = python

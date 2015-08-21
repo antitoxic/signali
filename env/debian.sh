@@ -14,6 +14,7 @@ make
 make install
 cd /tmp
 rm -rf Python-<VERSION>
+ln -s /usr/local/opt/python-<VERSION>/bin/python /usr/bin/python3
 
 # postgres
 # http://www.postgresql.org/download/linux/debian/
@@ -31,3 +32,8 @@ echo "deb-src http://packages.dotdeb.org wheezy all" >> /etc/apt/sources.list.d/
 wget http://www.dotdeb.org/dotdeb.gpg
 apt-key add - < dotdeb.gpg
 apt-get install redis-server
+
+#  nginx
+apt-get install nginx-full
+
+# uwsgi
