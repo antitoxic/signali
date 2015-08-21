@@ -65,7 +65,7 @@ cp env/.django-sample env/.django
 # initialise db
 python manage.py migrate
 # load data seed
-bash env/load_dev_fixtures.sh
+bash env/utils/load_dev_fixtures.sh
 # run signali
 python manage.py runserver
 # go to http://127.0.0.1:8000/
