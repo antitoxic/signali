@@ -1,19 +1,20 @@
 import os
 from contextlib import contextmanager as _contextmanager
 
-from fabric.api import prefix, local, cd, run, put
+from fabric.api import prefix, local, cd, run, put, env
 from fabric.colors import red, green
-from getenv import env
+from getenv import env as getenv
 
 from settings import THEME_DIR, THEME_STATIC_DIR, PROJECT_ROOT, ENV_ROOT
 
 
 deployments = {
     'live': {
-        "host": "signali.bg",
-        "user": env('DEPLOYMENT_USER_LIVE'),
-        "path": env('DEPLOYMENT_PATH_LIVE'),
-        "venv": env('DEPLOYMENT_VENV_PATH_LIVE'),
+        "host": getenv('DEPLOYMENT_HOST_LIVE'),
+        "port": getenv('DEPLOYMENT_PORT_LIVE'),
+        "user": getenv('DEPLOYMENT_USER_LIVE'),
+        "path": getenv('DEPLOYMENT_PATH_LIVE'),
+        "venv": getenv('DEPLOYMENT_VENV_PATH_LIVE'),
     }
 }
 default_deployment = 'live'
@@ -29,7 +30,7 @@ def virtualenv(context):
 
 def deploy(context=default_deployment, static=False):
     dep = deployments[context]
-    env.host_string = dep["host"]
+    env.host_string = dep["host"]+':'+str(dep["port"])
     env.user = dep["user"]
     deploy_path = dep["path"]
 

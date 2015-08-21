@@ -7,7 +7,7 @@ django-suit==0.2.12
 pillow==2.7.0
 # not yet stable:
 # -e git+https://github.com/darklow/django-suit.git@bs3#egg=suit
--e git+https://github.com/applegrew/django-select2.git@python3#egg=django_select2
+-e git+https://github.com/applegrew/django-select2.git@master#egg=django_select2
 django-wysiwyg-redactor>=0.4.4.1
 python-social-auth==0.2.7
 rules==0.4

@@ -71,11 +71,18 @@ python manage.py runserver
 # go to http://127.0.0.1:8000/
 ```
 
-#### Production notes:
+#### Deployment
+You must have a cloned version of the repo on your deployment server and exported sensitive settings as environment variables or
+defined as `env/.django` entries.
+
+After this you just simply run:
 
 ```
-python manage.py collectstatic
+cd env
+fab debloy:live,static # or fab deploy:live
 ```
+
+from your local install.
 
 ## Dev hints
 
