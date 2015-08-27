@@ -1,5 +1,6 @@
-from django.template import RequestContext, Context
+from django.template import RequestContext
 from django.conf import settings
+from django.http import HttpRequest
 from django.template.loader import get_template
 from django.core.mail import EmailMessage, EmailMultiAlternatives, get_connection as django_get_connection
 from django.utils.translation import ugettext_lazy as _
@@ -9,19 +10,19 @@ class MissingConnectionException(Exception):
     pass
 
 
-def send(template_without_ext, to, sender=settings.DEFAULT_FROM_EMAIL, reply_to=settings.DEFAULT_FROM_EMAIL, request=None, internal=False, **kwargs):
+def send(templatename_without_ext, to, sender=settings.DEFAULT_FROM_EMAIL, reply_to=settings.DEFAULT_FROM_EMAIL, request=None, internal=False, **kwargs):
     if request is None:
-        context = Context(kwargs)
-    else:
-        context = RequestContext(request, kwargs)
+        request = HttpRequest()
 
-    text_template = get_template(template_without_ext+'.txt')
-    subject, text = text_template.render(context).strip().split("\n", 1)
+    template_context = RequestContext(request, kwargs)
+
+    text_template = get_template(templatename_without_ext+'.txt')
+    subject, text = text_template.render(template_context).strip().split("\n", 1)
     subject = subject.strip("\r")
 
     try:
-        html_template = get_template(template_without_ext+'.html')
-        html = html_template.render(context)
+        html_template = get_template(templatename_without_ext+'.html')
+        html = html_template.render(template_context)
     except:
         html = None
 
