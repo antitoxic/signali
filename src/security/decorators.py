@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from restful.exception.htmlonlyredirect import PermissionDeniedHtmlOnlyRedirectException
 
-from .views.mixin import SecuredViewMixin
+from .views.base import SecuredView
 from .utils import get_permission_denied_login_url
 
 def security_rule(rulename):
@@ -16,10 +16,10 @@ def security_rule(rulename):
             failure = PermissionDeniedHtmlOnlyRedirectException(_('No permission to access page'))
             failure.set_redirect(get_permission_denied_login_url(request))
 
-            if not isinstance(view, SecuredViewMixin):
-                raise Exception(_("Can't secure view. Must inherit SecuredViewMixin mixin"))
-            rule_args = view.extract_permission_args(request, *args, **kwargs)
-            if not request.user.has_perm(rulename, *rule_args):
+            if not issubclass(view.__class__, SecuredView):
+                raise Exception(_("Can't secure view. Must be an instance of SecuredView"))
+            target = view.extract_permission_target(request, *args, **kwargs)
+            if not request.user.has_perm(rulename, target):
                 raise failure
             return action(view, request, *args, **kwargs)
 

@@ -108,6 +108,7 @@ EMAIL_CONNECTIONS = {
 }
 
 DEFAULT_FROM_EMAIL = 'info@signali.bg'
+ADMIN_EMAIL = DEFAULT_FROM_EMAIL
 EMAIL_CONNECTION_LABEL_INTERNAL = 'internal'
 EMAIL_CONNECTION_LABEL_PUBLIC = 'public'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -143,13 +144,14 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'restful',
     'notification',
+    'signali_notification.apps.NotificationConfig',
     'security',
     'user',
     'location',
     'taxonomy',
     'accessibility',
     'signali_contact.apps.ContactConfig',
-    'contact_feedback',
+    'signali_contact.apps.FeedbackConfig',
     'signali_contact',
     'signali_accessibility',
     'signali_location',
@@ -169,7 +171,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'restful.error_handler.ErrorHandler',
+    'restful.error_handler.ErrorHandler',
     'restful.middleware.TemplateExtensionByAcceptedType',
 )
 
@@ -227,13 +229,14 @@ REDACTOR_OPTIONS = {
 }
 REDACTOR_UPLOAD = "redactor/"
 
-CONTACT_POINT_MODEL = 'signali_contact.models.ContactPoint'
 CONTACT_USER_CRITERIA_FORM = 'signali_contact.forms.UserCriteriaForm'
 
+CONTACT_POINT_MODEL = 'signali_contact.ContactPoint'
 CONTACT_ORGANISATION_MODEL = 'signali_contact.Organisation'
 CONTACT_KEYWORD_MODEL = 'signali_taxonomy.Keyword'
 CONTACT_CATEGORY_MODEL = 'signali_taxonomy.Category'
 CONTACT_AREA_MODEL = 'signali_location.Area'
+CONTACT_FEEDBACK_MODEL = 'signali_contact.SignalContactPointFeedback'
 
 ACCESSIBILITY_PAGE_MODEL = 'signali_accessibility.Page'
 
@@ -282,5 +285,12 @@ if not DEBUG:
 PUBLIC_SETTINGS = ['SOCIAL_AUTH_FACEBOOK_KEY', 'SOCIAL_AUTH_FACEBOOK_SCOPE']
 CLASS_SETTINGS = [
     'CONTACT_USER_CRITERIA_FORM',
-    'CONTACT_POINT_MODEL'
+]
+MODEL_SETTINGS = [
+    'CONTACT_POINT_MODEL',
+    'CONTACT_ORGANISATION_MODEL',
+    'CONTACT_KEYWORD_MODEL',
+    'CONTACT_CATEGORY_MODEL',
+    'CONTACT_AREA_MODEL',
+    'CONTACT_FEEDBACK_MODEL',
 ]

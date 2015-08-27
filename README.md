@@ -114,8 +114,8 @@ from your local install.
  - `env` directory holds settings specific to deployment environment:
   - server settings - debian install script, nginx sample, uwsgi sample, 
   - project dependencies descriptor
-  - the actual project dependencies
   - environment-specific project settings
+  - the downloaded project dependencies
  - `src` directory is not "*just API*". It holds all sorts server-code and non-html templates
  - `themes` directory is where you can place your themes
  - The `user` and `security` apps has similar purposes 
@@ -143,7 +143,7 @@ export $(cat ./env/.django | xargs)
 
 ### Common scenarios
 
-#### Posting to a page and handling error, in a django view:
+#### Handling success or error, in a django view:
 
 Example 1:
 
@@ -172,7 +172,8 @@ raise failure
 
 ```
 
-The code above will behave the same as "Example 1" unless the client requests data in html format.
+The code above will behave the same as "Example 1" unless the client requests data in html format (*or doesn't specify format*),
+which is the common case for browsers.
 If the client requests html response the code above will put all errors in a session variable 
 and redirect to `route-name`. Useful when you want to show errors in the same form the input originated from.
  
@@ -206,9 +207,3 @@ return HtmlOnlyRedirectSuccessDict({
 The code above will behave the same as "Example 1" **unless** the client requests html response. 
 If the client requests html response the code above will put all data in a session variable and 
 redirect to `route-name`. Useful when you want to redirect users to the page they originated from.
-
-### Social auth related
-
-```
-manage.py makemigrations
-```

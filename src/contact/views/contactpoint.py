@@ -1,10 +1,12 @@
-from django.views.generic.base import View
 from restful.decorators import restful_view_templates
 from restful.http import HtmlOnlyRedirectSuccessDict
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
-from django.shortcuts import get_object_or_404
+
+from django.views.generic.base import View
 from django.forms import ModelForm
 from django.utils.translation import ugettext_lazy as _
+from django.http import Http404
+
 
 from ..forms import BaseUserCriteriaForm
 from ..apps import setting
@@ -14,7 +16,10 @@ from ..apps import setting
 class SingleView(View):
     def _get(self, slug):
         ContactPointModel = setting('CONTACT_POINT_MODEL')
-        return get_object_or_404(ContactPointModel, slug=slug, is_public=True)
+        try:
+            return ContactPointModel.objects.get_by_slug(slug)
+        except ContactPointModel.DoesNotExist:
+            raise Http404()
 
     def post(self, request, slug):
         return {

@@ -10,7 +10,6 @@ from restful.http import HtmlOnlyRedirectSuccessDict
 
 from notification import email
 from security.views.password import PasswordResetAbstractView, PasswordResetConfirmAbstractView
-from security.views.mixin import SecuredViewMixin
 from security.decorators import security_rule
 from .forms import SignUpCheckpointForm, UserForm, UserFormNoPassword, ProfileUpdateForm
 
@@ -98,10 +97,10 @@ class PasswordResetCompleteView(View):
 
 
 @restful_view_templates
-class ProfileView(View, SecuredViewMixin):
+class ProfileView(View):
 
-    def extract_permission_args(self, request, pk):
-        return (self._get_user(request, pk),)
+    def extract_permission_target(self, request, pk):
+        return self._get_user(request, pk)
 
     def _get_user(self, request, pk):
         UserModel = get_user_model()

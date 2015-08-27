@@ -14,6 +14,8 @@ class ContactPointManager(models.Manager):
         queryset = self._apply_criteria_sorting(queryset, sorting)
         return queryset
 
+    def get_by_slug(self, slug):
+        return self.get(slug=slug)
 
     def _apply_criteria_sorting(self, queryset, sorting):
         return queryset.order_by(sorting)
@@ -39,11 +41,11 @@ class BaseContactPoint(models.Model):
     title = models.CharField(_('title'), max_length=250, blank=False)
     slug = models.SlugField(_('slug'), max_length=255, blank=True)
     description = models.TextField(_('description'), blank=True)
-    operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL'), related_name="contact_points", verbose_name=_("operational area"))
+    operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL', noparse=True), related_name="contact_points", verbose_name=_("operational area"))
 
-    organisation = models.ForeignKey(setting('CONTACT_ORGANISATION_MODEL'), related_name="contact_points", verbose_name=_("organisation"))
-    keywords = models.ManyToManyField(setting('CONTACT_KEYWORD_MODEL'), related_name="contact_points", verbose_name=_("keywords"))
-    category = models.ForeignKey(setting('CONTACT_CATEGORY_MODEL'), related_name="contact_points", verbose_name=_("category"))
+    organisation = models.ForeignKey(setting('CONTACT_ORGANISATION_MODEL', noparse=True), related_name="contact_points", verbose_name=_("organisation"))
+    keywords = models.ManyToManyField(setting('CONTACT_KEYWORD_MODEL', noparse=True), related_name="contact_points", verbose_name=_("keywords"))
+    category = models.ForeignKey(setting('CONTACT_CATEGORY_MODEL', noparse=True), related_name="contact_points", verbose_name=_("category"))
 
     # features
     is_multilingual = models.CharField(_('is multilingual'), max_length=20, choices=EXTENDED_BOOLEAN_CHOICES, default=DONTKNOW)
@@ -74,10 +76,10 @@ class BaseOrganisation(models.Model):
         abstract = True
         verbose_name = _('organisation')
         verbose_name_plural = _('organisations')
-    address = models.OneToOneField(setting('CONTACT_AREA_MODEL'), blank=True, null=True, on_delete=models.SET_NULL)
+    address = models.OneToOneField(setting('CONTACT_AREA_MODEL', noparse=True), blank=True, null=True, on_delete=models.SET_NULL)
     title = models.CharField(_('title'), max_length=250, blank=False)
     email = models.EmailField(_('email'), max_length=250, blank=False)
-    operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL'),
+    operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL', noparse=True),
                                          related_name="organisations",
                                          verbose_name=_("operational area"),
                                          blank=True,

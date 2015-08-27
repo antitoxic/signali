@@ -10,8 +10,8 @@ Best way to do this is to extend the config class and override the
 setting initialisation method
 """
 
-class ContactConfig(AppConfig):
-    verbose_name = "Managing contact points of organisations"
+class FeedbackConfig(AppConfig):
+    verbose_name = "Managing contact point's feedback"
 
     def ready(self):
         if setting is None:

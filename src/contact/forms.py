@@ -1,12 +1,11 @@
 from django import forms
 from django.db.models import Q
-from django.apps import apps as django_apps
-from django.conf import settings
+from .apps import setting
 
 
-Category = django_apps.get_model(settings.CONTACT_CATEGORY_MODEL)
-Keyword = django_apps.get_model(settings.CONTACT_KEYWORD_MODEL)
-Area =  django_apps.get_model(settings.CONTACT_AREA_MODEL)
+Category = setting("CONTACT_CATEGORY_MODEL")
+Keyword = setting("CONTACT_KEYWORD_MODEL")
+Area = setting("CONTACT_AREA_MODEL")
 
 class BaseUserCriteriaForm(forms.Form):
     start = forms.IntegerField(required=False, min_value=0, initial=0)

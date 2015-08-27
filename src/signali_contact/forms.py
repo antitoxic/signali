@@ -11,3 +11,5 @@ class UserCriteriaForm(BaseUserCriteriaForm):
             filters = filters & Q(is_featured=self.cleaned_data['is_featured'])
 
         return filters & Q(is_public=True)
+
+
