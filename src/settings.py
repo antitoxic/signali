@@ -157,7 +157,7 @@ INSTALLED_APPS = (
     'signali_location',
     'signali_taxonomy',
     'signali',
-    'themes.default.widgets',
+    'themes.'+THEME+'.widgets',
 )
 
 MIDDLEWARE_CLASSES = (
