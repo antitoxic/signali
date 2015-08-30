@@ -28,9 +28,7 @@ def send(templatename_without_ext, to, sender=settings.DEFAULT_FROM_EMAIL, reply
 
     headers = {'Reply-To': reply_to}
 
-    try:
-        iter(to)
-    except:
+    if not isinstance(to, (list, tuple)):
         to = [to]
 
     connection_label = settings.EMAIL_CONNECTION_LABEL_INTERNAL if internal else None
