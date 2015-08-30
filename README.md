@@ -126,6 +126,7 @@ from your local install.
    - The logic for the data checkpoint in the signup process is in `user` app instead of `security` app. The logic is closer to
    the security app because it handles required data before the user is allowed to register, **but** that data usually changes
    from project to project which goes against keeping `security` app the more reusable one
+   - To read more about how auth was implemented look into [`python-social-auth` developer intro](https://github.com/omab/python-social-auth/blob/master/docs/developer_intro.rst)
 
 #### Database
 

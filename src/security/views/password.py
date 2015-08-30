@@ -11,6 +11,8 @@ from django.core.urlresolvers import reverse
 
 from ..forms import SetPasswordForm, PasswordResetForm
 
+UserModel = get_user_model()
+
 class PasswordResetAbstractView(View):
     def get(self, request):
         raise NotImplementedError()
@@ -24,7 +26,6 @@ class PasswordResetAbstractView(View):
         if not form.is_valid():
             raise failure.set_errors(form.errors)
 
-        UserModel = get_user_model()
         try:
             user = UserModel.objects.get(email__iexact=form.cleaned_data['email'])
         except:
@@ -40,7 +41,6 @@ class PasswordResetAbstractView(View):
 
 class PasswordResetConfirmAbstractView(View):
     def _get_user(self, uidb64, token):
-        UserModel = get_user_model()
         uid = urlsafe_base64_decode(uidb64)
         user = UserModel.objects.get(pk=uid)
         assert uidb64 is not None and token is not None

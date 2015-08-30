@@ -1,9 +1,8 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 
 from social.backends.legacy import LegacyAuth
 
-from .exceptions import WrongPasswordException, UserExistsException
+from .exceptions import WrongPasswordAuthException, UserExistsAuthException, UserDoesNotExistAuthException
 from .forms import SetPasswordForm
 
 
@@ -12,15 +11,15 @@ def user_password(backend, strategy, user=None, is_new=False, *args, **kwargs):
         return
 
     if is_new:
-        form = SetPasswordForm(strategy.request.params)
+        form = SetPasswordForm(strategy.request.POST)
         if not form.is_valid():
-            raise WrongPasswordException(backend)
+            raise WrongPasswordAuthException(backend)
         password = form.cleaned_data['new_password1']
         return {
             "hashed_password": make_password(password)
         }
-    elif not user.check_password(strategy.request.params.get('password')):
-        raise WrongPasswordException(backend)
+    elif not user.check_password(strategy.request.POST.get('password')):
+        raise WrongPasswordAuthException(backend)
 
 
 def save_password(backend, user=None, is_new=False, *args, **kwargs):
@@ -30,17 +29,25 @@ def save_password(backend, user=None, is_new=False, *args, **kwargs):
     try:
         user.password = kwargs['hashed_password']
     except:
-        raise WrongPasswordException(backend)
+        raise WrongPasswordAuthException(backend)
 
     user.save()
 
 
-def prevent_duplicate_signup(backend, strategy, is_new=False, *args, **kwargs):
-    if not (isinstance(backend, LegacyAuth) and 'disallow_existing' in strategy.request.params):
+def prevent_duplicate_signup_on_register(backend, strategy, user=None, *args, **kwargs):
+    if not (isinstance(backend, LegacyAuth) and strategy.request.params.get('auth_type') == 'login'):
         return
 
-    if not is_new:
-        raise UserExistsException(backend)
+    if user is not None:
+        raise UserExistsAuthException(backend)
+
+
+def refuse_missing_user_on_login(backend, strategy, user=None, *args, **kwargs):
+    if not (isinstance(backend, LegacyAuth) and strategy.request.params.get('auth_type') == 'registration'):
+        return
+
+    if user is None:
+        raise UserDoesNotExistAuthException(backend)
 
 
 # fork of : python social auth pipeline with the same name: social/pipeline/user.py

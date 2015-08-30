@@ -56,20 +56,30 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIAL_AUTH_PIPELINE = (
+    # backend tries to retrieve details from the incoming user data
     'social.pipeline.social_auth.social_details',
+    # backend tries to get id be used with social user object
     'social.pipeline.social_auth.social_uid',
+    # check if auth is allowed for the provided user details
     'social.pipeline.social_auth.auth_allowed',
+    # retrieves user ONLY if the user is registered with the current backend and have UserSocialAuth record
+    # Important note: users created outside social pipeline most likely don't have UserSocialAuth
+    # example for common error scenario: manage.py createsuperadmin
     'social.pipeline.social_auth.social_user',
+    # extracts possible username for backends that might need it
     'social.pipeline.user.get_username',
+    # throws error if user exists and the incoming data states the user is trying to register
     'security.pipeline.prevent_duplicate_signup',
+    # checks user password against the incoming password from the request
     'security.pipeline.user_password',
-    # uncomment the next line to present the user with an option to doublecheck details provided by social auth upon registration
+    # uncomment the following and the other "checkpoint" pipeline entries
+    # to present the user with an option to doublecheck details provided by social auth upon registration
     # 'user.pipeline.signupcheckpoint',
+    # sends out mail validation for new users
     'social.pipeline.mail.mail_validation',
     'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.user.create_user',
     'security.pipeline.save_password',
-    'user.pipeline.save_checkpoint_changes',
     'social.pipeline.social_auth.associate_user', # creates a social user record
     'social.pipeline.social_auth.load_extra_data', # adds provider metadata like "expire" or "id"
     'security.pipeline.user_details' # tops up User model fields with what's available in "details" parameter
