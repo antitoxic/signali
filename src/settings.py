@@ -66,6 +66,8 @@ SOCIAL_AUTH_PIPELINE = (
     # Important note: users created outside social pipeline most likely don't have UserSocialAuth
     # example for common error scenario: manage.py createsuperadmin
     'social.pipeline.social_auth.social_user',
+    # retrieve user of there was no match by social_user
+    'security.pipeline.local_user',
     # extracts possible username for backends that might need it
     'social.pipeline.user.get_username',
     # throws error if user exists and the incoming data states the user is trying to register
@@ -79,7 +81,6 @@ SOCIAL_AUTH_PIPELINE = (
     # 'user.pipeline.signupcheckpoint',
     # sends out mail validation for new users
     'social.pipeline.mail.mail_validation',
-    'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.user.create_user',
     'security.pipeline.save_password',
     'social.pipeline.social_auth.associate_user', # creates a social user record

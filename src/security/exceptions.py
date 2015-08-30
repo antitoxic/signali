@@ -16,4 +16,4 @@ class UserExistsAuthException(AuthException):
 
 class UserDoesNotExistAuthException(AuthException, UserModel.DoesNotExist):
     def __str__(self):
-        return str(_('Such user does not exist'))
+        return str(_('Such user does not exist or is using another method of login'))

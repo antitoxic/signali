@@ -4,6 +4,7 @@ from django.http.response import HttpResponseRedirectBase
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth import logout, get_user_model
+from django.conf import settings
 
 from restful.http import HtmlOnlyRedirectSuccessDict
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException, VerboseException
@@ -12,6 +13,8 @@ from social.apps.django_app.utils import psa
 from social.apps.django_app.views import auth, complete, _do_login as login
 
 from ..exceptions import WrongPasswordAuthException, AuthException, UserExistsAuthException, UserDoesNotExistAuthException
+
+UserModel = get_user_model()
 
 @restful_view_templates
 class CredentialsView(View):
@@ -22,9 +25,24 @@ class CredentialsView(View):
         return self.get(request, backend)
 
 
+def transform_auth_result(request, result):
+    user = request.user
+    login_redirect = settings.LOGIN_REDIRECT_URL
+    status_code = 200
+    if isinstance(result, UserModel):
+        user = result
+    elif isinstance(result, HttpResponseRedirectBase):
+        login_redirect = result.url
+        if user.is_new:
+            status_code = 202
+    return HtmlOnlyRedirectSuccessDict({
+        "user": user
+    }).set_redirect(login_redirect), status_code
+
+
 # to be mainly accessed by AJAX
 @restful_view_templates
-class TokenView(View):
+class TokenAuthView(View):
     @method_decorator(psa('security:complete'))
     def post(self, request, backend):
         failure = VerboseException()
@@ -38,32 +56,22 @@ class TokenView(View):
         else:
             raise failure.add_error('Wrong backend type')
 
-        auth_result = backend.do_auth(
+        auth_result = request.backend.do_auth(
             access_token=token,
             user=request.user if request.user.is_authenticated() else None
         )
-        if isinstance(auth_result, HttpResponseRedirectBase):
-            return HtmlOnlyRedirectSuccessDict({
-                "result": {
-                    "redirect": auth_result.url
-                }
-            }).set_redirect(auth_result.url), 202
+        result = transform_auth_result(request, auth_result)
+        user = result[0]["user"]
+        if user.is_active:
+            login(request.backend, user, user.social_user)
         else:
-            login(backend, auth_result, auth_result.social_user)
-            return {
-                "result": {
-                    "user": {
-                        "first_name": auth_result.first_name,
-                        "last_name": auth_result.last_name,
-                        "username": auth_result.username,
-                        "pk": auth_result.pk,
-                    }
-                }
-            }
+            raise failure.add_error('Inactive user')
+
+        return result
 
 
 @restful_view_templates
-class RegisterView(View):
+class AuthView(View):
     def get(self, request, backend, *args, **kwargs):
         failure = VerboseHtmlOnlyRedirectException()
         failure_redirect = request.params.get('retry')
@@ -73,7 +81,8 @@ class RegisterView(View):
             failure.set_redirect('security:begin', backend=backend)
 
         try:
-            return complete(request, backend, *args, **kwargs)
+            auth_result = complete(request, backend, *args, **kwargs)
+            return transform_auth_result(request, auth_result)
         except WrongPasswordAuthException as e:
             raise failure.by(e).add_error('password', str(e))
         except UserExistsAuthException as e:

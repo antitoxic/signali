@@ -14,11 +14,14 @@ class User(AbstractUser):
         if self.avatar:
             src = settings.MEDIA_URL + self.avatar.url()
         else:
-            uid = settings.SOCIAL_AUTH_FACEBOOK_KEY
-            if hasattr(self, 'preloaded_uid'):
+            try:
                 uid = self.preloaded_uid
-            elif self.social_auth.all().count() > 0:
-                uid = self.social_auth.all()[0].uid
+            except:
+                uid = settings.SOCIAL_AUTH_FACEBOOK_KEY
+            try:
+                uid = self.social_auth.get(provider='facebook').uid
+            except:
+                pass
             src = self.get_facebook_avatar(uid)
         return src
 
