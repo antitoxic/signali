@@ -6,14 +6,14 @@ UserModel = get_user_model()
 
 class WrongPasswordAuthException(AuthException):
     def __str__(self):
-        return _('Invalid password')
+        return str(_('Invalid password'))
 
 
 class UserExistsAuthException(AuthException):
     def __str__(self):
-        return _('User already exists')
+        return str(_('User already exists'))
 
 
 class UserDoesNotExistAuthException(AuthException, UserModel.DoesNotExist):
     def __str__(self):
-        return _('Such user does not exist')
+        return str(_('Such user does not exist'))

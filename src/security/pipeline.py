@@ -34,8 +34,8 @@ def save_password(backend, user=None, is_new=False, *args, **kwargs):
     user.save()
 
 
-def prevent_duplicate_signup_on_register(backend, strategy, user=None, *args, **kwargs):
-    if not (isinstance(backend, LegacyAuth) and strategy.request.params.get('auth_type') == 'login'):
+def prevent_duplicate_on_register(backend, strategy, user=None, *args, **kwargs):
+    if not (isinstance(backend, LegacyAuth) and strategy.request.params.get('auth_type') == 'registration'):
         return
 
     if user is not None:
@@ -43,7 +43,7 @@ def prevent_duplicate_signup_on_register(backend, strategy, user=None, *args, **
 
 
 def refuse_missing_user_on_login(backend, strategy, user=None, *args, **kwargs):
-    if not (isinstance(backend, LegacyAuth) and strategy.request.params.get('auth_type') == 'registration'):
+    if not (isinstance(backend, LegacyAuth) and strategy.request.params.get('auth_type') == 'login'):
         return
 
     if user is None:

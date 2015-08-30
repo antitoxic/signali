@@ -69,7 +69,9 @@ SOCIAL_AUTH_PIPELINE = (
     # extracts possible username for backends that might need it
     'social.pipeline.user.get_username',
     # throws error if user exists and the incoming data states the user is trying to register
-    'security.pipeline.prevent_duplicate_signup',
+    'security.pipeline.prevent_duplicate_on_register',
+    # throws error if user does not exist and the incoming data states the user is trying to login
+    'security.pipeline.refuse_missing_user_on_login',
     # checks user password against the incoming password from the request
     'security.pipeline.user_password',
     # uncomment the following and the other "checkpoint" pipeline entries
@@ -155,7 +157,7 @@ INSTALLED_APPS = (
     'restful',
     'notification',
     'signali_notification.apps.NotificationConfig',
-    'security',
+    'security.apps.SecurityConfig',
     'user',
     'location',
     'taxonomy',
