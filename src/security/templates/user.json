@@ -1,6 +1,13 @@
-{
-    "first_name": {{user.first_name}},
-    "last_name": {{user.last_name}},
-    "username": {{user.username}},
-    "pk": {{user.pk}},
+{% load restful %}{
+    "redirect": {{redirect | jsonify | safe}},
+    "is_new": {{user.is_new | jsonify | safe}},
+    "backend": {{backend | jsonify | safe}},
+    "user": {
+        "URI": "{% url 'user:profile' pk=user.pk %}",
+        "first_name": {{user.first_name | jsonify | safe}},
+        "last_name": {{user.last_name | jsonify | safe}},
+        "username": {{user.username | jsonify | safe}},
+        "pk": {{user.pk | jsonify | safe}},
+        "is_active": {{user.is_active | jsonify | safe}}
+    }
 }

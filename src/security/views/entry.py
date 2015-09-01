@@ -27,17 +27,19 @@ class CredentialsView(View):
 
 def transform_auth_result(request, result):
     user = request.user
-    login_redirect = settings.LOGIN_REDIRECT_URL
+    redirect_url = settings.LOGIN_REDIRECT_URL
     status_code = 200
     if isinstance(result, UserModel):
         user = result
     elif isinstance(result, HttpResponseRedirectBase):
-        login_redirect = result.url
+        redirect_url = result.url
         if user.is_new:
             status_code = 202
     return HtmlOnlyRedirectSuccessDict({
-        "user": user
-    }).set_redirect(login_redirect), status_code
+        "user": user,
+        "backend": request.backend.name,
+        "redirect": redirect_url,
+    }).set_redirect(redirect_url), status_code
 
 
 # to be mainly accessed by AJAX

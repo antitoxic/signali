@@ -1,1 +1,1 @@
-{% include "security/user.json" with user=user %}
+{% include "user.json" with user=user %}
