@@ -18,7 +18,7 @@ Place the default or your theme in the `themes` directory and set its name as va
  - python3 virtualenv
  - postgres
  - redis
- - image manupulation libraries
+ - image manipulation libraries
 
 ```sh
 # depending on distribution you might want to install 

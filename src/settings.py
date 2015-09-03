@@ -243,6 +243,7 @@ REDACTOR_OPTIONS = {
 REDACTOR_UPLOAD = "redactor/"
 
 CONTACT_USER_CRITERIA_FORM = 'signali_contact.forms.UserCriteriaForm'
+CONTACT_POINT_FORM = 'signali_contact.forms.ContactPointForm'
 
 CONTACT_POINT_MODEL = 'signali_contact.ContactPoint'
 CONTACT_ORGANISATION_MODEL = 'signali_contact.Organisation'
@@ -298,6 +299,8 @@ if not DEBUG:
 PUBLIC_SETTINGS = ['SOCIAL_AUTH_FACEBOOK_KEY', 'SOCIAL_AUTH_FACEBOOK_SCOPE']
 CLASS_SETTINGS = [
     'CONTACT_USER_CRITERIA_FORM',
+    'CONTACT_POINT_FORM',
+    'CONTACT_FEEDBACK_FORM',
 ]
 MODEL_SETTINGS = [
     'CONTACT_POINT_MODEL',

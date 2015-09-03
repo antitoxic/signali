@@ -2,7 +2,7 @@ from django import forms
 from django.db.models import Q
 from .apps import setting
 
-
+ContactPoint = setting("CONTACT_POINT_MODEL")
 Category = setting("CONTACT_CATEGORY_MODEL")
 Keyword = setting("CONTACT_KEYWORD_MODEL")
 Area = setting("CONTACT_AREA_MODEL")
@@ -76,3 +76,59 @@ class BaseUserCriteriaForm(forms.Form):
 
         return filters
 
+
+
+FeedbackModel = setting("CONTACT_FEEDBACK_MODEL")
+
+
+class BaseContactPointForm(forms.ModelForm):
+    class Meta:
+        model = ContactPoint
+        fields = (
+            "title",
+            "url",
+            "category",
+            "notes",
+            "operational_area",
+            # "keywords",
+            "proposed_by",
+            # features:
+            "is_multilingual",
+            "is_response_guaranteed",
+            "is_verifiable",
+            "is_confirmation_issued",
+            "is_mobile_friendly",
+            "is_final_destination",
+            "is_anonymous_allowed",
+            # requirements:
+            "is_registration_required",
+            "is_photo_required",
+            "is_esign_required",
+            "is_name_required",
+            "is_email_required",
+            "is_pic_required",
+            "is_address_required",
+            "is_location_required",
+        )
+        widgets = {
+            'proposed_by': forms.HiddenInput(),
+        }
+
+    force_required = ["title", "url", "category", "notes", "operational_area"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for fieldname in self.fields:
+            if fieldname in self.force_required:
+                self.fields[fieldname].required = True
+
+
+
+def get_contactpoint_from(data=None, initial=None, prefix=None):
+    instance = ContactPoint()
+    FormClass = setting('CONTACT_POINT_FORM', BaseContactPointForm)
+    return FormClass(data=data,
+                     initial=initial,
+                     instance=instance,
+                     prefix=prefix)

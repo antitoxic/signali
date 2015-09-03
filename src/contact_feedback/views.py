@@ -1,12 +1,12 @@
 from restful.decorators import restful_view_templates
 from restful.http import HtmlOnlyRedirectSuccessDict
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
+from security.decorators import security_rule
 
 from django.views.generic.base import View
 from django.utils.translation import ugettext as _
 from django.http import Http404
 
-from security.decorators import security_rule
 from .forms import get_feedbackfrom
 from .apps import setting
 from .signals import post_submit

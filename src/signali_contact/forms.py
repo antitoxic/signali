@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import Q
-from contact.forms import BaseUserCriteriaForm
+from contact.forms import BaseUserCriteriaForm, BaseContactPointForm
 
 class UserCriteriaForm(BaseUserCriteriaForm):
     is_featured = forms.BooleanField(required=False)
@@ -12,4 +12,11 @@ class UserCriteriaForm(BaseUserCriteriaForm):
 
         return filters & Q(is_public=True)
 
+
+class ContactPointForm(BaseContactPointForm):
+    def __init__(self, instance, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if instance is not None:
+            instance.is_public = False
 

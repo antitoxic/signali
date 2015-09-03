@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from accessibility.views.intro import IntroView
 from accessibility.views.page import PageView
-from contact.views import contactpoint
+from contact import views as contactpoint
 from contact_feedback.views import ListView as FeedbackListView
 from signali_notification.views import SubscriberListView
 from django.conf import settings

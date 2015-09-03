@@ -7,6 +7,9 @@ from contact_feedback.models import ContactPointFeedback, ContactPointFeedbacked
 
 
 class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
+    def public_base(self):
+        return super().public_base().exclude(slug=None).exclude(slug="")
+
     def _apply_criteria_sorting(self, queryset, sorting):
         if sorting == 'popularity':
             return queryset.order_by('popularity')

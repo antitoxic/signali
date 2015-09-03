@@ -17,11 +17,16 @@ class VisibilityMixin(models.Model):
 
 
 class VisibilityManagerMixin(object):
-    def popular(self):
-        return self.order_by('popularity', 'is_featured')
+    def public_base(self):
+        return self.filter(is_public=True)
 
-    def featured(self):
-        return self.filter(is_featured=True)
+    def popular(self, is_public=True):
+        base = self.public_base() if is_public else self.all()
+        return base.order_by('popularity', 'is_featured')
+
+    def featured(self, is_public=True):
+        base = self.public_base() if is_public else self.all()
+        return base.filter(is_featured=True)
 
 
 class BasePage(models.Model):
