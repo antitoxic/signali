@@ -40,6 +40,7 @@ class BaseContactPoint(models.Model):
 
     title = models.CharField(_('title'), max_length=250, blank=False)
     slug = models.SlugField(_('slug'), max_length=255, blank=True)
+    url = models.URLField(_('URL'), max_length=255, blank=True)
     description = models.TextField(_('description'), blank=True)
     operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL', noparse=True), related_name="contact_points", verbose_name=_("operational area"))
 

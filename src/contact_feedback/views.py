@@ -43,7 +43,7 @@ class ListView(View):
         if self.form:
             return self.form
         self.form = get_feedbackfrom(contactpoint, request.params, prefix=request.params.get('prefix', None))
-        self.form.is_valid()
+        self.form.is_valid() # no other way to trigger conversion of values to python objects
         return self.form
 
     def _get_contactpoint(self, slug):

@@ -1,0 +1,4 @@
+{% load restful %}{
+  "id": {{subscription.id}},
+  "status": {{ result | jsonify | safe}}
+}
