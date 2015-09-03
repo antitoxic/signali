@@ -12,10 +12,10 @@ def setting(name, default=None, noparse=False):
         site_settings = Setting.objects.all()[:1].get()
         value = getattr(site_settings, name, default)
 
-    if name in settings.MODEL_SETTINGS and not noparse:
+    if name in settings.MODEL_SETTINGS and not noparse and isinstance(value, str):
         value = django_apps.get_model(value)
 
-    if name in settings.CLASS_SETTINGS and not noparse:
+    if name in settings.CLASS_SETTINGS and not noparse and isinstance(value, str):
         module, value = value.rsplit('.', 1)
         module = importlib.import_module(module)
         value = getattr(module, value, default)
