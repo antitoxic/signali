@@ -66,7 +66,7 @@ SOCIAL_AUTH_PIPELINE = (
     # Important note: users created outside social pipeline most likely don't have UserSocialAuth
     # example for common error scenario: manage.py createsuperadmin
     'social.pipeline.social_auth.social_user',
-    # retrieve user of there was no match by social_user
+    # retrieve user if there was no match by social_user
     'security.pipeline.local_user',
     # extracts possible username for backends that might need it
     'social.pipeline.user.get_username',
@@ -79,13 +79,14 @@ SOCIAL_AUTH_PIPELINE = (
     # uncomment the following and the other "checkpoint" pipeline entries
     # to present the user with an option to doublecheck details provided by social auth upon registration
     # 'user.pipeline.signupcheckpoint',
+
     # sends out mail validation for new users
-    'social.pipeline.mail.mail_validation',
-    'social.pipeline.user.create_user',
+    'security.pipeline.create_user',
     'security.pipeline.save_password',
     'social.pipeline.social_auth.associate_user', # creates a social user record
     'social.pipeline.social_auth.load_extra_data', # adds provider metadata like "expire" or "id"
-    'security.pipeline.user_details' # tops up User model fields with what's available in "details" parameter
+    'security.pipeline.user_details', # tops up User model fields with what's available in "details" parameter
+    'security.pipeline.send_email_validation',
 )
 LOGIN_URL = '/user/join/'
 LOGIN_REDIRECT_URL = '/'
@@ -95,7 +96,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH_SCOPE = [
 SOCIAL_AUTH_URL_NAMESPACE = 'security'
 SOCIAL_AUTH_FORM_URL = '/user/join/'
 SOCIAL_AUTH_EMAIL_VALIDATION_FUNCTION = 'user.utils.send_validation'
-SOCIAL_AUTH_EMAIL_VALIDATION_URL = '/security/email-validation/'
+SOCIAL_AUTH_EMAIL_VALIDATION_URL = '/security/email-validation/sent/'
 
 SOCIAL_AUTH_FACEBOOK_KEY = '1623717401196966'
 SOCIAL_AUTH_FACEBOOK_SECRET = env("SOCIAL_AUTH_FACEBOOK_SECRET")
@@ -124,7 +125,10 @@ DEFAULT_FROM_EMAIL = 'info@signali.bg'
 ADMIN_EMAIL = DEFAULT_FROM_EMAIL
 EMAIL_CONNECTION_LABEL_INTERNAL = 'internal'
 EMAIL_CONNECTION_LABEL_PUBLIC = 'public'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = EMAIL_CONNECTIONS['internal']["host"]
 EMAIL_HOST_USER = EMAIL_CONNECTIONS['internal']["username"]
 EMAIL_HOST_PASSWORD = EMAIL_CONNECTIONS['internal']["password"]

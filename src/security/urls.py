@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 from .views import entry
+from .views import email
 
 urlpatterns = patterns('',
     # show a page where the user allows authorization or a page with form where the user enters details
@@ -11,7 +12,9 @@ urlpatterns = patterns('',
     # login and registration
     url(r'^complete/(?P<backend>[^/]+)/$', entry.AuthView.as_view(),
         name='complete'),
-    url(r'^email-validation/$', entry.ValidationSentView.as_view(),
+    url(r'^email-validation/email/sent/$', email.EmailValidationSentView.as_view(),
+        name='email-validation-sent'),
+    url(r'^email-validation/(?P<backend>[^/]+)/$', email.EmailValidationView.as_view(),
         name='email-validation'),
     url(r'^logout/$', entry.LogoutView.as_view(),
         name='logout'),

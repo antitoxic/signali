@@ -93,6 +93,8 @@ class AuthView(View):
             raise failure.by(e).add_error('email', str(e))
         except AuthException as e:
             raise failure.by(e).add_error('auth', str(e))
+        except Exception as e:
+            raise failure.by(e).add_error('auth', str(e))
 
     def post(self, request, *args, **kwargs):
         return self.get(request, *args, **kwargs)
@@ -102,11 +104,3 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('home')
-
-
-@restful_view_templates
-class ValidationSentView(View):
-    def get(self, request):
-        return {
-            'email': request.session.get('email_validation_address')
-        }

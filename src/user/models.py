@@ -9,6 +9,13 @@ def user_file_name(instance, filename):
 
 class User(AbstractUser):
     avatar = models.ImageField(_('avatar'), upload_to=user_file_name, blank=True, null=True)
+    is_email_validated = models.BooleanField(_('Is email validated'), default=True,
+        help_text=_('Designates whether this user has validated '
+                    'their email.'))
+
+    @property
+    def is_valid(self):
+        return self.is_active and self.is_email_validated
 
     def get_avatar(self, uid=None):
         if self.avatar:

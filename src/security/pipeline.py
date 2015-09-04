@@ -1,7 +1,11 @@
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, REDIRECT_FIELD_NAME
+from django.core.urlresolvers import reverse
+
 
 from social.backends.legacy import LegacyAuth
+from social.pipeline.user import USER_FIELDS
+
 
 from .exceptions import WrongPasswordAuthException, UserExistsAuthException, UserDoesNotExistAuthException
 from .forms import SetPasswordForm
@@ -88,4 +92,40 @@ def user_details(strategy, details, social, user=None, *args, **kwargs):
 
         if changed:
             strategy.storage.user.changed(user)
+
+
+# fork of : python social auth pipeline with the same name: social/pipeline/user.py
+def create_user(strategy, backend, details, is_new, user=None, *args, **kwargs):
+    if user:
+        return {'is_new': False}
+
+    fields = dict((name, kwargs.get(name) or details.get(name))
+                  for name in strategy.setting('USER_FIELDS',
+                                               USER_FIELDS))
+    if not fields:
+        return
+
+    requires_validation = backend.REQUIRES_EMAIL_VALIDATION or \
+                          backend.setting('FORCE_EMAIL_VALIDATION', False)
+    if is_new and requires_validation:
+        fields["is_email_validated"] = False
+    return {
+        'is_new': True,
+        'user': strategy.create_user(**fields)
+    }
+
+
+
+def send_email_validation(backend, details, user=None, *args, **kwargs):
+    requires_validation = backend.REQUIRES_EMAIL_VALIDATION or \
+                          backend.setting('FORCE_EMAIL_VALIDATION', False) or \
+                          not user.is_email_validated
+
+    send_validation = bool(details.get('email'))
+    if requires_validation and send_validation:
+        backend.strategy.session_set('email_validation_address', details.get('email'))
+        backend.strategy.session_set(REDIRECT_FIELD_NAME,
+                                     reverse('security:email-validation-sent'))
+        backend.strategy.send_email_validation(backend, details['email'])
+
 

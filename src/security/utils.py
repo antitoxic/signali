@@ -7,7 +7,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 def get_validation_url(strategy, backend, code):
     return strategy.build_absolute_uri(
-        reverse('security:complete', args=(backend.name,))
+        reverse('security:email-validation', args=(backend.name,))
     ) + '?verification_code=' + code.code
 
 
