@@ -1,8 +1,12 @@
 from django.shortcuts import redirect
+from django.utils.translation import ugettext_lazy as _
 
 from social.pipeline.partial import partial
-from social.backends.email import EmailAuth
-from social.backends.username import UsernameAuth
+from social.exceptions import AuthException
+from social.backends.legacy import LegacyAuth
+
+from .forms import SignUpCheckpointForm
+
 
 @partial
 def signupcheckpoint(strategy, details, is_new=False, *args, **kwargs):
@@ -17,6 +21,14 @@ def signupcheckpoint(strategy, details, is_new=False, *args, **kwargs):
         return redirect('user:signup-checkpoint')
 
 
-def save_checkpoint_changes(is_new=False, *args, **kwargs):
-    if not is_new:
+def parse_user_data(backend, details, social, *args, **kwargs):
+    if not (isinstance(backend, LegacyAuth) and social is None):
         return
+
+    form = SignUpCheckpointForm(data=details)
+    if not form.is_valid():
+        raise AuthException(_("Invalid data provided"))
+    details.update(form.cleaned_data)
+    return {
+        "details": details
+    }

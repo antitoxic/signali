@@ -131,7 +131,6 @@ class ProfileView(View):
         except:
             failure.add_error('Problems with the database')
 
-
         return HtmlOnlyRedirectSuccessDict({
             "result": _("Successfully updated profile")
         }).set_redirect('user:profile', pk=pk)

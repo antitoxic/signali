@@ -11,6 +11,11 @@ class SignUpCheckpointForm(forms.Form):
     fullname = forms.CharField(required=True)
     email = forms.EmailField(required=True)
 
+    def clean(self):
+        data = self.cleaned_data
+        data['first_name'], data['last_name'] = data['fullname'].strip().split(' ', 1)
+        return data
+
 class ProfileUpdateForm(SignUpCheckpointForm, SetPasswordForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

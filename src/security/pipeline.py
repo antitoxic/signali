@@ -70,9 +70,9 @@ def refuse_missing_user_on_login(backend, social, strategy, *args, **kwargs):
 
 
 # fork of : python social auth pipeline with the same name: social/pipeline/user.py
-def user_details(strategy, details, social, user=None, *args, **kwargs):
+def user_details(strategy, details, is_new, user=None, *args, **kwargs):
     """Fill missing user details using data from current provider."""
-    if user and not social:
+    if user and is_new:
         changed = False  # flag to track changes
         protected = ('username', 'id', 'pk', 'email') + \
             tuple(strategy.setting('PROTECTED_USER_FIELDS', []))

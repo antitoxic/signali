@@ -79,13 +79,14 @@ SOCIAL_AUTH_PIPELINE = (
     # uncomment the following and the other "checkpoint" pipeline entries
     # to present the user with an option to doublecheck details provided by social auth upon registration
     # 'user.pipeline.signupcheckpoint',
-
-    # sends out mail validation for new users
+    # validates user data and update `details` keyword argument
+    'user.pipeline.parse_user_data',
     'security.pipeline.create_user',
     'security.pipeline.save_password',
     'social.pipeline.social_auth.associate_user', # creates a social user record
     'social.pipeline.social_auth.load_extra_data', # adds provider metadata like "expire" or "id"
     'security.pipeline.user_details', # tops up User model fields with what's available in "details" parameter
+    # sends out mail validation for new users
     'security.pipeline.send_email_validation',
 )
 LOGIN_URL = '/user/join/'
