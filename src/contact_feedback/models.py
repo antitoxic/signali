@@ -30,7 +30,7 @@ class ContactPointFeedback(models.Model):
         (4, _('Good')),
         (5, _('Excellent')),
     )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="feedback_given", verbose_name=_("User"))
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="feedback_given", verbose_name=_("user"))
     added_at = models.DateTimeField(_('Added at'), default=timezone.now)
     is_effective = models.BooleanField(_("Are you happy with the results of your contact?"), default=False)
     is_easy = models.BooleanField(_("Was it easy to operate with the contact point?"), default=False)

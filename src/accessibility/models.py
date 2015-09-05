@@ -34,7 +34,7 @@ class BasePage(models.Model):
         abstract = True
         verbose_name = _('page')
         verbose_name_plural = _('pages')
-    title = models.CharField(_('Title'), max_length=255)
+    title = models.CharField(_('title'), max_length=255)
     slug = models.SlugField(_('URL part'), max_length=255)
     contents = RedactorField(verbose_name=_('Content'))
     created_at = models.DateTimeField(_('Added at'), default=timezone.now)

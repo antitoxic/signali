@@ -23,6 +23,9 @@ from django.utils.translation import ugettext_lazy as _
 PROJECT_ROOT = os.path.realpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '../'))
 ENV_ROOT = os.path.realpath(os.path.join(PROJECT_ROOT, 'env'))
 THEMES_ROOT = os.path.realpath(env('THEMES_ROOT', os.path.join(PROJECT_ROOT, 'themes')))
+LOCALE_PATHS = (
+    os.path.join(PROJECT_ROOT, 'src/locale'),
+)
 
 # load .env file if existing
 PROJECT_ENV_FILE = env('PROJECT_ENV_FILE', os.path.join(ENV_ROOT, '.django'))
@@ -148,7 +151,7 @@ STATICFILES_DIRS = [THEME_STATIC_DIR,]
 # Application definition
 INSTALLED_APPS = (
     'suit',
-    'django.contrib.admin',
+    'signali.apps.SignaliAdminConfig',
     'adminextra',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -176,6 +179,7 @@ INSTALLED_APPS = (
     'signali_taxonomy',
     'signali',
     'themes.'+THEME+'.widgets',
+    'django_bootstrap_datetimepicker',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -276,30 +280,56 @@ CACHEOPS = {}
 # http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html#thumbnail-dummy
 
 # Admin menu config
-if not DEBUG:
-    SUIT_CONFIG = {
-        'SEARCH_URL': '',
-        'ADMIN_NAME': 'Signali.bg',
-        'MENU': (
-            {
-                'label': _('Contact points'),
-                'icon': 'icon-star',
-                'models': (
-                    {'model': 'contact.contactpoint', 'label': _('Contact points')},
-                    {'model': 'contact.organisation', 'label': _('Organisations')},
-                    {'model': 'contact.contactpointrequirement', 'label': _('Contact point requirements')},
-                )
-            },
-            {
-                'label': _('System'),
-                'icon': 'icon-barcode',
-                'models': (
-                    {'model': 'signali.setting', 'label': _('Settings')},
-                    {'model': AUTH_USER_MODEL.lower(), 'label': _('users')},
-                )
-            },
-        )
-    }
+SUIT_CONFIG = {
+    'SEARCH_URL': '',
+    'ADMIN_NAME': 'signali.bg',
+    'MENU': (
+        {
+            'label': _('main content'),
+            'icon': 'icon-star',
+            'models': (
+                {'model': 'signali_contact.contactpoint', 'label': _('contact points')},
+                {'model': 'signali_contact.organisation', 'label': _('organisations')},
+                {'model': 'signali_accessibility.page', 'label': _('pages')},
+                {'model': 'signali_location.area', 'label': _('areas')},
+            )
+        },
+        {
+            'label': _('users'),
+            'icon': 'icon-user',
+            'models': (
+                {'model': AUTH_USER_MODEL.lower(), 'label': _('registered')},
+                {'model': 'signali_notification.subscriber', 'label': _('subscribers')},
+            )
+        },
+        {
+            'label': _('taxonomy'),
+            'icon': 'icon-tags',
+            'models': (
+                {'model': 'signali_taxonomy.category', 'label': _('categories')},
+                {'model': 'signali_taxonomy.keyword', 'label': _('keywords')},
+            )
+        },
+        {
+            'label': _('settings'),
+            'icon': 'icon-cog',
+            'models': (
+                {'model': 'signali.setting', 'label': _('settings')},
+                {'model': 'signali_location.areasize', 'label': _('areas sizes')},
+            )
+        },
+        {
+            'label': _('troubleshoot'),
+            'icon': 'icon-barcode',
+            'models': (
+                {'model': 'default.association', 'label': _('user associations')},
+                {'model': 'default.nonce', 'label': _('user nonce records')},
+                {'model': 'default.usersocialauth', 'label': _('user social auth')},
+                {'model': 'auth.group', 'label': _('user groups')},
+            )
+        },
+    )
+}
 
 PUBLIC_SETTINGS = ['SOCIAL_AUTH_FACEBOOK_KEY', 'SOCIAL_AUTH_FACEBOOK_SCOPE']
 CLASS_SETTINGS = [

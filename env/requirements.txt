@@ -18,3 +18,4 @@ redis==2.10.3
 sorl-thumbnail==12.3
 django-cacheops==2.4
 bleach==1.4.1
+-e git+https://github.com/antitoxic/django-bootstrap-datetimepicker.git#egg=django-bootstrap-datetimepicker

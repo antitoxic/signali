@@ -84,7 +84,10 @@ fab debloy:live,static # or fab deploy:live
 
 from your local install.
 
-## Dev hints
+## Dev notes
+
+It's recommended to have `pyinotify` installed on your system for more performant dev server reloading
+
 
 ### Architecture decisions
 
