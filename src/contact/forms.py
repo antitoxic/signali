@@ -34,11 +34,11 @@ class BaseUserCriteriaForm(forms.Form):
                 cleaned_data[name] = self.fields[name].initial
         return cleaned_data
 
-    def get_instance_fieldname(self, instance):
+    def get_instance_html_name(self, instance):
         if isinstance(instance, Category):
-            return 'categories'
+            return self["categories"].html_name
         if isinstance(instance, Keyword):
-            return 'keywords'
+            return self["keywords"].html_name
 
     def get_sorting(self):
         return self.cleaned_data['sorting']
@@ -88,7 +88,6 @@ class BaseUserCriteriaForm(forms.Form):
         return score, filters
 
 
-FeedbackModel = setting("CONTACT_FEEDBACK_MODEL")
 
 
 class BaseContactPointForm(forms.ModelForm):

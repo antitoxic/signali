@@ -36,10 +36,11 @@ class ListView(View):
 
     def get(self, request):
         failure = VerboseHtmlOnlyRedirectException().set_redirect('contact-point-list')
-        form = UserCriteriaFormClass(data=request.params)
+        prefix = request.params.get('prefix', '')
+        form = UserCriteriaFormClass(data=request.params, prefix=prefix)
 
         if not form.is_valid():
-            raise failure.add_error('form', form.errors)
+            raise failure.add_error(prefix+'form', form.errors)
 
         score, filters = form.to_search_expressions()
         points = ContactPointModel.objects.apply_criteria(score, filters, form.get_sorting())
