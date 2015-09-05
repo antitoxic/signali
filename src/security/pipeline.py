@@ -118,10 +118,9 @@ def create_user(strategy, backend, details, is_new, user=None, *args, **kwargs):
 
 def send_email_validation(backend, details, user=None, *args, **kwargs):
     requires_validation = backend.REQUIRES_EMAIL_VALIDATION or \
-                          backend.setting('FORCE_EMAIL_VALIDATION', False) or \
-                          not user.is_email_validated
+                          backend.setting('FORCE_EMAIL_VALIDATION', False)
 
-    send_validation = bool(details.get('email'))
+    send_validation = bool(details.get('email')) and not user.is_email_validated
     if requires_validation and send_validation:
         backend.strategy.session_set('email_validation_address', details.get('email'))
         backend.strategy.session_set(REDIRECT_FIELD_NAME,

@@ -84,6 +84,7 @@ SOCIAL_AUTH_PIPELINE = (
     # 'user.pipeline.signupcheckpoint',
     # validates user data and update `details` keyword argument
     'user.pipeline.parse_user_data',
+    'social.pipeline.social_auth.associate_by_email', # associate with other user
     'security.pipeline.create_user',
     'security.pipeline.save_password',
     'social.pipeline.social_auth.associate_user', # creates a social user record
@@ -197,7 +198,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    # 'restful.error_handler.ErrorHandler',
+    'restful.error_handler.ErrorHandler',
     'restful.middleware.TemplateExtensionByAcceptedType',
 )
 

@@ -34,6 +34,6 @@ class ContactPointFeedback(models.Model):
     added_at = models.DateTimeField(_('Added at'), default=timezone.now)
     is_effective = models.BooleanField(_("Are you happy with the results of your contact?"), default=False)
     is_easy = models.BooleanField(_("Was it easy to operate with the contact point?"), default=False)
-    rating = models.PositiveIntegerField(verbose_name=_("Overall rating"), choices=PERFORMANCE_CHOICES, max_length=2, blank=False, null=True)
+    rating = models.PositiveIntegerField(verbose_name=_("Overall rating"), choices=PERFORMANCE_CHOICES, blank=False, null=True)
     comment = models.TextField(_('description'), null=True, blank=True)
     contactpoint = models.ForeignKey(setting('CONTACT_POINT_MODEL', noparse=True), related_name='feedback')

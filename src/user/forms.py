@@ -13,7 +13,11 @@ class SignUpCheckpointForm(forms.Form):
 
     def clean(self):
         data = self.cleaned_data
-        data['first_name'], data['last_name'] = data['fullname'].strip().split(' ', 1)
+        try:
+            data['first_name'], data['last_name'] = data['fullname'].strip().split(' ', 1)
+        except:
+            data['first_name'] = data['fullname']
+            data['last_name'] = ''
         return data
 
 class ProfileUpdateForm(SignUpCheckpointForm, SetPasswordForm):
