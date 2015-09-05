@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-05 10:40+0300\n"
+"POT-Creation-Date: 2015-09-05 17:03+0300\n"
 "Last-Translator: Obshtestvo.bg <info@obshtestvo.bg>\n"
 "Language-Team: Obshtestvo.bg <info@obshtestvo.bg>\n"
 "Language: bg\n"
@@ -16,6 +16,2125 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: env/django18/lib/python3.4/site-packages/django/contrib/messages/apps.py:7
+#, fuzzy
+#| msgid "pages"
+msgid "Messages"
+msgstr "страници"
+
+#: env/django18/lib/python3.4/site-packages/django/contrib/sitemaps/apps.py:7
+msgid "Site Maps"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/contrib/staticfiles/apps.py:7
+msgid "Static Files"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/contrib/syndication/apps.py:7
+#, fuzzy
+#| msgid "organisation"
+msgid "Syndication"
+msgstr "организация"
+
+#: env/django18/lib/python3.4/site-packages/django/contrib/webdesign/apps.py:7
+msgid "Web Design"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:20
+msgid "Enter a valid value."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:87
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:712
+msgid "Enter a valid URL."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:130
+msgid "Enter a valid integer."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:141
+msgid "Enter a valid email address."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:215
+msgid ""
+"Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:220
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:239
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:225
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:240
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:235
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:238
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:263
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1144
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:272
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:298
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:305
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:314
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/core/validators.py:325
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/base.py:1130
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:722
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:19
+msgid "and"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/base.py:1132
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:107
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:108
+msgid "This field cannot be null."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:109
+msgid "This field cannot be blank."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:110
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or 'month'.
+#. Eg: "Title must be unique for pub_date year"
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:114
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:132
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:922
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1832
+msgid "Integer"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:926
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1830
+#, python-format
+msgid "'%(value)s' value must be an integer."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1001
+#, python-format
+msgid "'%(value)s' value must be either True or False."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1003
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1078
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1139
+msgid "Comma-separated integers"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1188
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1190
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1340
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1193
+msgid "Date (without time)"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1338
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1342
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1346
+msgid "Date (with time)"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1498
+#, python-format
+msgid "'%(value)s' value must be a decimal number."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1500
+msgid "Decimal number"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1651
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in [DD] [HH:[MM:]]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1654
+#, fuzzy
+#| msgid "organisation"
+msgid "Duration"
+msgstr "организация"
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1705
+#, fuzzy
+#| msgid "required address"
+msgid "Email address"
+msgstr "изисква адрес"
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1729
+msgid "File path"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1796
+#, python-format
+msgid "'%(value)s' value must be a float."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1798
+msgid "Floating point number"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1899
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1914
+msgid "IPv4 address"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:1950
+#, fuzzy
+#| msgid "required address"
+msgid "IP address"
+msgstr "изисква адрес"
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2029
+#, python-format
+msgid "'%(value)s' value must be either None, True or False."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2031
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2091
+msgid "Positive integer"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2103
+msgid "Positive small integer"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2116
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2145
+msgid "Small integer"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2152
+msgid "Text"
+msgstr "текст"
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2175
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2177
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2180
+msgid "Time"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2308
+#: src/contact/models.py:44
+msgid "URL"
+msgstr "Адрес"
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2331
+msgid "Raw binary data"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2375
+#, python-format
+msgid "'%(value)s' is not a valid UUID."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/files.py:239
+msgid "File"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/files.py:389
+msgid "Image"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/related.py:1802
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/related.py:1804
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/related.py:2034
+msgid "One-to-one relationship"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/db/models/fields/related.py:2124
+msgid "Many-to-many relationship"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:64
+msgid "This field is required."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:237
+msgid "Enter a whole number."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:280
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:317
+msgid "Enter a number."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:319
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:323
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:327
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:438
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:1193
+msgid "Enter a valid date."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:462
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:1194
+msgid "Enter a valid time."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:484
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:525
+msgid "Enter a valid duration."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:591
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:592
+msgid "No file was submitted."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:593
+msgid "The submitted file is empty."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:595
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:598
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:660
+#: env/django18/lib/python3.4/site-packages/sorl/thumbnail/fields.py:52
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:827
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:921
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:1238
+#: env/django18/src/django-select2/django_select2/fields.py:528
+#: env/django18/src/django-select2/django_select2/fields.py:611
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:922
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:1037
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:1237
+#: env/django18/src/django-select2/django_select2/fields.py:612
+msgid "Enter a list of values."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:1038
+msgid "Enter a complete value."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/fields.py:1264
+msgid "Enter a valid UUID."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: env/django18/lib/python3.4/site-packages/django/forms/forms.py:129
+msgid ":"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/forms.py:214
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: env/django18/lib/python3.4/site-packages/django/forms/forms.py:659
+msgid ":?.!"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/formsets.py:96
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/formsets.py:333
+#, python-format
+msgid "Please submit %d or fewer forms."
+msgid_plural "Please submit %d or fewer forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/formsets.py:340
+#, python-format
+msgid "Please submit %d or more forms."
+msgid_plural "Please submit %d or more forms."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/formsets.py:368
+#: env/django18/lib/python3.4/site-packages/django/forms/formsets.py:370
+msgid "Order"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/formsets.py:372
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_confirmation.html:18
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_confirmation.html:49
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:42
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:69
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/page_submit_line.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/submit_line.html:8
+msgid "Delete"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:716
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:720
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:726
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:734
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:1057
+msgid "The inline foreign key did not match the parent instance primary key."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:1123
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/models.py:1240
+#, python-format
+msgid "\"%(pk)s\" is not a valid value for a primary key."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/utils.py:165
+#, python-format
+msgid ""
+"%(datetime)s couldn't be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:345
+msgid "Currently"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:346
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:24
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:86
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:27
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:43
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:26
+msgid "Change"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:347
+msgid "Clear"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:555
+msgid "Unknown"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:556
+#: src/contact/models.py:37
+msgid "Yes"
+msgstr "Да"
+
+#: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:557
+#: src/contact/models.py:38
+msgid "No"
+msgstr "Не"
+
+#: env/django18/lib/python3.4/site-packages/django/template/defaultfilters.py:865
+msgid "yes,no,maybe"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/template/defaultfilters.py:894
+#: env/django18/lib/python3.4/site-packages/django/template/defaultfilters.py:906
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/template/defaultfilters.py:908
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/template/defaultfilters.py:910
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/template/defaultfilters.py:912
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/template/defaultfilters.py:914
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/template/defaultfilters.py:916
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dateformat.py:61
+msgid "p.m."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dateformat.py:62
+msgid "a.m."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dateformat.py:67
+msgid "PM"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dateformat.py:68
+msgid "AM"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dateformat.py:151
+msgid "midnight"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dateformat.py:153
+msgid "noon"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Monday"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Tuesday"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Wednesday"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Thursday"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:6
+msgid "Friday"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:7
+msgid "Saturday"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:7
+msgid "Sunday"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Mon"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Tue"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Wed"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Thu"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:10
+msgid "Fri"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:11
+msgid "Sat"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:11
+msgid "Sun"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "January"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "February"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "March"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "April"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "May"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:18
+msgid "June"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "July"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "August"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "September"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "October"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:19
+msgid "November"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:20
+msgid "December"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "jan"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "feb"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "mar"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "apr"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "may"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:23
+msgid "jun"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "jul"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "aug"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "sep"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "oct"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "nov"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:24
+msgid "dec"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:31
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:32
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:33
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:34
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:35
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:36
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:37
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:38
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:39
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:40
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:41
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:42
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:45
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:46
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:47
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:48
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:49
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:50
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:51
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:52
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:53
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:54
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:55
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/dates.py:56
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/ipv6.py:10
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/text.py:79
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s..."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/text.py:248
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: env/django18/lib/python3.4/site-packages/django/utils/text.py:267
+#: env/django18/lib/python3.4/site-packages/django/utils/timesince.py:58
+msgid ", "
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/timesince.py:10
+#, python-format
+msgid "%d year"
+msgid_plural "%d years"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/timesince.py:11
+#, python-format
+msgid "%d month"
+msgid_plural "%d months"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/timesince.py:12
+#, python-format
+msgid "%d week"
+msgid_plural "%d weeks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/timesince.py:13
+#, python-format
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/timesince.py:14
+#, python-format
+msgid "%d hour"
+msgid_plural "%d hours"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/timesince.py:15
+#, python-format
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/django/utils/timesince.py:47
+msgid "0 minutes"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/csrf.py:107
+msgid "Forbidden"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/csrf.py:108
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/csrf.py:112
+msgid ""
+"You are seeing this message because this HTTPS site requires a 'Referer "
+"header' to be sent by your Web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/csrf.py:117
+msgid ""
+"If you have configured your browser to disable 'Referer' headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for 'same-"
+"origin' requests."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/csrf.py:122
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/csrf.py:127
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for 'same-origin' requests."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/csrf.py:132
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/debug.py:583
+msgid "Welcome to Django"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/debug.py:584
+msgid "It worked!"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/debug.py:585
+msgid "Congratulations on your first Django-powered page."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/debug.py:586
+msgid ""
+"Of course, you haven't actually done any work yet. Next, start your first "
+"app by running <code>python manage.py startapp [app_label]</code>."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/debug.py:588
+msgid ""
+"You're seeing this message because you have <code>DEBUG = True</code> in "
+"your Django settings file and you haven't configured any URLs. Get to work!"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/dates.py:48
+msgid "No year specified"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/dates.py:104
+msgid "No month specified"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/dates.py:163
+msgid "No day specified"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/dates.py:219
+msgid "No week specified"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/dates.py:378
+#: env/django18/lib/python3.4/site-packages/django/views/generic/dates.py:406
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/dates.py:660
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/dates.py:694
+#, python-format
+msgid "Invalid date string '%(datestr)s' given format '%(format)s'"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/detail.py:55
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/list.py:76
+msgid "Page is not 'last', nor can it be converted to an int."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/list.py:81
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/generic/list.py:172
+#, python-format
+msgid "Empty list and '%(class_name)s.allow_empty' is False."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/static.py:58
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/static.py:60
+#, python-format
+msgid "\"%(path)s\" does not exist"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/django/views/static.py:100
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/redactor/views.py:42
+msgid ""
+"ImproperlyConfigured: Neither Pillow nor PIL could be imported: No module "
+"named 'Image'"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/redactor/views.py:55
+msgid "Invalid file."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/sorl/thumbnail/admin/compat.py:61
+msgid "Clear image"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/403.html:4
+msgid "forbidden"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/403.html:6
+#: env/django18/lib/python3.4/site-packages/suit/templates/404.html:6
+#: env/django18/lib/python3.4/site-packages/suit/templates/500.html:6
+#: env/django18/lib/python3.4/site-packages/suit/templates/suit/error_base.html:76
+msgid "error"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/403.html:9
+msgid "We're sorry, but the requested action is forbidden"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/404.html:4
+msgid "Page not found"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/404.html:9
+msgid "We're sorry, but the requested page could not be found."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/500.html:4
+msgid "Server Error"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/500.html:9
+msgid ""
+"There's been an error. It's been reported to the site administrators via e-"
+"mail and should be fixed shortly. Thanks for your patience."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/actions.html:14
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/actions.html:5
+msgid "Run the selected action"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/actions.html:14
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/actions.html:5
+#, fuzzy
+#| msgid "Good"
+msgid "Go"
+msgstr "Добро"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/actions.html:22
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/actions.html:14
+msgid "Click here to select the objects across all pages"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/actions.html:23
+#, python-format
+msgid ""
+"Select all %(total_count)s\n"
+"                    %(module_name)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/actions.html:26
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/actions.html:16
+msgid "Clear selection"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/app_index.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:19
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:99
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:61
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list.html:42
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:46
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:82
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_confirmation.html:7
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_selected_confirmation.html:7
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/breadcrumbs.html:5
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/base.html:10
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/object_history.html:7
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/logged_out.html:6
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:26
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/recover_form.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/recover_list.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/revision_form.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/suit/menu.html:10
+msgid "Home"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/app_index.html:11
+#, python-format
+msgid "%(name)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/add_form.html:6
+msgid ""
+"First, enter a username and password. Then, you'll be able to edit more user "
+"options."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/add_form.html:8
+msgid "Enter a username and password."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:32
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:75
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:77
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:19
+#, fuzzy
+#| msgid "New password"
+msgid "Change password"
+msgstr "Нова парола"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:45
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:140
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list.html:86
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:137
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:99
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/new_folder_form.html:10
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/login.html:27
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:44
+msgid "Please correct the error below."
+msgid_plural " Please correct the errors below."
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:48
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:54
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/login.html:48
+#, fuzzy
+#| msgid "New password"
+msgid "Password"
+msgstr "Нова парола"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:64
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:77
+msgid "Password (again)"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:68
+msgid "Enter the same password as above, for verification."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:66
+msgid "Welcome,"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:74
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:15
+msgid "Documentation"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:79
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:21
+msgid "Log out"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:21
+msgid "You have unsaved changes"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:50
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:76
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:53
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:85
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:34
+msgid "Add"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:98
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/image/change_form.html:7
+msgid "tools"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:102
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:105
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:33
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/image/change_form.html:10
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/object_history.html:15
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/revision_form.html:16
+msgid "History"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:106
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:104
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:9
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:37
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/image/change_form.html:15
+msgid "View on site"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:112
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list.html:68
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list.html:116
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:108
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:113
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:141
+#, python-format
+msgid "Add %(name)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list.html:110
+msgid "Nothing found"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list.html:112
+msgid "Reset search and filters"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list.html:114
+#, python-format
+msgid "%(name_plural)s are not created yet"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list_results.html:19
+#, python-format
+msgid "Sorting priority: %(priority_number)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list_results.html:20
+msgid "Toggle sorting"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list_results.html:22
+msgid "Remove from sorting"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:4
+msgid "Change a page"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:64
+msgid "Confirm delete"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:65
+msgid "Remove delete request"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:68
+msgid "Confirm page deletion"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:93
+#, fuzzy
+#| msgid "organisations"
+msgid "actions"
+msgstr "организации"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:97
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:78
+msgid "Publish"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:97
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:98
+msgid "draft"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:98
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:51
+#, fuzzy
+#| msgid "preview"
+msgid "Preview"
+msgstr "Основна снимка"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:100
+msgid "Revert to public"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:157
+msgid "All permissions"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:158
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:169
+msgid "Loading..."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:168
+msgid "Page states"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:3
+msgid "List of pages"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:69
+#, fuzzy
+#| msgid "Successfully gave feedback"
+msgid "Successfully moved"
+msgstr "Успешно дадохте оценка"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:87
+msgid "An error occured. Please reload the page"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:110
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/change_list.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/recover_form.html:14
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/recover_list.html:14
+#, python-format
+msgid "Recover deleted %(name)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_list.html:125
+msgid "Pages on:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:128
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/new_folder_form.html:43
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/page_submit_line.html:3
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/pagination.html:4
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/submit_line.html:3
+msgid "Save"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/plugin_change_form.html:129
+msgid "Cancel"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_confirmation.html:26
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/delete_confirmation.html:12
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would result in deleting "
+"related objects, but your account doesn't have permission to delete the "
+"following types of objects:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_confirmation.html:36
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/delete_confirmation.html:21
+#, python-format
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s' would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_confirmation.html:51
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/delete_confirmation.html:31
+#, python-format
+msgid ""
+"Are you sure you want to delete the %(object_name)s \"%(escaped_object)s\"? "
+"All of the following related items will be deleted:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_confirmation.html:57
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_selected_confirmation.html:61
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/delete_confirmation.html:36
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/delete_selected_files_confirmation.html:47
+msgid "Yes, I'm sure"
+msgstr "Потвърждавам"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_selected_confirmation.html:15
+msgid "Delete multiple objects"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_selected_confirmation.html:23
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_selected_confirmation.html:33
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require deleting the following "
+"protected related objects:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_selected_confirmation.html:51
+msgid "Confirm deletion"
+msgstr "Потвърдете изтриването"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/delete_selected_confirmation.html:54
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+"Следва изтриване на избраните %(objects_name)s. Заедно с тях ще бъдат "
+"изтрити и следните свързани с тях записи:"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:67
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:120
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:70
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:123
+msgid "Remove"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:17
+msgid "Delete?"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/actions.html:14
+#, python-format
+msgid "Select all %(total_count)s files and/or folders"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/breadcrumbs.html:5
+msgid "Go back to admin homepage"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/breadcrumbs.html:8
+msgid "Go back to Filer app"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/breadcrumbs.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:12
+msgid "Filer"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/breadcrumbs.html:12
+msgid "Go back to root folder"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/breadcrumbs.html:12
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:15
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:80
+msgid "root"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/breadcrumbs.html:17
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/breadcrumbs.html:23
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:19
+#, python-format
+msgid "Go back to '%(folder_name)s' folder"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/change_form.html:30
+msgid "duplicates"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/delete_selected_files_confirmation.html:11
+msgid ""
+"Deleting the selected files and/or folders would result in deleting related "
+"objects, but your account doesn't have permission to delete the following "
+"types of objects:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/delete_selected_files_confirmation.html:20
+msgid ""
+"Deleting the selected files and/or folders would require deleting the "
+"following protected related objects:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/delete_selected_files_confirmation.html:30
+msgid ""
+"<p>Are you sure you want to delete the selected files and/or folders? All of "
+"the following objects and their related items will be deleted:</p>"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:8
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:12
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:15
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:80
+msgid "Go back to"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:8
+msgid "admin homepage"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:15
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:80
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/new_folder_form.html:4
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:15
+msgid "folder"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:50
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:81
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:91
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:23
+msgid "Folder Icon"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:12
+msgid ""
+"Your account doesn't have permissions to copy all of the selected files and/"
+"or folders."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:15
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:15
+msgid "There are no destination folders available."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:18
+msgid "There are no files and/or folders available to copy."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:21
+msgid ""
+"The following files and/or folders will be copied to a destination folder "
+"(retaining their tree structure):"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:31
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:32
+msgid "Destination folder:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_copy_destination.html:38
+msgid "Copy"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:12
+msgid ""
+"Your account doesn't have permissions to resize all of the selected images."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:15
+msgid "There are no images available to resize."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:18
+msgid "The following images will be resized:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:29
+msgid "Choose an existing thumbnail option or enter resize parameters:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:32
+msgid "Choose resize parameters:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:35
+msgid ""
+"Warning: Images will be resized in-place and originals will be lost. Maybe "
+"first make a copy of them to retain the originals."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_images_resize_options.html:36
+#, fuzzy
+#| msgid "size"
+msgid "Resize"
+msgstr "вид"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:12
+msgid ""
+"Your account doesn't have permissions to move all of the selected files and/"
+"or folders."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:18
+msgid "There are no files and/or folders available to move."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:21
+msgid ""
+"The following files and/or folders will be moved to a destination folder "
+"(retaining their tree structure):"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_move_destination.html:38
+msgid "Move"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_rename_format.html:12
+msgid ""
+"Your account doesn't have permissions to rename all of the selected files."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_rename_format.html:15
+msgid "There are no files available to rename."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_rename_format.html:18
+msgid ""
+"The following files will be renamed (they will stay in their folders and "
+"keep original filename, only displayed filename will be changed):"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/choose_rename_format.html:31
+msgid "Rename"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:71
+msgid "Adds a new Folder"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:71
+msgid "New Folder"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:72
+msgid "upload files"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:72
+msgid "Upload"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:80
+msgid "Go back to the parent folder"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:82
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:30
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:19
+#, python-format
+msgid "1 folder"
+msgid_plural "%(counter)s folders"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:82
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:30
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:20
+#, python-format
+msgid "1 file"
+msgid_plural "%(counter)s files"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:86
+msgid "Change current folder details"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:13
+msgid "Name"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:23
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:27
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:29
+#, python-format
+msgid "Change '%(item_label)s' folder details"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:30
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:45
+msgid "Owner"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:37
+msgid "Select this file"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:39
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:43
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:44
+#, python-format
+msgid "Change '%(item_label)s' details"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:42
+#, python-format
+msgid "Delete '%(item_label)s'"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:45
+msgid "Permissions"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:45
+msgid "disabled"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:45
+msgid "enabled"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:49
+msgid "Move to clipboard"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:57
+msgid "there are no files or subfolders"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:64
+#, fuzzy
+#| msgid "preview"
+msgid "previous"
+msgstr "Основна снимка"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:68
+#, python-format
+msgid ""
+"\n"
+"            Page %(number)s of %(num_pages)s\n"
+"            "
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:74
+msgid "next"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/new_folder_form.html:4
+msgid "Add new"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/image/change_form.html:31
+msgid "Full size preview"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:4
+msgid "Clipboard"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:15
+msgid "discard"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:15
+msgid "Move all clipboard files to"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:15
+msgid "unfiled files"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:24
+msgid "Paste all items here"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard.html:63
+msgid "the clipboard is empty"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/clipboard/clipboard_item_rows.html:10
+msgid "upload failed"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:11
+msgid "Enter your search phrase here"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:12
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/search_form.html:26
+msgid "Search"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:12
+msgid "Click here to"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:12
+msgid "run search for entered phrase"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:15
+msgid "Check it to"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:15
+msgid "limit the search to current folder"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:19
+msgid "found"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/tools/search_form.html:20
+msgid "cancel search"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/change_list_export.html:5
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/change_list_import_export.html:6
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/export.html:5
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/export.html:12
+msgid "Export"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/change_list_import.html:5
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/change_list_import_export.html:5
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:6
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:25
+msgid "Import"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:17
+msgid "This importer will import the following fields: "
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:34
+msgid "Errors"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:42
+msgid "Line number"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:65
+msgid "New"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:67
+msgid "Skipped"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:71
+msgid "Update"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/import_export/import.html:90
+msgid "Confirm import"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:19
+#, python-format
+msgid "Models available in the %(name)s application."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:45
+msgid "You don't have permission to edit anything."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:54
+msgid "My Actions"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:59
+msgid "None available"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:68
+#, fuzzy
+#| msgid "Added at"
+msgid "added"
+msgstr "Добавено на"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:69
+msgid "changed"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:70
+msgid "deleted"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/index.html:76
+#, fuzzy
+#| msgid "key content"
+msgid "Unknown content"
+msgstr "ключово съдържание"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/login.html:56
+msgid "Forgotten your password or username?"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/login.html:60
+msgid "Log in"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/object_history.html:27
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/object_history.html:15
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/recover_list.html:27
+msgid "Date/time"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/object_history.html:28
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/object_history.html:16
+msgid "User"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/object_history.html:29
+msgid "Action"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/object_history.html:43
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/object_history.html:36
+msgid ""
+"This object doesn't have a change history. It probably wasn't added via this "
+"admin site."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/page_submit_line.html:4
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/submit_line.html:4
+msgid "Save and continue editing"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/page_submit_line.html:5
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/submit_line.html:5
+msgid "Save as new"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/page_submit_line.html:6
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/submit_line.html:6
+msgid "Save and add another"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/page_submit_line.html:14
+#, python-format
+msgid "Delete %(language)s translation"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/pagination.html:26
+msgid "Show all"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/search_form.html:8
+#: src/taxonomy/models.py:8
+msgid "keyword"
+msgstr "тема"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/search_form.html:29
+#, python-format
+msgid "%(counter)s result"
+msgid_plural "%(counter)s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/search_form.html:31
+#, python-format
+msgid "%(full_result_count)s total"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/logged_out.html:9
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/logged_out.html:12
+msgid "Log in again"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:28
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:32
+msgid "Password change"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:40
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:55
+#, fuzzy
+#| msgid "Invalid password"
+msgid "Old password"
+msgstr "Грешна парола"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:66
+#: src/security/forms.py:8
+msgid "New password"
+msgstr "Нова парола"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:88
+#, fuzzy
+#| msgid "New password"
+msgid "Change my password"
+msgstr "Нова парола"
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/object_history.html:8
+msgid ""
+"Choose a date from the list below to revert to a previous version of this "
+"object."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/object_history.html:17
+msgid "Comment"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/recover_form.html:22
+msgid "Press the save button below to recover this version of the object."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/recover_list.html:21
+msgid ""
+"Choose a date from the list below to recover a deleted version of an object."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/recover_list.html:41
+msgid "There are no deleted objects to recover."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/revision_form.html:18
+#, python-format
+msgid "Revert %(verbose_name)s"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/reversion/revision_form.html:31
+msgid "Press the save button below to revert to this version of the object."
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/widgets.py:104
+msgid "Date:"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/widgets.py:118
+msgid "Time:"
+msgstr ""
 
 #: src/accessibility/models.py:12 src/accessibility/models.py:13
 msgid "popularity"
@@ -37,7 +2156,7 @@ msgstr "Стил (техническо)"
 msgid "page"
 msgstr "страница"
 
-#: src/accessibility/models.py:36 src/settings.py:293
+#: src/accessibility/models.py:36 src/settings.py:308
 msgid "pages"
 msgstr "страници"
 
@@ -65,17 +2184,9 @@ msgstr "Добавено на"
 msgid "contact point"
 msgstr "Място"
 
-#: src/contact/models.py:29 src/settings.py:291
+#: src/contact/models.py:29 src/settings.py:306
 msgid "contact points"
 msgstr "Места"
-
-#: src/contact/models.py:37
-msgid "Yes"
-msgstr "Да"
-
-#: src/contact/models.py:38
-msgid "No"
-msgstr "Не"
 
 #: src/contact/models.py:39
 msgid "I don't know"
@@ -84,10 +2195,6 @@ msgstr "Не знам"
 #: src/contact/models.py:43
 msgid "slug"
 msgstr "адрес в сайта"
-
-#: src/contact/models.py:44
-msgid "URL"
-msgstr "Адрес"
 
 #: src/contact/models.py:45 src/contact_feedback/models.py:38
 #: src/signali/models.py:11
@@ -110,7 +2217,7 @@ msgstr "потребител, който го е предложил"
 msgid "organisation"
 msgstr "организация"
 
-#: src/contact/models.py:51 src/settings.py:310 src/taxonomy/models.py:9
+#: src/contact/models.py:51 src/settings.py:317 src/taxonomy/models.py:9
 msgid "keywords"
 msgstr "теми"
 
@@ -178,7 +2285,7 @@ msgstr "изисква адрес"
 msgid "required location"
 msgstr "изисква локация"
 
-#: src/contact/models.py:82 src/settings.py:292
+#: src/contact/models.py:82 src/settings.py:307
 msgid "organisations"
 msgstr "организации"
 
@@ -230,7 +2337,7 @@ msgstr "Цялостен рейтинг"
 msgid "area"
 msgstr "местност"
 
-#: src/location/models.py:18 src/settings.py:294
+#: src/location/models.py:18 src/settings.py:309
 msgid "areas"
 msgstr "местности"
 
@@ -255,7 +2362,7 @@ msgstr ""
 msgid "subscriber"
 msgstr "абониран"
 
-#: src/notification/models.py:9 src/settings.py:302
+#: src/notification/models.py:9 src/settings.py:325
 msgid "subscribers"
 msgstr "Абонирани за напомняне"
 
@@ -287,10 +2394,6 @@ msgstr "Няма такъв потребител или ползва друг н
 msgid "The two password fields didn't match."
 msgstr "Паролите не съвпадат"
 
-#: src/security/forms.py:8
-msgid "New password"
-msgstr "Нова парола"
-
 #: src/security/forms.py:10
 msgid "New password confirmation"
 msgstr "Нова парола (повторно)"
@@ -307,51 +2410,51 @@ msgstr "Този линк за активиране е невалиден"
 msgid "No user registered with this email"
 msgstr "Няма потребители регистрирани с този имейл"
 
-#: src/settings.py:288
+#: src/settings.py:303
 msgid "main content"
 msgstr "основно съдържание"
 
-#: src/settings.py:298
-msgid "users"
-msgstr "потребители"
-
-#: src/settings.py:301
-msgid "registered"
-msgstr "регистрирани"
-
-#: src/settings.py:306
+#: src/settings.py:313
 msgid "taxonomy"
 msgstr "класификация"
 
-#: src/settings.py:309 src/taxonomy/models.py:34
+#: src/settings.py:316 src/taxonomy/models.py:34
 msgid "categories"
 msgstr "категории"
 
-#: src/settings.py:314 src/settings.py:317 src/signali/models.py:8
+#: src/settings.py:321
+msgid "users"
+msgstr "потребители"
+
+#: src/settings.py:324
+msgid "registered"
+msgstr "регистрирани"
+
+#: src/settings.py:329 src/settings.py:332 src/signali/models.py:8
 msgid "settings"
 msgstr "настройки"
 
-#: src/settings.py:318
+#: src/settings.py:333
 msgid "areas sizes"
 msgstr "видове местности"
 
-#: src/settings.py:322
+#: src/settings.py:337
 msgid "troubleshoot"
 msgstr "системни"
 
-#: src/settings.py:325
+#: src/settings.py:340
 msgid "user associations"
 msgstr "свързани потребители"
 
-#: src/settings.py:326
+#: src/settings.py:341
 msgid "user nonce records"
 msgstr "nonce записи"
 
-#: src/settings.py:327
+#: src/settings.py:342
 msgid "user social auth"
 msgstr "social auth записи"
 
-#: src/settings.py:328
+#: src/settings.py:343
 msgid "user groups"
 msgstr "права за достъп"
 
@@ -415,10 +2518,6 @@ msgstr "вид"
 msgid "Successfully subscribed for contact point"
 msgstr "Успешно се записахте за напомняния към мястото"
 
-#: src/taxonomy/models.py:8
-msgid "keyword"
-msgstr "тема"
-
 #: src/taxonomy/models.py:35
 msgid "parent category"
 msgstr "главна категория"
@@ -445,6 +2544,3 @@ msgstr "Успешно обновихте профила си"
 
 #~ msgid "subscribed"
 #~ msgstr "абониран"
-
-#~ msgid "Text"
-#~ msgstr "текст"
