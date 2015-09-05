@@ -10,10 +10,11 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
     def public_base(self):
         return super().public_base().exclude(slug=None).exclude(slug="")
 
-    def _apply_criteria_sorting(self, queryset, sorting):
-        if sorting == 'popularity':
-            return queryset.order_by('popularity')
-        return super()._apply_criteria_sorting(queryset, sorting)
+    def _get_sorting(self, queryset, sorting):
+        sorting = super()._get_criteria_sorting(queryset, sorting)
+        if sorting == 'popularity' or sorting == '-popularity':
+            sorting.append(sorting)
+        return sorting
 
     def get_by_slug(self, slug):
         return self.filter(slug=slug, is_public=True) \

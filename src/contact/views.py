@@ -41,7 +41,8 @@ class ListView(View):
         if not form.is_valid():
             raise failure.add_error('form', form.errors)
 
-        points = ContactPointModel.objects.apply_criteria(form.to_filters(), form.get_sorting())
+        score, filters = form.to_search_expressions()
+        points = ContactPointModel.objects.apply_criteria(score, filters, form.get_sorting())
         return {
              "points": points[form.get_start():form.get_limit()]
         }

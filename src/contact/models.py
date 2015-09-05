@@ -5,21 +5,28 @@ from django.conf import settings
 from .apps import setting
 
 class ContactPointManager(models.Manager):
-    def apply_criteria(self, filters, sorting):
+    def apply_criteria(self, score_expression, filters, sorting):
         queryset = self.all()
         try:
             queryset = self._transform_criteria_base(queryset)
-        except AttributeError:
+        except NotImplementedError:
             pass
         queryset = queryset.filter(filters)
-        queryset = self._apply_criteria_sorting(queryset, sorting)
+        queryset = queryset.annotate(score=score_expression)
+        queryset = queryset.order_by(*self._get_criteria_sorting(queryset, sorting))
         return queryset
 
     def get_by_slug(self, slug):
         return self.get(slug=slug)
 
-    def _apply_criteria_sorting(self, queryset, sorting):
-        return queryset.order_by(sorting)
+    def _get_criteria_sorting(self, queryset, sorting):
+        return ['-score']
+
+    """
+    Called before applying criteria with user filters
+    """
+    def _transform_criteria_base(self, queryset):
+        raise NotImplementedError("Your subclcass must implement this")
 
 
 class BaseContactPoint(models.Model):

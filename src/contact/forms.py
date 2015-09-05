@@ -1,5 +1,5 @@
 from django import forms
-from django.db.models import Q
+from django.db.models import IntegerField, Case, When, Q
 from .apps import setting
 
 ContactPoint = setting("CONTACT_POINT_MODEL")
@@ -7,16 +7,24 @@ Category = setting("CONTACT_CATEGORY_MODEL")
 Keyword = setting("CONTACT_KEYWORD_MODEL")
 Area = setting("CONTACT_AREA_MODEL")
 
+
+def make_score_value(filter):
+    return Case(When(filter, then=1), default=0, output_field=IntegerField())
+
+
 class BaseUserCriteriaForm(forms.Form):
     start = forms.IntegerField(required=False, min_value=0, initial=0)
     limit = forms.IntegerField(required=False, min_value=1, initial=20)
-    sorting = forms.CharField(required=False, initial='title')
+    sorting = forms.CharField(required=False, initial='score')
     categories = forms.ModelMultipleChoiceField(Category.objects.all(), required=False)
     keywords = forms.ModelMultipleChoiceField(Keyword.objects.all(), required=False)
     areas = forms.ModelMultipleChoiceField(Area.objects.all(), required=False)
 
     # flags
-    category_or_keyword = forms.BooleanField(required=False, initial=False)
+    category_and_keyword_match = forms.BooleanField(required=False, initial=False)
+    category_exact_match = forms.BooleanField(required=False, initial=False)
+    keywords_exact_match = forms.BooleanField(required=False, initial=False)
+
 
     # use initial values as defaults if not provided
     def clean(self):
@@ -41,41 +49,43 @@ class BaseUserCriteriaForm(forms.Form):
     def get_limit(self):
         return self.cleaned_data['limit']
 
-    def to_filters(self):
-        filters = Q()
+    """
+    If we want we can annotate match_<fieldname>_<id> with django.db.models.Value() and know which
+    field we did match, but that's easily determined from each single result
+    """
+    def to_search_expressions(self):
+        category_filter = Q()
+        keyword_filter = Q()
+        score = 0
         data = self.cleaned_data
+
         if data['categories'].exists():
-            category_filter = Q(category__in=list(data['categories']))
+            for c in data['categories']:
+                in_this_category = Q(category=c)
+                score = score + make_score_value(in_this_category)
+                if data['category_exact_match']:
+                    category_filter = category_filter & in_this_category
+                else:
+                    category_filter = category_filter | in_this_category
+
         if data['keywords'].exists():
-            keyword_filter = Q(keywords__in=list(data['keywords']))
+            for k in data['keywords']:
+                with_this_keyword = Q(keywords__id=k.id)
+                score = score + make_score_value(with_this_keyword)
+                if data['keywords_exact_match']:
+                    keyword_filter = keyword_filter & with_this_keyword
+                else:
+                    keyword_filter = keyword_filter | with_this_keyword
+
+        if data['category_and_keyword_match']:
+            filters = category_filter & keyword_filter
+        else:
+            filters = category_filter | keyword_filter
+
         if data['areas'].exists():
-            area_filter = Q(operational_area__in=list(data['areas']))
+            filters = filters & Q(operational_area__in=list(data['areas']))
 
-        try:
-            if data['category_or_keyword']:
-                taxonomy_filter = category_filter | keyword_filter
-            else:
-                taxonomy_filter = category_filter & keyword_filter
-
-            filters = filters & taxonomy_filter
-        except UnboundLocalError:
-            try:
-                filters = filters & category_filter
-            except UnboundLocalError:
-                pass
-
-            try:
-                filters = filters & keyword_filter
-            except UnboundLocalError:
-                pass
-
-        try:
-            filters = filters & area_filter
-        except UnboundLocalError:
-            pass
-
-        return filters
-
+        return score, filters
 
 
 FeedbackModel = setting("CONTACT_FEEDBACK_MODEL")
