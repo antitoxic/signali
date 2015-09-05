@@ -5,12 +5,16 @@ from contact.forms import BaseUserCriteriaForm, BaseContactPointForm
 class UserCriteriaForm(BaseUserCriteriaForm):
     is_featured = forms.BooleanField(required=False)
 
-    def to_filters(self):
-        filters = super().to_filters()
+    """
+    If we want we can annotate match_<fieldname>_<id> with django.db.models.Value() and know which
+    field we did match, but that's easily determined from each single result
+    """
+    def to_search_expressions(self):
+        score, filters = super().to_search_expressions()
         if 'is_featured' in self.data:
             filters = filters & Q(is_featured=self.cleaned_data['is_featured'])
 
-        return filters & Q(is_public=True)
+        return score, filters & Q(is_public=True)
 
 
 class ContactPointForm(BaseContactPointForm):

@@ -10,7 +10,7 @@ class VisibilityMixin(models.Model):
         abstract = True
 
     popularity = models.PositiveIntegerField(_('popularity'), default=0)
-    views = models.PositiveIntegerField(_('popularity'), default=0)
+    views = models.PositiveIntegerField(_('views'), default=0)
     is_featured = models.BooleanField(_('is featured'), default=False)
     is_public = models.BooleanField(_('is public'), default=False)
     style = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('Style [technical]'))
