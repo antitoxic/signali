@@ -1,9 +1,16 @@
 from django import forms
 from django.db.models import Q
+
 from contact.forms import BaseUserCriteriaForm, BaseContactPointForm
+from signali_location.models import Area
 
 class UserCriteriaForm(BaseUserCriteriaForm):
     is_featured = forms.BooleanField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["areas"].queryset = Area.objects.non_address()
+
 
     """
     If we want we can annotate match_<fieldname>_<id> with django.db.models.Value() and know which
