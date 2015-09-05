@@ -80,7 +80,7 @@ class BaseOrganisation(models.Model):
         abstract = True
         verbose_name = _('organisation')
         verbose_name_plural = _('organisations')
-    address = models.OneToOneField(setting('CONTACT_AREA_MODEL', noparse=True), blank=True, null=True, on_delete=models.SET_NULL)
+    address = models.OneToOneField(setting('CONTACT_AREA_MODEL', noparse=True), blank=True, null=True, on_delete=models.SET_NULL, parent_link=True)
     title = models.CharField(_('title'), max_length=250, blank=False)
     email = models.EmailField(_('email'), max_length=250, blank=False)
     operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL', noparse=True),

@@ -1,9 +1,7 @@
 '''
 adminreverse from here http://djangosnippets.org/snippets/2032/
-changed for working with ForeignKeys
-'''
-'''
-Gist for 1.6 from: https://gist.github.com/mzbyszewska/8b6afc312b024832aa85
+changed for working with ForeignKeys and updated for Django 1.8
+via: https://gist.github.com/joshkel/d051b329501273967506
 '''
 '''
 reverseadmin
@@ -38,31 +36,32 @@ Example:
 
 You use reverseadmin in the following way:
 
+    from django import forms
     from django.contrib import admin
     from django.db import models
     from models import Person
     from reverseadmin import ReverseModelAdmin
-    class AddressForm(models.Form):
-        pass
+    class AddressForm(forms.FormModel):
+        class Meta:
+            model = Address
     class PersonAdmin(ReverseModelAdmin):
         inline_type = 'tabular'
-        inline_reverse = ('business_addr', ('home_addr', AddressForm), ('other_addr' (
+        inline_reverse = ('business_addr', ('home_addr', AddressForm), ('other_addr', {
             'form': OtherForm
             'exclude': ()
-        )))
+        }))
     admin.site.register(Person, PersonAdmin)
 
 inline_type can be either "tabular" or "stacked" for tabular and
 stacked inlines respectively.
 
-The module is designed to work with Django 1.1.1. Since it hooks into
-the internals of the admin package, it may not work with later Django
-versions.
+The module was designed to work with Django 1.1.1 but was updated for 1.8 in a
+GitHub gist.
 '''
 # -*- coding: utf-8 -*-
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.options import InlineModelAdmin
-from django.contrib.admin.util import flatten_fieldsets
+from django.contrib.admin.utils import flatten_fieldsets
 from django.db.models import OneToOneField, ForeignKey
 from django.forms import ModelForm
 from django.forms.models import BaseModelFormSet, modelformset_factory
@@ -80,7 +79,7 @@ class ReverseInlineFormSet(BaseModelFormSet):
             prefix = None,
             queryset = None,
             save_as_new = False):
-        self.mem_instance = instance 
+        self.mem_instance = instance
         # sometimes object does not exist
         try:
             object = getattr(instance, self.parent_fk_name)
@@ -205,7 +204,7 @@ class ReverseModelAdmin(ModelAdmin):
             field = model._meta.get_field(field_name)
             if isinstance(field, (OneToOneField, ForeignKey)):
                 name = field.name
-                parent = field.related.parent_model
+                parent = field.related.model
                 inline = ReverseInlineModelAdmin(model,
                                       name,
                                       parent,
@@ -220,7 +219,7 @@ class ReverseModelAdmin(ModelAdmin):
 
     def get_inline_instances(self, request, *args, **kwargs):
         """
-        ModelAdmin's method is overriten here for setting inline instances the way we need in inverse inlines.
+        ModelAdmin's method is overridden here for setting inline instances the way we need in inverse inlines.
         It is necessary for compatibility with changes in Django 1.4
         """
         return self.inline_instances
@@ -230,11 +229,11 @@ class ReverseModelAdmin(ModelAdmin):
         pass
 
     def response_add(self, request, obj, post_url_continue=None):
-        """The response_add() is overriden to save the main object."""
+        """The response_add() is overridden to save the main object."""
         obj.save()
         return super(ReverseModelAdmin, self).response_add(request,obj, post_url_continue=None)
 
     def response_change(self, request, obj):
-        """The response_change() is overriden to save the main object."""
+        """The response_change() is overridden to save the main object."""
         obj.save()
         return super(ReverseModelAdmin, self).response_change(request,obj)

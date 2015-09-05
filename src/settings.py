@@ -171,13 +171,13 @@ INSTALLED_APPS = (
     'location',
     'taxonomy',
     'accessibility',
+    'signali',
     'signali_contact.apps.ContactConfig',
     'signali_contact.apps.FeedbackConfig',
     'signali_contact',
     'signali_accessibility',
     'signali_location',
     'signali_taxonomy',
-    'signali',
     'themes.'+THEME+'.widgets',
     'django_bootstrap_datetimepicker',
 )
@@ -196,23 +196,34 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'restful.error_handler.ErrorHandler',
+    'django.middleware.security.SecurityMiddleware',
+    # 'restful.error_handler.ErrorHandler',
     'restful.middleware.TemplateExtensionByAcceptedType',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    'social.apps.django_app.context_processors.backends',
+    "django.contrib.auth.context_processors.auth", # `user` variable
+    "django.core.context_processors.i18n", # enabled languages
+    "django.core.context_processors.tz", # timezone
+    "django.contrib.messages.context_processors.messages", # session messages/flashsession object
+    'social.apps.django_app.context_processors.backends', # list of all enabled backends
     'social.apps.django_app.context_processors.login_redirect',
     'django.core.context_processors.request',
     "django.core.context_processors.csrf",
 )
+if DEBUG:
+    TEMPLATE_CONTEXT_PROCESSORS = ("django.core.context_processors.debug",) + TEMPLATE_CONTEXT_PROCESSORS
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': TEMPLATE_DIRS,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': TEMPLATE_CONTEXT_PROCESSORS,
+        },
+    },
+]
 
 ROOT_URLCONF = 'urls'
 
