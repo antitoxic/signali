@@ -182,6 +182,9 @@ INSTALLED_APPS = (
     'django_bootstrap_datetimepicker',
 )
 
+if DEBUG:
+    INSTALLED_APPS = ('django_extensions',) + INSTALLED_APPS
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -295,19 +298,19 @@ SUIT_CONFIG = {
             )
         },
         {
-            'label': _('users'),
-            'icon': 'icon-user',
-            'models': (
-                {'model': AUTH_USER_MODEL.lower(), 'label': _('registered')},
-                {'model': 'signali_notification.subscriber', 'label': _('subscribers')},
-            )
-        },
-        {
             'label': _('taxonomy'),
             'icon': 'icon-tags',
             'models': (
                 {'model': 'signali_taxonomy.category', 'label': _('categories')},
                 {'model': 'signali_taxonomy.keyword', 'label': _('keywords')},
+            )
+        },
+        {
+            'label': _('users'),
+            'icon': 'icon-user',
+            'models': (
+                {'model': AUTH_USER_MODEL.lower(), 'label': _('registered')},
+                {'model': 'signali_notification.subscriber', 'label': _('subscribers')},
             )
         },
         {

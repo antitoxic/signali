@@ -1,3 +1,4 @@
 -r requirements.txt
 -e git+https://github.com/akaariai/fabric.git@py34#egg=Fabric
 pyinotify==0.9.6
+django_extensions==1.5.6

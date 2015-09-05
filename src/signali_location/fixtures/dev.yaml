@@ -5,7 +5,7 @@
 - model: signali_location.areasize
   pk: 2
   fields:
-    title: Кврартална община
+    title: Квартална община
 - model: signali_location.areasize
   pk: 3
   fields:
