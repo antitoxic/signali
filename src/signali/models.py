@@ -22,3 +22,7 @@ class Setting(models.Model):
     def contact_address_areasize(self):
         return self.areasize_address
 
+    @property
+    def cover_url(self):
+        return self.cover.url
+
