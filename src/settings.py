@@ -38,8 +38,6 @@ SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env('DEBUG', False)
 
-TEMPLATE_DEBUG = DEBUG
-
 ALLOWED_HOSTS = ['.signali.bg']
 
 WSGI_APPLICATION = 'env.wsgi.application'
@@ -146,7 +144,7 @@ THEME_DIR = os.path.join(THEMES_ROOT, THEME)
 THEME_STATIC_DIR = os.path.join(THEME_DIR, 'build')
 if not os.path.isdir(THEME_DIR):
     raise Exception('Improperly configured theme')
-TEMPLATE_DIRS = (os.path.join(THEME_DIR, 'templates'),)
+DJANGO_TEMPLATE_DIRS = (os.path.join(THEME_DIR, 'templates'),)
 STATICFILES_DIRS = [THEME_STATIC_DIR,]
 
 # Application definition
@@ -164,6 +162,7 @@ INSTALLED_APPS = (
     'rules.apps.AutodiscoverRulesConfig',
     'django_select2',
     'sorl.thumbnail',
+    'watson',
     'restful',
     'notification',
     'signali_notification.apps.NotificationConfig',
@@ -175,7 +174,7 @@ INSTALLED_APPS = (
     'signali',
     'signali_contact.apps.ContactConfig',
     'signali_contact.apps.FeedbackConfig',
-    'signali_contact',
+    'signali_contact.apps.SignaliContactConfig',
     'signali_accessibility',
     'signali_location',
     'signali_taxonomy',
@@ -198,11 +197,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'watson.middleware.SearchContextMiddleware',
     'restful.error_handler.ErrorHandler',
     'restful.middleware.TemplateExtensionByAcceptedType',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
+DJANGO_TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth", # `user` variable
     "django.core.context_processors.i18n", # enabled languages
     "django.core.context_processors.tz", # timezone
@@ -213,15 +213,16 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.csrf",
 )
 if DEBUG:
-    TEMPLATE_CONTEXT_PROCESSORS = ("django.core.context_processors.debug",) + TEMPLATE_CONTEXT_PROCESSORS
+    DJANGO_TEMPLATE_CONTEXT_PROCESSORS = ("django.core.context_processors.debug",) + DJANGO_TEMPLATE_CONTEXT_PROCESSORS
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': TEMPLATE_DIRS,
+        'DIRS': DJANGO_TEMPLATE_DIRS,
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': TEMPLATE_CONTEXT_PROCESSORS,
+            'context_processors': DJANGO_TEMPLATE_CONTEXT_PROCESSORS,
+            'debug': DEBUG,
         },
     },
 ]

@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from sorl.thumbnail import ImageField
+from .uploads import Uploader
+
 
 class Setting(models.Model):
     class Meta:
@@ -13,6 +16,7 @@ class Setting(models.Model):
     areasize_address = models.ForeignKey('signali_location.AreaSize',
                                          verbose_name=_('Which size denotes address-level area'),
                                          blank=False)
+    cover = ImageField(verbose_name=_("cover"), null=True, blank=True, upload_to=Uploader('signali'))
 
     @property
     def contact_address_areasize(self):

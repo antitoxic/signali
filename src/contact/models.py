@@ -78,7 +78,7 @@ class BaseContactPoint(models.Model):
     is_location_required = models.BooleanField(_('required location'), default=False, blank=True)
 
     def __str__(self):
-        return self.title
+        return "{} ({})".format(self.title, str(self.category))
 
 
 

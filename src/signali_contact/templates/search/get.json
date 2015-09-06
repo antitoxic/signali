@@ -1,0 +1,11 @@
+{% load restful %}
+{% for result in results %}
+[
+    {
+        "title": {{result.title | jsonify | safe}},
+        "description": {{result.description | jsonify | safe}},
+        "url": {{result.url | jsonify | safe}},
+        "meta": {{result.meta | jsonify | safe}}
+    }
+]
+{% endfor %}
