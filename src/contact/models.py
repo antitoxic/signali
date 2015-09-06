@@ -14,7 +14,7 @@ class ContactPointManager(models.Manager):
         queryset = queryset.filter(filters)
         queryset = queryset.annotate(score=score_expression)
         queryset = queryset.order_by(*self._get_criteria_sorting(queryset, sorting))
-        return queryset
+        return queryset.distinct()
 
     def get_by_slug(self, slug):
         return self.get(slug=slug)

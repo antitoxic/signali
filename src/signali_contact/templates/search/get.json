@@ -1,11 +1,8 @@
-{% load restful %}
-{% for result in results %}
-[
+{% load restful %}{% for result in results %}[
     {
-        "title": {{result.title | jsonify | safe}},
+        "title": {{result.meta.title | jsonify | safe}},
         "description": {{result.description | jsonify | safe}},
-        "url": {{result.url | jsonify | safe}},
-        "meta": {{result.meta | jsonify | safe}}
+        "url": "{% url 'contact-point' slug=result.meta.slug %}",
+        "score": {{result.watson_rank | jsonify | safe}}
     }
-]
-{% endfor %}
+]{% endfor %}

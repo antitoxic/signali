@@ -10,7 +10,7 @@ class SignaliContactConfig(conttactapps.ContactConfig):
         watson.register(
             ContactPoint.objects.public_base(),
             fields=("title", "description", "slug",),
-            store=("slug",)
+            store=("slug", "title",)
         )
 
 
