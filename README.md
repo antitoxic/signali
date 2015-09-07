@@ -19,6 +19,7 @@ Place the default or your theme in the `themes` directory and set its name as va
  - postgres
  - redis
  - image manipulation libraries
+ - gettext
 
 ```sh
 # depending on distribution you might want to install 

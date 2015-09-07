@@ -56,7 +56,6 @@ def deploy(context=default_deployment, static=False):
             run('mkdir -p themes/default/build')
             put(os.path.join(THEME_STATIC_DIR, '*'), THEME_STATIC_DIR.replace(PROJECT_ROOT, '').strip('/')+'/')
             run('python manage.py collectstatic --noinput')
-        # uncomment when translation is enabled:
-        # run('./manage.py compilemessages -l bg')
+        run('./manage.py compilemessages -l bg')
         run('python manage.py migrate')
         run('touch ' + './'+os.path.join(ENV_ROOT.replace(PROJECT_ROOT, '').lstrip('/'), 'wsgi.py'))
