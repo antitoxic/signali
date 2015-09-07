@@ -45,7 +45,8 @@ class ListView(View):
         score, filters = form.to_search_expressions()
         points = ContactPointModel.objects.apply_criteria(score, filters, form.get_sorting())
         return {
-             "points": points[form.get_start():form.get_limit()]
+             "form": form,
+             "points": points[form.get_start():form.get_limit()],
         }
 
     @security_rule('contact.contactpoint_create')
