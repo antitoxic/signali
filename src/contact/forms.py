@@ -7,9 +7,8 @@ Category = setting("CONTACT_CATEGORY_MODEL")
 Keyword = setting("CONTACT_KEYWORD_MODEL")
 Area = setting("CONTACT_AREA_MODEL")
 
-
-def make_score_value(filter):
-    return Case(When(filter, then=1), default=0, output_field=IntegerField())
+def make_score_value(filters):
+    return Case(When(filters, then=1), default=0, output_field=IntegerField())
 
 
 class BaseUserCriteriaForm(forms.Form):
@@ -49,33 +48,38 @@ class BaseUserCriteriaForm(forms.Form):
     def get_limit(self):
         return self.cleaned_data['limit']
 
+    def keywords_search_expressions(self):
+        raise NotImplementedError('Must implement')
+
+    def categories_search_expressions(self):
+        if not self.cleaned_data['categories'].exists():
+            return
+        filters = Q()
+        ids = list(self.cleaned_data['categories'].values_list('pk', flat=True))
+        category_filters = Q(category__id__in=ids)
+        if self.cleaned_data['category_exact_match']:
+            filters = category_filters
+        return make_score_value(category_filters), filters
+
     """
     If we want we can annotate match_<fieldname>_<id> with django.db.models.Value() and know which
     field we did match, but that's easily determined from each single result
     """
     def to_search_expressions(self):
-        category_filter = Q()
-        keyword_filter = Q()
         score = 0
         data = self.cleaned_data
 
-        if data['categories'].exists():
-            for c in data['categories']:
-                in_this_category = Q(category=c)
-                score = score + make_score_value(in_this_category)
-                if data['category_exact_match']:
-                    category_filter = category_filter & in_this_category
-                else:
-                    category_filter = category_filter | in_this_category
+        try:
+            category_score, category_filter = self.categories_search_expressions()
+            score += category_score
+        except:
+            category_filter = Q()
 
-        if data['keywords'].exists():
-            for k in data['keywords']:
-                with_this_keyword = Q(keywords__id=k.id)
-                score = score + make_score_value(with_this_keyword)
-                if data['keywords_exact_match']:
-                    keyword_filter = keyword_filter & with_this_keyword
-                else:
-                    keyword_filter = keyword_filter | with_this_keyword
+        try:
+            keyword_score, keyword_filter = self.keywords_search_expressions()
+            score += keyword_score
+        except:
+            keyword_filter = Q()
 
         if data['category_and_keyword_match']:
             filters = category_filter & keyword_filter
@@ -83,7 +87,8 @@ class BaseUserCriteriaForm(forms.Form):
             filters = category_filter | keyword_filter
 
         if data['areas'].exists():
-            filters = filters & Q(operational_area__in=list(data['areas']))
+            ids = list(data['areas'].values_list('pk', flat=True))
+            filters = filters & Q(operational_area__in=ids)
 
         return score, filters
 
@@ -136,7 +141,7 @@ class BaseContactPointForm(forms.ModelForm):
 
 def get_contactpoint_from(data=None, initial=None, prefix=None):
     instance = ContactPoint()
-    FormClass = setting('CONTACT_POINT_FORM', BaseContactPointForm)
+    FormClass = setting('CONTACT_POINT_FORM')
     return FormClass(data=data,
                      initial=initial,
                      instance=instance,

@@ -10,8 +10,8 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
     def public_base(self):
         return super().public_base().exclude(slug=None).exclude(slug="")
 
-    def _get_sorting(self, queryset, sorting):
-        sorting = super()._get_criteria_sorting(queryset, sorting)
+    def _get_criteria_sorting(self, queryset, sorting, score_expression):
+        sorting = super()._get_criteria_sorting(queryset, sorting, score_expression)
         if sorting == 'popularity' or sorting == '-popularity':
             sorting.append(sorting)
         return sorting

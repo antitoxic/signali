@@ -7,12 +7,12 @@ from django.views.generic.base import View
 from django.utils.translation import ugettext_lazy as _
 from django.http import Http404
 
-from .forms import BaseUserCriteriaForm, get_contactpoint_from
+from .forms import get_contactpoint_from
 from .apps import setting
 from .signals import post_submit
 
 ContactPointModel = setting('CONTACT_POINT_MODEL')
-UserCriteriaFormClass = setting('CONTACT_USER_CRITERIA_FORM', BaseUserCriteriaForm)
+UserCriteriaFormClass = setting('CONTACT_USER_CRITERIA_FORM')
 
 
 @restful_view_templates

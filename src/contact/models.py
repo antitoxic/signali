@@ -3,6 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from .apps import setting
+from signali_taxonomy.models import Keyword
 
 class ContactPointManager(models.Manager):
     def apply_criteria(self, score_expression, filters, sorting):
@@ -12,15 +13,16 @@ class ContactPointManager(models.Manager):
         except NotImplementedError:
             pass
         queryset = queryset.filter(filters)
-        queryset = queryset.annotate(score=score_expression)
-        queryset = queryset.order_by(*self._get_criteria_sorting(queryset, sorting))
-        return queryset.distinct()
+        if score_expression != 0:
+            queryset = queryset.annotate(score=score_expression)
+            queryset = queryset.order_by(*self._get_criteria_sorting(queryset, sorting, score_expression))
+        return queryset
 
     def get_by_slug(self, slug):
         return self.get(slug=slug)
 
-    def _get_criteria_sorting(self, queryset, sorting):
-        return ['-score']
+    def _get_criteria_sorting(self, queryset, sorting, score_expression):
+        return ['-score'] if score_expression != 0 else []
 
     """
     Called before applying criteria with user filters
