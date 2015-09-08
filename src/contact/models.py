@@ -1,9 +1,9 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from .apps import setting
-from signali_taxonomy.models import Keyword
 
 class ContactPointManager(models.Manager):
     def apply_criteria(self, score_expression, filters, sorting):
@@ -15,14 +15,28 @@ class ContactPointManager(models.Manager):
         queryset = queryset.filter(filters)
         if score_expression != 0:
             queryset = queryset.annotate(score=score_expression)
-            queryset = queryset.order_by(*self._get_criteria_sorting(queryset, sorting, score_expression))
-        return queryset
+            queryset, orderby = self._apply_criteria_sorting(queryset, sorting, score_expression)
+            if orderby:
+                queryset = queryset.order_by(*orderby)
+
+        return queryset.annotate(num_books=models.Avg('feedback__rating')).order_by('-score', '-num_books')
 
     def get_by_slug(self, slug):
         return self.get(slug=slug)
 
-    def _get_criteria_sorting(self, queryset, sorting, score_expression):
-        return ['-score'] if score_expression != 0 else []
+    def _apply_criteria_sorting(self, queryset, sorting, score_expression):
+        order_by = ['-score'] if score_expression != 0 else []
+
+        if sorting == '-created_at':
+            order_by.insert(0, sorting)
+
+        if sorting == '-rating':
+            order_by.insert(0, sorting)
+
+        if sorting == '-rating':
+            order_by.insert(0, sorting)
+
+        return order_by
 
     """
     Called before applying criteria with user filters
@@ -49,12 +63,14 @@ class BaseContactPoint(models.Model):
     )
 
     title = models.CharField(_('title'), max_length=250, blank=False)
-    slug = models.SlugField(_('slug'), max_length=255, blank=True)
-    url = models.URLField(_('URL'), max_length=255, blank=True)
+    slug = models.SlugField(_('slug'), max_length=255, blank=True, null=True)
+    url = models.URLField(_('URL'), max_length=255, blank=True, null=True)
+    email = models.EmailField(_('Email'), max_length=255, blank=True, null=True)
     description = models.TextField(_('description'), blank=True)
     notes = models.TextField(_('notes'), blank=True)
     operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL', noparse=True), related_name="contact_points", verbose_name=_("operational area"))
     proposed_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="contactpoint_proposals", verbose_name=_("user that proposed it"), null=True, blank=True)
+    response_time = models.PositiveIntegerField(verbose_name=_("Response time"), blank=True, null=True)
 
     organisation = models.ForeignKey(setting('CONTACT_ORGANISATION_MODEL', noparse=True), related_name="contact_points", verbose_name=_("organisation"), null=True)
     keywords = models.ManyToManyField(setting('CONTACT_KEYWORD_MODEL', noparse=True), related_name="contact_points", verbose_name=_("keywords"))
@@ -77,7 +93,12 @@ class BaseContactPoint(models.Model):
     is_email_required = models.BooleanField(_('required email'), default=False, blank=True)
     is_pic_required = models.BooleanField(_('required personal indentification code'), default=False, blank=True)
     is_address_required = models.BooleanField(_('required address'), default=False, blank=True)
+    is_phone_required = models.BooleanField(_('required phone'), default=False, blank=True)
     is_location_required = models.BooleanField(_('required location'), default=False, blank=True)
+    is_other_required = models.BooleanField(_('required other'), default=False, blank=True)
+    other_requirements = models.TextField(_('other requirements'), blank=True)
+
+    created_at = models.DateTimeField(_('Created at'), default=timezone.now)
 
     def __str__(self):
         return "{} ({})".format(self.title, str(self.category))
