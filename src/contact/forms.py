@@ -123,7 +123,9 @@ class BaseUserCriteriaForm(forms.Form):
             filters = category_filter | keyword_filter
 
         if data['areas'].exists():
-            ids = list(data['areas'].values_list('pk', flat=True))
+            first_area = data['areas'][0]
+            ids = list(first_area.get_ancestors().values_list('pk', flat=True))
+            ids = ids + list(data['areas'].values_list('pk', flat=True))
             filters = filters & Q(operational_area__in=ids)
 
         for fieldname in self.exact_match_fields:
