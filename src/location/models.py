@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from mptt.models import MPTTModel, TreeForeignKey
 
 class AreaManager(models.Manager):
     def count_size(self, include=None, exclude=None):
@@ -9,7 +10,7 @@ class AreaManager(models.Manager):
         else:
             return self.filter(size__in=[include]).count()
 
-class BaseArea(models.Model):
+class BaseArea(MPTTModel):
     objects = AreaManager()
 
     class Meta:
@@ -18,7 +19,10 @@ class BaseArea(models.Model):
         verbose_name_plural = _('areas')
 
     title = models.CharField(_('title'), max_length=250, blank=False)
-    parent = models.ForeignKey('self', related_name="children", verbose_name=_('parent area'), blank=True, null=True)
+    parent = TreeForeignKey('self', related_name="children", verbose_name=_('parent area'), blank=True, null=True, db_index=True)
+
+    class MPTTMeta:
+        order_insertion_by = ['title']
 
     def __str__(self):
         return '{} ({})'.format(self.title, self.size)

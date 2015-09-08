@@ -90,6 +90,7 @@ SOCIAL_AUTH_PIPELINE = (
     'security.pipeline.user_details', # tops up User model fields with what's available in "details" parameter
     # sends out mail validation for new users
     'security.pipeline.send_email_validation',
+    'mptt',
 )
 LOGIN_URL = '/user/join/'
 LOGIN_REDIRECT_URL = '/'
