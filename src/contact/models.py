@@ -13,30 +13,33 @@ class ContactPointManager(models.Manager):
         except NotImplementedError:
             pass
         queryset = queryset.filter(filters)
-        if score_expression != 0:
-            queryset = queryset.annotate(score=score_expression)
-            queryset, orderby = self._apply_criteria_sorting(queryset, sorting, score_expression)
-            if orderby:
-                queryset = queryset.order_by(*orderby)
+        queryset, orderby = self._apply_criteria_sorting(queryset, sorting, score_expression)
+        if orderby:
+            queryset = queryset.order_by(*orderby)
 
-        return queryset.annotate(num_books=models.Avg('feedback__rating')).order_by('-score', '-num_books')
+        return queryset
 
     def get_by_slug(self, slug):
         return self.get(slug=slug)
 
     def _apply_criteria_sorting(self, queryset, sorting, score_expression):
-        order_by = ['-score'] if score_expression != 0 else []
+        order_by = []
+
+        if score_expression != 0:
+            order_by.insert(0, '-score')
+            queryset = queryset.annotate(score=score_expression)
 
         if sorting == '-created_at':
             order_by.insert(0, sorting)
 
         if sorting == '-rating':
-            order_by.insert(0, sorting)
+            order_by.insert(0, '-avg_rating')
+            queryset = queryset.annotate(avg_rating=models.Avg('feedback__rating'))
 
         if sorting == '-rating':
             order_by.insert(0, sorting)
 
-        return order_by
+        return queryset, order_by
 
     """
     Called before applying criteria with user filters

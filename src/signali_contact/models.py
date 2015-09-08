@@ -13,7 +13,7 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
     def _apply_criteria_sorting(self, queryset, sorting, score_expression):
         queryset, sorting = super()._apply_criteria_sorting(queryset, sorting, score_expression)
         if sorting == 'popularity' or sorting == '-popularity':
-            sorting.append(sorting)
+            sorting.insert(0, sorting)
         return queryset, sorting
 
     def get_by_slug(self, slug):
