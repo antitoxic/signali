@@ -37,7 +37,7 @@ class UserCriteriaForm(BaseUserCriteriaForm):
             filters = Q(keywords__id__in=list(self.cleaned_data['keywords']))
         ids = self.cleaned_data['keywords'].values_list('pk', flat=True)
         score = RawSQL(
-            'SELECT COUNT(*) FROM {from_table} WHERE keyword_id IN ({id_list}) AND category_id = {contactpoint_table}.id '.format(
+            'SELECT COUNT(*) FROM {from_table} WHERE keyword_id IN ({id_list}) AND contactpoint_id = {contactpoint_table}.id '.format(
                 from_table=keywords_through_table,
                 contactpoint_table=contactpoint_table,
                 id_list=','.join(str(id) for id in ids)
