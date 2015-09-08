@@ -80,7 +80,7 @@ class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
         }),
         (_('requirements'), {
             'classes': ('suit-tab suit-tab-basic full-width',),
-            'fields': ((
+            'fields': (
                            'is_registration_required',
                            'is_photo_required',
                            'is_esign_required',
@@ -89,7 +89,7 @@ class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
                            'is_pic_required',
                            'is_address_required',
                            'is_location_required',
-                       ),)
+                       )
         }),
         (None, {
             'classes': ('suit-tab suit-tab-visibility',),

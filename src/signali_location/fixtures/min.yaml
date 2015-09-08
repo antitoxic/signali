@@ -1,0 +1,24 @@
+- model: signali_location.areasize
+  pk: 1
+  fields:
+    title: Градска община
+- model: signali_location.areasize
+  pk: 2
+  fields:
+    title: Квартална община
+- model: signali_location.areasize
+  pk: 3
+  fields:
+    title: Област
+- model: signali_location.areasize
+  pk: 4
+  fields:
+    title: Национална
+- model: signali_location.areasize
+  pk: 5
+  fields:
+    title: Град
+- model: signali_location.areasize
+  pk: 6
+  fields:
+    title: Адрес

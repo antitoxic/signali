@@ -20,3 +20,5 @@ django-cacheops==2.4
 bleach==1.4.1
 -e git+https://github.com/antitoxic/django-bootstrap-datetimepicker.git#egg=django-bootstrap-datetimepicker
 -e git+https://github.com/etianen/django-watson.git@41894131d3628b6d45eb64efe9b30d2822062d4a#egg=django-watson
+Unidecode==0.4.18
+django-mptt==0.7.4
