@@ -98,7 +98,7 @@ class BaseContactPoint(models.Model):
     is_other_required = models.BooleanField(_('required other'), default=False, blank=True)
     other_requirements = models.TextField(_('other requirements'), blank=True)
 
-    created_at = models.DateTimeField(_('Created at'), default=timezone.now)
+    created_at = models.DateTimeField(_('created at'), default=timezone.now)
 
     def __str__(self):
         return "{} ({})".format(self.title, str(self.category))

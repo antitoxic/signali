@@ -6,6 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 from sorl.thumbnail.admin import AdminImageMixin
 from adminextra.reverseadmin import ReverseModelAdmin
 from django_bootstrap_datetimepicker.widgets import BootstrapDateTimeInput
+from redactor.widgets import RedactorEditor
+from suit.widgets import AutosizedTextarea
 
 from contact.admin import BaseContactPointAdmin
 from signali_location.models import Area
@@ -28,6 +30,10 @@ class ContactPointForm(forms.ModelForm):
     class Meta:
         model = ContactPoint
         exclude = []
+        widgets = {
+            "description": RedactorEditor(),
+            "other_requirements": AutosizedTextarea(),
+        }
 
     force_required = extended_booelan_fields
 
@@ -44,7 +50,8 @@ class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
     suit_form_tabs = (
         ('basic', _('basic')),
         ('visibility', _('visibility')),
-        ('meta', _('meta')),
+        # ('meta', _('meta')),
+        ('user-proposed', _('proposed by user')),
     )
     # formfield_overrides = {
     #     models.DateTimeField: {'widget': betterDateTimePicker},
@@ -60,40 +67,53 @@ class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
 
         (None, {
             'classes': ('suit-tab suit-tab-basic',),
-            'fields': ('title', 'slug',)
+            'fields': ('title', 'slug', 'is_public',)
         }),
         (_('key content'), {
             'classes': ('suit-tab suit-tab-basic',),
-            'fields': ('url', 'category', 'keywords', 'operational_area', 'organisation')
-        }),
-        (_('visuals'), {
-            'classes': ('suit-tab suit-tab-basic',),
-            'fields': ('preview', 'cover')
-        }),
-        (_('text'), {
-            'classes': ('suit-tab suit-tab-basic full-width',),
-            'fields': ('description', 'notes',)
+            'fields': ('url', 'category', 'keywords', 'operational_area', 'organisation', 'email')
         }),
         (_('features'), {
             'classes': ('suit-tab suit-tab-basic',),
             'fields': extended_booelan_fields
         }),
         (_('requirements'), {
-            'classes': ('suit-tab suit-tab-basic full-width',),
+            'classes': ('suit-tab suit-tab-basic',),
             'fields': (
                            'is_registration_required',
                            'is_photo_required',
                            'is_esign_required',
                            'is_name_required',
                            'is_email_required',
+                           'is_phone_required',
                            'is_pic_required',
                            'is_address_required',
                            'is_location_required',
+                           'is_other_required',
+                           'other_requirements',
+                       )
+        }),
+        (_('visuals'), {
+            'classes': ('suit-tab suit-tab-basic',),
+            'fields': ('preview', 'cover')
+        }),
+        (_('notes'), {
+            'classes': ('suit-tab suit-tab-basic full-width',),
+            'fields': ('description', )
+        }),
+        (_('extra'), {
+            'classes': ('suit-tab suit-tab-basic',),
+            'fields': (
+                           'response_time',
                        )
         }),
         (None, {
+            'classes': ('suit-tab suit-tab-user-proposed',),
+            'fields': ('notes',)
+        }),
+        (None, {
             'classes': ('suit-tab suit-tab-visibility',),
-            'fields': ('popularity', 'views', 'is_featured', 'is_public', 'style')
+            'fields': ('popularity', 'views', 'is_featured', 'style')
         }),
         # (None, {
         #     'classes': ('suit-tab suit-tab-meta',),
