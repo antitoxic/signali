@@ -47,16 +47,20 @@ class Command(BaseCommand):
                     })
 
             if options['type'] == 'area':
+                national_area, is_new = Area.objects.get_or_create(title="Национална")
                 areasize, is_new = AreaSize.objects.get_or_create(title="Община")
                 for entry in dump:
                     area = clean(entry["name"])
                     area, is_new = Area.objects.get_or_create(title=area, defaults={
                         'size': areasize,
+                        'parent': national_area,
                         'is_public': True
                     })
 
             if options['type'] == 'point':
                 area, is_new = Area.objects.get_or_create(title="Национална")
+                YES = ContactPoint.YES
+                NO = ContactPoint.NO
                 for entry in dump:
                     point = ContactPoint()
                     point.is_public = True
@@ -90,19 +94,19 @@ class Command(BaseCommand):
                         point.description = linebreaks(clean(entry["notes"], False))
 
                     if "i18n" in entry:
-                        point.is_multilingual = entry["i18n"]
+                        point.is_multilingual = YES if entry["i18n"] else NO
                     if "answerGuarantee" in entry:
-                        point.is_response_guaranteed = entry["answerGuarantee"]
+                        point.is_response_guaranteed = YES if entry["answerGuarantee"] else NO
                     if "anonimity" in entry:
-                        point.is_anonymous_allowed = entry["anonimity"]
+                        point.is_anonymous_allowed = YES if entry["anonimity"] else NO
                     if "verification" in entry:
-                        point.is_verifiable = entry["verification"]
+                        point.is_verifiable = YES if entry["verification"] else NO
                     if "confirmation" in entry:
-                        point.is_confirmation_issued = entry["confirmation"]
+                        point.is_confirmation_issued = YES if entry["confirmation"] else NO
                     if "responsive" in entry:
-                        point.is_mobile_friendly = entry["responsive"]
+                        point.is_mobile_friendly = YES if entry["responsive"] else NO
                     if "middleMan" in entry:
-                        point.is_final_destination = entry["middleMan"]
+                        point.is_final_destination = YES if entry["middleMan"] else NO
 
                     point.is_registration_required = entry["requirements"]["registration"]
                     point.is_photo_required = entry["requirements"]["photo"]
