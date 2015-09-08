@@ -1,16 +1,33 @@
 from django import forms
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
+
 from taxonomy.admin import BaseCategoryAdmin, BaseKeywordAdmin
 from signali_accessibility.forms import VisibilityColoredStyleFormMixin
-
 from .models import Category, Keyword
 
 
 class CategoryForm(forms.ModelForm, VisibilityColoredStyleFormMixin):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["parent"].queryset = Category.objects.root_categories()
 
-class CategoryAdmin(BaseCategoryAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     form = CategoryForm
+    suit_form_tabs = (
+        ('basic', _('basic')),
+        ('visibility', _('visibility')),
+    )
+    fieldsets = (
+        (None, {
+            'classes': ('suit-tab suit-tab-basic',),
+            'fields': ('title', 'parent', 'is_public')
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-visibility',),
+            'fields': ('is_featured', 'popularity', 'views', 'style')
+        }),
+    )
 
 
 class KeywordForm(forms.ModelForm, VisibilityColoredStyleFormMixin):

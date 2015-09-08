@@ -18,6 +18,9 @@ class BaseKeyword(models.Model):
 
 
 class CategoryManager(models.Manager):
+    def root_categories(self):
+        return self.filter(parent__isnull=True)
+
     def root_categories_plus_children(self):
         return self.filter(parent__isnull=True).prefetch_related('children')
 
@@ -38,7 +41,7 @@ class BaseCategory(models.Model):
     def __str__(self):
         if self.parent is None:
             return self.title
-        return '{} ({})'.format(self.title, self.parent)
+        return '{}: {}'.format(self.parent.title, self.title)
 
     def site_wide_pk(self):
         return 'taxonomy-category-'+str(self.pk)

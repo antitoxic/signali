@@ -2295,10 +2295,9 @@ msgid "required address"
 msgstr "изисква адрес"
 
 #: src/contact/models.py:96
-#, fuzzy
 #| msgid "required name"
 msgid "required phone"
-msgstr "изисква име"
+msgstr "изисква телефон"
 
 #: src/contact/models.py:97
 msgid "required location"

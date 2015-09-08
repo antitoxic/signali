@@ -11,6 +11,7 @@ from suit.widgets import AutosizedTextarea
 
 from contact.admin import BaseContactPointAdmin
 from signali_location.models import Area
+from signali_taxonomy.models import Category
 from .models import ContactPoint, Organisation
 
 betterDateTimePicker = BootstrapDateTimeInput(format="%d.%m.%Y %H:%M")
@@ -39,6 +40,8 @@ class ContactPointForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.fields["category"].queryset = Category.objects.children()
         for fieldname in self.fields:
             if fieldname in self.force_required:
                 self.fields[fieldname].choices = ContactPoint.EXTENDED_BOOLEAN_CHOICES
@@ -137,6 +140,20 @@ class AddressForm(forms.ModelForm):
 class OrganisationPointAdmin(ReverseModelAdmin):
     inline_type = 'tabular'
     inline_reverse = (('address', AddressForm),)
+    suit_form_tabs = (
+        ('basic', _('basic')),
+        ('visibility', _('visibility')),
+    )
+    fieldsets = (
+        (None, {
+            'classes': ('suit-tab suit-tab-basic',),
+            'fields': ('title', 'email', 'is_public', 'operational_area')
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-visibility',),
+            'fields': ('popularity', 'views', 'is_featured', 'style')
+        }),
+    )
 
 
 admin.site.register(ContactPoint, ContactPointAdmin)

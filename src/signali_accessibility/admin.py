@@ -15,9 +15,9 @@ class PageAdmin(admin.ModelAdmin):
         ('visibility', _('visibility')),
         ('meta', _('meta')),
     )
-    formfield_overrides = {
-        models.DateTimeField: {'widget': betterDateTimePicker},
-    }
+    # formfield_overrides = {
+    #     models.DateTimeField: {'widget': betterDateTimePicker},
+    # }
 
     list_display = ('title',)
     list_display_links = ('title', )
@@ -26,7 +26,7 @@ class PageAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'classes': ('suit-tab suit-tab-basic',),
-            'fields': (('title', 'slug'),)
+            'fields': ('title', 'slug','is_public')
         }),
         (_('text'), {
             'classes': ('suit-tab suit-tab-basic full-width',),
@@ -38,7 +38,7 @@ class PageAdmin(admin.ModelAdmin):
         }),
         (None, {
             'classes': ('suit-tab suit-tab-visibility',),
-            'fields': ('popularity', 'views', 'is_featured', 'is_public', 'style')
+            'fields': ('popularity', 'views', 'is_featured', 'style')
         }),
         (None, {
             'classes': ('suit-tab suit-tab-meta',),
