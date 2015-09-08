@@ -48,6 +48,11 @@ class ContactPointForm(forms.ModelForm):
 
 
 class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
+    list_filter = (
+        'category',
+        'keywords',
+        'is_public',
+    )
     form = ContactPointForm
     prepopulated_fields = {"slug": ("title",)}
     suit_form_tabs = (
