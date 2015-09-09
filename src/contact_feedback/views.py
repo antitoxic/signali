@@ -35,7 +35,8 @@ class ListView(View):
                     instance.save()
                 post_submit.send(instance.__class__, feedback=instance)
                 return HtmlOnlyRedirectSuccessDict({
-                    "result": _("Successfully gave feedback")
+                    "result": _("Successfully gave feedback"),
+                    "feedback": instance
                 }).set_redirect('contact-point', slug=slug)
         except Exception as e:
             raise failure.add_error('generic', str(e))
