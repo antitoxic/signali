@@ -17,8 +17,12 @@ class VisibilityMixin(models.Model):
 
 
 class VisibilityManagerMixin(object):
+    @staticmethod
+    def add_public_requirement(queryset):
+        return queryset.filter(is_public=True)
+
     def public_base(self):
-        return self.filter(is_public=True)
+        return self.add_public_requirement(self.all())
 
     def popular(self, is_public=True):
         base = self.public_base() if is_public else self.all()

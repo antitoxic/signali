@@ -1,9 +1,7 @@
 from django.db import models
-from django.db.models import Count, Avg, Case, When, Q
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
-from django.db.models.functions import Coalesce
 
 from .apps import setting
 
@@ -31,29 +29,6 @@ class ContactPointManager(models.Manager):
         if score_expression != 0:
             order_by.insert(0, '-score')
             queryset = queryset.annotate(score=score_expression)
-
-        # new
-        if sorting == '-created_at':
-            order_by.insert(0, sorting)
-
-        # rating
-        if sorting == '-rating':
-            order_by.insert(0, sorting)
-            queryset = queryset.annotate(rating=Coalesce(Avg('feedback__rating'), 0))
-
-        # effectiveness
-        if sorting == '-effective':
-            order_by.insert(0, sorting)
-            queryset = queryset.annotate(effective=Count(Case(When(feedback__is_effective=True, then=1), default=None)))
-
-        # ease of use
-        if sorting == '-easy':
-            order_by.insert(0, sorting)
-            queryset = queryset.annotate(easy=Count(Case(When(feedback__is_easy=True, then=1), default=None)))
-
-        # visits
-        if sorting == '-visits':
-            order_by.insert(0, sorting)
 
         return queryset, order_by
 
