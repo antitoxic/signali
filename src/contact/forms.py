@@ -61,6 +61,10 @@ class BaseUserCriteriaForm(forms.Form):
     category_exact_match = forms.BooleanField(required=False, initial=False)
     keywords_exact_match = forms.BooleanField(required=False, initial=False)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.max_score = 0
+
     # use initial values as defaults if not provided
     def clean(self):
         cleaned_data = super().clean()
@@ -92,6 +96,7 @@ class BaseUserCriteriaForm(forms.Form):
             return
         filters = Q()
         ids = list(self.cleaned_data['categories'].values_list('pk', flat=True))
+        self.max_score += len(ids)
         category_filters = Q(category__id__in=ids)
         if self.cleaned_data['category_exact_match']:
             filters = category_filters
@@ -127,10 +132,12 @@ class BaseUserCriteriaForm(forms.Form):
             ids = list(first_area.get_ancestors().values_list('pk', flat=True))
             ids = ids + list(data['areas'].values_list('pk', flat=True))
             filters = filters & Q(operational_area__in=ids)
+            self.max_score += 1
 
         for fieldname in self.exact_match_fields:
             if fieldname in self.data:
                 score += make_score_value(Q(**{fieldname: self.cleaned_data[fieldname]}))
+                self.max_score += 1
 
         return score, filters
 

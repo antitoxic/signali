@@ -36,6 +36,7 @@ class UserCriteriaForm(BaseUserCriteriaForm):
         if self.cleaned_data['keywords_exact_match']:
             filters = Q(keywords__id__in=list(self.cleaned_data['keywords']))
         ids = self.cleaned_data['keywords'].values_list('pk', flat=True)
+        self.max_score += len(ids)
         score = RawSQL(
             'SELECT COUNT(*) FROM {from_table} WHERE keyword_id IN ({id_list}) AND contactpoint_id = {contactpoint_table}.id '.format(
                 from_table=keywords_through_table,
