@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from contact.models import BaseContactPoint, ContactPointManager, BaseOrganisation
 from accessibility.models import VisibilityManagerMixin
@@ -32,6 +33,7 @@ class Organisation(BaseOrganisation, SignalVisibilityMixin):
 
 class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedbackedMixin):
     objects = SignalContactPointManager()
+    visits = models.PositiveIntegerField(_('visits'), default=0)
 
     def rating(self):
         return self.feedback.aggregate(average_rating=models.Avg('rating'))["average_rating"]

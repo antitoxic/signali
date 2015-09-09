@@ -1,4 +1,5 @@
 from restful.decorators import restful_view_templates
+from restful.pages import RestfulPaging
 from restful.http import HtmlOnlyRedirectSuccessDict
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
 from security.decorators import security_rule
@@ -29,7 +30,6 @@ class SingleView(View):
         }
 
 
-
 @restful_view_templates
 class ListView(View):
     form = None
@@ -42,11 +42,23 @@ class ListView(View):
         if not form.is_valid():
             raise failure.add_error(prefix+'form', form.errors)
 
+        sorting = form.get_sorting()
+        start = form.get_start()
+        limit = form.get_limit()
         score, filters = form.to_search_expressions()
-        points = ContactPointModel.objects.apply_criteria(score, filters, form.get_sorting())
+        points = ContactPointModel.objects.apply_criteria(score, filters, sorting)
+        total = points.count()
+        try:
+            pages = RestfulPaging(total, form.get_start(), form.get_limit())
+        except:
+            pages = None
         return {
+             "sorting": sorting,
              "form": form,
-             "points": points[form.get_start():form.get_limit()],
+             "pages": pages,
+             "points": points[start:(start+limit)],
+             "total": total,
+             "limit": limit,
         }
 
     @security_rule('contact.contactpoint_create')
