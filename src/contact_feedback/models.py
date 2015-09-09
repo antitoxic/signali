@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.utils import timezone
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
@@ -10,13 +10,22 @@ class ContactPointFeedbackedMixin(models.Model):
     class Meta:
         abstract = True
 
-    @property
-    def usability_score(self):
-        return self.feedback.all().aggregate(score=Avg('usability')).score
 
-    @property
-    def response_speed_score(self):
-        return self.feedback.all().aggregate(score=Avg('response_speed')).score
+class ContactPointFeedbackManager(models.Manager):
+
+    @staticmethod
+    def add_public_requirement(queryset):
+        return queryset.filter(is_public=True)
+
+    def public_base(self):
+        return self.add_public_requirement(self.all())
+
+    def published(self, user=None):
+        if user is None or user.is_anonymous():
+            base = self.public_base()
+        else:
+            base = self.filter(Q(is_public=True) | Q(user=user))
+        return base.order_by('-added_at').select_related('user')
 
 
 class ContactPointFeedback(models.Model):
@@ -30,6 +39,7 @@ class ContactPointFeedback(models.Model):
         (4, _('Good')),
         (5, _('Excellent')),
     )
+    is_public = models.BooleanField(_('is public'), default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="feedback_given", verbose_name=_("user"))
     added_at = models.DateTimeField(_('Added at'), default=timezone.now)
     is_effective = models.BooleanField(_("Are you happy with the results of your contact?"), default=False)

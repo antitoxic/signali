@@ -9,6 +9,8 @@ from restful.http import HtmlOnlyRedirectSuccessDict
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
 from social.apps.django_app.utils import psa
 
+from ..signals import post_email_validation
+
 UserModel = get_user_model()
 
 
@@ -24,6 +26,7 @@ class EmailValidationView(View):
             user.is_email_validated = True
             user.save()
             code.delete()
+            post_email_validation.send(UserModel, user=user)
             return HtmlOnlyRedirectSuccessDict({
                 "email": request.user.email,
             }).set_redirect('home')

@@ -6,7 +6,7 @@ from django.db.models.functions import Coalesce
 from contact.models import BaseContactPoint, ContactPointManager, BaseOrganisation
 from accessibility.models import VisibilityManagerMixin
 from signali_accessibility.models import SignalVisibilityMixin
-from contact_feedback.models import ContactPointFeedback, ContactPointFeedbackedMixin
+from contact_feedback.models import ContactPointFeedback, ContactPointFeedbackedMixin, ContactPointFeedbackManager
 
 
 class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
@@ -138,11 +138,8 @@ class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedback
         return self.feedback.aggregate(average_rating=models.Avg('rating'))["average_rating"]
 
 
-class ContactPointFeedbackManager(models.Manager):
-    def published(self):
-        return self.order_by('-added_at').select_related('user')
-
+class SignaliContactPointFeedbackManager(ContactPointFeedbackManager):
+    pass
 
 class SignalContactPointFeedback(ContactPointFeedback):
-    is_public = models.BooleanField(_('is public'), default=False)
-    objects = ContactPointFeedbackManager()
+    objects = SignaliContactPointFeedbackManager()

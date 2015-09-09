@@ -7,6 +7,7 @@ class SignaliContactConfig(conttactapps.ContactConfig):
 
     def ready(self):
         ContactPoint = self.get_model("ContactPoint")
+        from . import signal_handlers
         watson.register(
             ContactPoint.objects.public_base(),
             fields=("title", "description", "slug",),

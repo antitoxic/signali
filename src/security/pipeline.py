@@ -126,5 +126,10 @@ def send_email_validation(backend, details, user=None, *args, **kwargs):
         backend.strategy.session_set(REDIRECT_FIELD_NAME,
                                      reverse('security:email-validation-sent'))
         backend.strategy.send_email_validation(backend, details['email'])
-
+        return {
+            "is_email_validated": False
+        }
+    return {
+        "is_email_validated": True
+    }
 

@@ -5,10 +5,11 @@ from django.conf import settings
 
 from restful.decorators import restful_view_templates
 
+PageModel = django_apps.get_model(settings.ACCESSIBILITY_PAGE_MODEL)
+
 @restful_view_templates
 class PageView(View):
     def get(self, request, slug):
-        PageModel = django_apps.get_model(settings.ACCESSIBILITY_PAGE_MODEL)
         return {
             "page": get_object_or_404(PageModel, slug=slug, is_public=True),
         }

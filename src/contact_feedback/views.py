@@ -6,6 +6,7 @@ from security.decorators import security_rule
 from django.views.generic.base import View
 from django.utils.translation import ugettext as _
 from django.http import Http404
+from django.db import transaction
 
 from .forms import get_feedbackfrom
 from .apps import setting
@@ -27,11 +28,15 @@ class ListView(View):
             raise failure.add_error(formname, form.errors)
 
         try:
-            instance = form.save()
-            post_submit.send(instance.__class__, feedback=instance)
-            return HtmlOnlyRedirectSuccessDict({
-                "result": _("Successfully gave feedback")
-            }).set_redirect('contact-point', slug=slug)
+            with transaction.atomic():
+                instance = form.save()
+                if request.user.has_perm('contact.feedback_publish', instance.contactpoint):
+                    instance.is_public = True
+                    instance.save()
+                post_submit.send(instance.__class__, feedback=instance)
+                return HtmlOnlyRedirectSuccessDict({
+                    "result": _("Successfully gave feedback")
+                }).set_redirect('contact-point', slug=slug)
         except Exception as e:
             raise failure.add_error('generic', str(e))
 

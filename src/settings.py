@@ -89,8 +89,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.load_extra_data', # adds provider metadata like "expire" or "id"
     'security.pipeline.user_details', # tops up User model fields with what's available in "details" parameter
     # sends out mail validation for new users
-    'security.pipeline.send_email_validation',
-    'mptt',
+    'security.pipeline.send_email_validation'
 )
 LOGIN_URL = '/user/join/'
 LOGIN_REDIRECT_URL = '/'
@@ -163,6 +162,7 @@ INSTALLED_APPS = (
     'rules.apps.AutodiscoverRulesConfig',
     'django_select2',
     'sorl.thumbnail',
+    'mptt',
     'watson',
     'restful',
     'notification',
