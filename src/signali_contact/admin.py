@@ -48,11 +48,6 @@ class ContactPointForm(forms.ModelForm):
 
 
 class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
-    list_filter = (
-        'category',
-        'keywords',
-        'is_public',
-    )
     form = ContactPointForm
     prepopulated_fields = {"slug": ("title",)}
     suit_form_tabs = (
@@ -67,8 +62,14 @@ class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
 
     radio_fields = dict((field,admin.HORIZONTAL) for field in extended_booelan_fields)
 
-    list_display = ('title', 'category')
+    list_display = ('title', 'category',  'is_featured', 'is_public',)
+    list_editable = ('is_featured', 'is_public', )
     list_display_links = ('title',)
+    list_filter = (
+        'category',
+        'keywords',
+        'is_public',
+    )
     search_fields = ('title', 'description',)
 
     fieldsets = (
