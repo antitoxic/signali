@@ -293,7 +293,11 @@ CACHEOPS_REDIS = {
     'db': env('REDIS_CACHE_DB')
 }
 CACHEOPS = {
-    'signali_contact.*': {'ops': ('fetch', 'count', 'exists'), 'timeout': 60*60*5},
+    'signali_contact.*': {'ops': 'all', 'timeout': 60*60*5}, # 5 hours
+    'signali_taxonomy.*': {'ops': 'all', 'timeout': 60*60*5}, # 5 hours
+    'signali_accessibility.*': {'ops': 'all', 'timeout': 60*60*5}, # 5 hours
+    'signali_location.*': {'ops': 'all', 'timeout': 60*60*5}, # 5 hours
+    'signali.*': {'ops': 'all', 'timeout': 60*60*5}, # 5 hours
 }
 
 # If you are developing without access to images, please refer to:
@@ -352,7 +356,6 @@ SUIT_CONFIG = {
     )
 }
 
-PUBLIC_SETTINGS = ['SOCIAL_AUTH_FACEBOOK_KEY', 'SOCIAL_AUTH_FACEBOOK_SCOPE']
 CLASS_SETTINGS = [
     'CONTACT_USER_CRITERIA_FORM',
     'CONTACT_POINT_FORM',

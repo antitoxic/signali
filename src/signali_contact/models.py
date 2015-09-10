@@ -64,7 +64,7 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
     def get_by_slug(self, slug):
         try:
             query = self.public_base().filter(slug=slug)
-            return self.add_prefetch(query)[0]
+            return self.add_prefetch(query).nocache()[0]
         except:
             raise ContactPoint.DoesNotExist()
 
