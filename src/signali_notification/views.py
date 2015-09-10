@@ -6,7 +6,7 @@ from django.views.generic.base import View
 from django.utils.translation import ugettext as _
 from django.http import Http404
 
-from .forms import get_subscriber_form
+from .forms import get_anon_subscriber_form
 from signali_contact.models import ContactPoint
 
 
@@ -22,7 +22,7 @@ class SubscriberListView(View):
         except ContactPoint.DoesNotExist:
             raise Http404()
 
-        form = get_subscriber_form(contactpoint, request.params, prefix=request.params.get('prefix', None))
+        form = get_anon_subscriber_form(contactpoint, request.params, prefix=request.params.get('prefix', None))
 
         if not form.is_valid():
             raise failure.add_error(formname, form.errors)

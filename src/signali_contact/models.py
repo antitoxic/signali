@@ -62,8 +62,11 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
 
 
     def get_by_slug(self, slug):
-        query = self.public_base().filter(slug=slug)
-        return self.add_prefetch(query)[0]
+        try:
+            query = self.public_base().filter(slug=slug)
+            return self.add_prefetch(query)[0]
+        except:
+            raise self.DoesNotExist()
 
     def visited_last(self):
         return self.add_prefetch(self.public_base()).order_by('-created_at')
@@ -133,6 +136,8 @@ class Organisation(BaseOrganisation, SignalVisibilityMixin):
 class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedbackedMixin):
     objects = SignalContactPointManager()
     visits = models.PositiveIntegerField(_('visits'), default=0)
+    anonymous_visits = models.PositiveIntegerField(_('anonymous visits'), default=0)
+    last_visited_at = models.DateTimeField(_('created at'), null=True, blank=True)
 
     def rating(self):
         return self.feedback.aggregate(average_rating=models.Avg('rating'))["average_rating"]

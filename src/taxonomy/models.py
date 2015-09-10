@@ -22,7 +22,11 @@ class CategoryManager(models.Manager):
         return self.filter(parent__isnull=True)
 
     def root_categories_plus_children(self):
-        return self.filter(parent__isnull=True).prefetch_related('children')
+        return self.add_children_prefetch(self.filter(parent__isnull=True))
+
+    @staticmethod
+    def add_children_prefetch(queryset):
+        return queryset.prefetch_related('children')
 
     def children(self):
         return self.exclude(parent__isnull=True)

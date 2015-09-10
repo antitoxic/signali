@@ -18,7 +18,11 @@ UserCriteriaFormClass = setting('CONTACT_USER_CRITERIA_FORM')
 
 @restful_view_templates
 class SingleView(View):
+    point = None
+
     def _get(self, slug):
+        if self.point:
+            return self.point
         try:
             return ContactPointModel.objects.get_by_slug(slug)
         except ContactPointModel.DoesNotExist:
