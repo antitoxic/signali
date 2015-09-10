@@ -181,6 +181,7 @@ INSTALLED_APPS = (
     'signali_taxonomy',
     'themes.'+THEME+'.widgets',
     'django_bootstrap_datetimepicker',
+    'cacheops',
 )
 
 if DEBUG:
@@ -284,14 +285,16 @@ THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
 THUMBNAIL_QUALITY = 100
 THUMBNAIL_REDIS_HOST = env('REDIS_HOST')
 THUMBNAIL_REDIS_PORT = env('REDIS_PORT')
-THUMBNAIL_REDIS_DB = env('REDIS_CACHE_DB')
+THUMBNAIL_REDIS_DB = env('REDIS_THUMBNAIL_DB')
 
 CACHEOPS_REDIS = {
     'host': env('REDIS_HOST'),
     'port': env('REDIS_PORT'),
     'db': env('REDIS_CACHE_DB')
 }
-CACHEOPS = {}
+CACHEOPS = {
+    'signali_contact.*': {'ops': ('fetch', 'count', 'exists'), 'timeout': 60*60*5},
+}
 
 # If you are developing without access to images, please refer to:
 # http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html#thumbnail-dummy

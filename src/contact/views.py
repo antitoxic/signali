@@ -50,7 +50,7 @@ class ListView(View):
         start = form.get_start()
         limit = form.get_limit()
         score, filters = form.to_search_expressions()
-        points = ContactPointModel.objects.apply_criteria(score, filters, sorting)
+        points = ContactPointModel.objects.apply_criteria(score, filters, sorting).cache()
         total = points.count()
         try:
             pages = RestfulPaging(total, form.get_start(), form.get_limit())

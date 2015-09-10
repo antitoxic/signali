@@ -66,7 +66,7 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
             query = self.public_base().filter(slug=slug)
             return self.add_prefetch(query)[0]
         except:
-            raise self.DoesNotExist()
+            raise ContactPoint.DoesNotExist()
 
     def visited_last(self):
         return self.add_prefetch(self.public_base()).order_by('-last_visited_at')
