@@ -10,6 +10,7 @@ class SetPasswordForm(forms.Form):
     new_password2 = forms.CharField(label=_("New password confirmation"),
                                     widget=forms.PasswordInput)
 
+    # fork of django.contrib.auth.forms.SetPasswordForm.clean_new_password2
     def clean_new_password2(self):
         password1 = self.cleaned_data.get('new_password1')
         password2 = self.cleaned_data.get('new_password2')

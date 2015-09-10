@@ -2,8 +2,9 @@ from django.views.generic.base import View
 from django.shortcuts import redirect
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext as _
+from django.contrib.auth import login
 
-
+from social.backends.email import EmailAuth
 from restful.decorators import restful_view_templates
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
 from restful.http import HtmlOnlyRedirectSuccessDict
@@ -127,7 +128,11 @@ class ProfileView(View):
             raise failure.set_errors(form.errors)
 
         try:
-            form.save()
+            user = form.save()
+            if isinstance(form, UserForm):
+                backend = EmailAuth()
+                user.backend = '{}.{}'.format(backend.__module__, backend.__class__.__name__)
+                login(request, user)
         except:
             failure.add_error('Problems with the database')
 

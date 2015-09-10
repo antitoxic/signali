@@ -7,6 +7,8 @@ from security.forms import SetPasswordForm
 class SignUpForm(SetPasswordForm):
     email = forms.EmailField(required=True)
 
+
+
 class SignUpCheckpointForm(forms.Form):
     fullname = forms.CharField(required=True)
     email = forms.EmailField(required=True)
@@ -20,24 +22,21 @@ class SignUpCheckpointForm(forms.Form):
             data['last_name'] = ''
         return data
 
+
+
 class ProfileUpdateForm(SignUpCheckpointForm, SetPasswordForm):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(SetPasswordForm, self).__init__(*args, **kwargs)
         self.fields['new_password1'].required = False
         self.fields['new_password2'].required = False
 
-    def clean_new_password2(self):
-        if not self.cleaned_data.get('new_password1'):
-            return self.cleaned_data.get('new_password2')
-
-        return super().clean_new_password2()
-
     def clean(self):
-        data = self.cleaned_data
+        data = super().clean()
         if data['new_password1']:
             data['password'] = data['new_password1']
-        data['first_name'], data['last_name'] = data['fullname'].strip().split(' ', 1)
         return data
+
+
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -50,6 +49,8 @@ class UserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
 
 class UserFormNoPassword(forms.ModelForm):
     class Meta:
