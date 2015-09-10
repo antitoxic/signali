@@ -332,6 +332,7 @@ SUIT_CONFIG = {
             'icon': 'icon-cog',
             'models': (
                 {'model': 'signali.setting', 'label': _('settings')},
+                {'model': 'signali.partner', 'label': _('partners')},
                 {'model': 'signali_location.areasize', 'label': _('areas sizes')},
             )
         },

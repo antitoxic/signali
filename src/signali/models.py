@@ -2,7 +2,10 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from sorl.thumbnail import ImageField
+from accessibility.models import VisibilityMixin, VisibilityManagerMixin
+
 from .uploads import Uploader
+
 
 
 class Setting(models.Model):
@@ -29,4 +32,23 @@ class Setting(models.Model):
     @classmethod
     def main(cls):
         return cls.objects.all()[:1].get()
+
+
+class PartnerManager(models.Manager, VisibilityManagerMixin):
+    pass
+
+
+class Partner(VisibilityMixin):
+    objects = PartnerManager()
+
+    class Meta:
+        verbose_name = _('partner')
+        verbose_name_plural = _('partners')
+
+    order = models.PositiveIntegerField()
+    title = models.CharField(_('title'), max_length=250, blank=False)
+    url = models.URLField(_('url'), max_length=250, blank=False)
+    provides = models.CharField(_('provides'), max_length=250, blank=True)
+    logo = ImageField(verbose_name=_("logo"), null=True, blank=True, upload_to=Uploader('signali'))
+
 
