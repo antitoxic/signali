@@ -256,7 +256,7 @@ AUTH_USER_MODEL = 'user.User'
 # Static files / Asset files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/upload/'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, "upload")
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "static")
