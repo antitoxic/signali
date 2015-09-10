@@ -50,8 +50,8 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
             order_by.insert(0, sorting)
             queryset = self.add_accessibility(queryset)
 
-        # visits
-        if sorting == '-visits':
+        # last visited
+        if sorting == '-last_visited_at':
             sorting_match_found = True
             order_by.insert(0, sorting)
 
@@ -69,7 +69,7 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
             raise self.DoesNotExist()
 
     def visited_last(self):
-        return self.add_prefetch(self.public_base()).order_by('-created_at')
+        return self.add_prefetch(self.public_base()).order_by('-last_visited_at')
 
     def added_last(self):
         return self.add_prefetch(self.public_base()).order_by('-created_at')
