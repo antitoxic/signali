@@ -54,7 +54,7 @@ class TokenAuthView(View):
                 'oauth_token_secret': request.params.get('access_token_secret'),
             }
         elif isinstance(request.backend, BaseOAuth2):
-            token = request.params.get('auth_token'),
+            token = request.params.get('auth_token')
         else:
             raise failure.add_error('Wrong backend type')
 
