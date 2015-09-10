@@ -9,7 +9,7 @@ def setting(name, default=None, noparse=False):
     try:
         value = getattr(settings, name)
     except:
-        site_settings = Setting.objects.all()[:1].get()
+        site_settings = Setting.main()
         value = getattr(site_settings, name, default)
 
     if name in settings.MODEL_SETTINGS and not noparse and isinstance(value, str):

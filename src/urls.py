@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^contact-points/(?P<slug>[^/]+)/$', contactpoint.SingleView.as_view(), name='contact-point'),
     url(r'^contact-points/(?P<slug>[^/]+)/comments/$', FeedbackListView.as_view(), name='contact-point-feedback-list'),
     url(r'^contact-points/(?P<slug>[^/]+)/subscribers/$', SubscriberListView.as_view(), name='contact-point-subscriber-list'),
-    url(r'^/(?P<slug>[^/]+)$', PageView.as_view(), name='page'),
+    url(r'^(?P<slug>[^/]+)$', PageView.as_view(), name='page'),
     url(r'^redactor/', include('redactor.urls')),
 )
 if settings.DEBUG:

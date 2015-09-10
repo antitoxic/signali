@@ -26,3 +26,7 @@ class Setting(models.Model):
     def cover_url(self):
         return self.cover.url
 
+    @classmethod
+    def main(cls):
+        return cls.objects.all()[:1].get()
+
