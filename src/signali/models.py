@@ -43,6 +43,7 @@ class Partner(VisibilityMixin):
 
     class Meta:
         verbose_name = _('partner')
+        ordering = ['order']
         verbose_name_plural = _('partners')
 
     order = models.PositiveIntegerField()

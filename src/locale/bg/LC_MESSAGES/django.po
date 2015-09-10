@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 15:00+0300\n"
+"POT-Creation-Date: 2015-09-10 10:34+0300\n"
 "Last-Translator: Obshtestvo.bg <info@obshtestvo.bg>\n"
 "Language-Team: Obshtestvo.bg <info@obshtestvo.bg>\n"
 "Language: bg\n"
@@ -332,7 +332,7 @@ msgid "Time"
 msgstr ""
 
 #: env/django18/lib/python3.4/site-packages/django/db/models/fields/__init__.py:2308
-#: src/contact/models.py:67
+#: src/contact/models.py:61
 msgid "URL"
 msgstr "Интернет адрес"
 
@@ -574,6 +574,8 @@ msgid "Currently"
 msgstr ""
 
 #: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:346
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:18
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:68
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:24
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_listing.html:86
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/directory_table.html:27
@@ -591,12 +593,12 @@ msgid "Unknown"
 msgstr ""
 
 #: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:556
-#: src/contact/models.py:60
+#: src/contact/models.py:54
 msgid "Yes"
 msgstr "Да"
 
 #: env/django18/lib/python3.4/site-packages/django/forms/widgets.py:557
-#: src/contact/models.py:61
+#: src/contact/models.py:55
 msgid "No"
 msgstr "Не"
 
@@ -1208,7 +1210,7 @@ msgstr ""
 
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/app_index.html:8
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:19
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:99
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:101
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:61
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_list.html:42
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:46
@@ -1246,7 +1248,7 @@ msgstr ""
 
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:32
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/auth/user/change_password.html:75
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:77
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:79
 #: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:19
 #, fuzzy
 #| msgid "New password"
@@ -1287,16 +1289,16 @@ msgstr ""
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:66
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:67
 msgid "Welcome,"
 msgstr ""
 
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:74
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:76
 #: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:15
 msgid "Documentation"
 msgstr ""
 
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:79
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/base.html:81
 #: env/django18/lib/python3.4/site-packages/suit/templates/registration/password_change_form.html:21
 msgid "Log out"
 msgstr ""
@@ -1329,7 +1331,7 @@ msgstr ""
 
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/change_form.html:106
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/cms/page/change_form.html:104
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:9
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:15
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/folder/change_form.html:37
 #: env/django18/lib/python3.4/site-packages/suit/templates/admin/filer/image/change_form.html:15
 msgid "View on site"
@@ -1529,18 +1531,18 @@ msgstr ""
 "Следва изтриване на избраните %(objects_name)s. Заедно с тях ще бъдат "
 "изтрити и следните свързани с тях записи:"
 
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:67
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:120
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:73
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:128
 #, python-format
 msgid "Add another %(verbose_name)s"
 msgstr ""
 
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:70
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:123
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/stacked.html:76
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:131
 msgid "Remove"
 msgstr ""
 
-#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:17
+#: env/django18/lib/python3.4/site-packages/suit/templates/admin/edit_inline/tabular.html:19
 msgid "Delete?"
 msgstr ""
 
@@ -2128,6 +2130,18 @@ msgstr ""
 msgid "Press the save button below to revert to this version of the object."
 msgstr ""
 
+#: env/django18/lib/python3.4/site-packages/suit/templates/suit/error_base.html:87
+msgid "Close window"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/suit/error_base.html:90
+msgid "Go back"
+msgstr ""
+
+#: env/django18/lib/python3.4/site-packages/suit/templates/suit/error_base.html:93
+msgid "Go to admin home"
+msgstr ""
+
 #: env/django18/lib/python3.4/site-packages/suit/widgets.py:104
 msgid "Date:"
 msgstr "Дата:"
@@ -2141,7 +2155,6 @@ msgid "popularity"
 msgstr "популярност"
 
 #: src/accessibility/models.py:13
-#| msgid "preview"
 msgid "views"
 msgstr "брой прегледа"
 
@@ -2149,7 +2162,7 @@ msgstr "брой прегледа"
 msgid "is featured"
 msgstr "на фокус"
 
-#: src/accessibility/models.py:15
+#: src/accessibility/models.py:15 src/contact_feedback/models.py:42
 msgid "is public"
 msgstr "публично"
 
@@ -2157,211 +2170,208 @@ msgstr "публично"
 msgid "Style [technical]"
 msgstr "Стил (техническо)"
 
-#: src/accessibility/models.py:35
+#: src/accessibility/models.py:39
 msgid "page"
 msgstr "страница"
 
-#: src/accessibility/models.py:36 src/settings.py:310
+#: src/accessibility/models.py:40 src/settings.py:310
 msgid "pages"
 msgstr "страници"
 
-#: src/accessibility/models.py:37 src/contact/models.py:65
-#: src/contact/models.py:114 src/location/models.py:21
-#: src/location/models.py:36 src/signali/models.py:13
-#: src/taxonomy/models.py:10 src/taxonomy/models.py:36
+#: src/accessibility/models.py:41 src/contact/models.py:59
+#: src/contact/models.py:108 src/location/models.py:21
+#: src/location/models.py:36 src/signali/models.py:16 src/signali/models.py:50
+#: src/taxonomy/models.py:10 src/taxonomy/models.py:39
 msgid "title"
 msgstr "Заглавие"
 
-#: src/accessibility/models.py:38
+#: src/accessibility/models.py:42
 msgid "URL part"
 msgstr "Адрес в сайта"
 
-#: src/accessibility/models.py:39
+#: src/accessibility/models.py:43
 msgid "Content"
 msgstr "Съдържание"
 
-#: src/accessibility/models.py:40 src/accessibility/models.py:41
-#: src/contact_feedback/models.py:34 src/notification/models.py:13
+#: src/accessibility/models.py:44 src/accessibility/models.py:45
+#: src/contact_feedback/models.py:44 src/notification/models.py:13
 msgid "Added at"
 msgstr "Добавено на"
 
-#: src/contact/models.py:51
+#: src/contact/models.py:45
 msgid "contact point"
 msgstr "Място"
 
-#: src/contact/models.py:52 src/settings.py:308
+#: src/contact/models.py:46 src/settings.py:308
 msgid "contact points"
 msgstr "Места"
 
-#: src/contact/models.py:62
+#: src/contact/models.py:56
 msgid "I don't know"
 msgstr "Не знам"
 
-#: src/contact/models.py:66
+#: src/contact/models.py:60
 msgid "slug"
 msgstr "адрес в signali.bg"
 
-#: src/contact/models.py:68 src/security/forms.py:25
+#: src/contact/models.py:62 src/security/forms.py:25
 msgid "Email"
 msgstr "Имейл"
 
-#: src/contact/models.py:69 src/contact_feedback/models.py:38
-#: src/signali/models.py:14 src/signali_contact/admin.py:80
+#: src/contact/models.py:63 src/contact_feedback/models.py:48
+#: src/signali/models.py:17
 msgid "description"
 msgstr "описание"
 
-#: src/contact/models.py:70
+#: src/contact/models.py:64 src/signali_contact/admin.py:109
 msgid "notes"
 msgstr "бележки"
 
-#: src/contact/models.py:71 src/contact/models.py:118
+#: src/contact/models.py:65 src/contact/models.py:112
 msgid "operational area"
 msgstr "отговарящ за местност"
 
-#: src/contact/models.py:72
+#: src/contact/models.py:66
 msgid "user that proposed it"
 msgstr "потребител, който го е предложил"
 
-#: src/contact/models.py:73
+#: src/contact/models.py:67
 msgid "Response time"
 msgstr "Време за отговор (дни)"
 
-#: src/contact/models.py:75 src/contact/models.py:111
+#: src/contact/models.py:69 src/contact/models.py:105
 msgid "organisation"
 msgstr "организация"
 
-#: src/contact/models.py:76 src/settings.py:319 src/taxonomy/models.py:9
+#: src/contact/models.py:70 src/settings.py:319 src/taxonomy/models.py:9
 msgid "keywords"
 msgstr "теми"
 
-#: src/contact/models.py:77 src/taxonomy/models.py:33
+#: src/contact/models.py:71 src/taxonomy/models.py:36
 msgid "category"
 msgstr "категория"
 
-#: src/contact/models.py:80
+#: src/contact/models.py:74
 msgid "is multilingual"
 msgstr "многоезичност"
 
-#: src/contact/models.py:81
+#: src/contact/models.py:75
 msgid "guarantees response"
 msgstr "гаранция за отговор"
 
-#: src/contact/models.py:82
+#: src/contact/models.py:76
 msgid "is verifiable"
 msgstr "опция за верификация"
 
-#: src/contact/models.py:83
+#: src/contact/models.py:77
 msgid "is there a confirmation issued"
 msgstr "потвърждение"
 
-#: src/contact/models.py:84
+#: src/contact/models.py:78
 msgid "is mobile friendly"
 msgstr "готовност за мобилни устройства"
 
-#: src/contact/models.py:85
+#: src/contact/models.py:79
 msgid "is final destination"
 msgstr "Финална дестинация ли е"
 
-#: src/contact/models.py:86
+#: src/contact/models.py:80
 msgid "allows anonymous requests"
 msgstr "позволява анонимност"
 
-#: src/contact/models.py:89
+#: src/contact/models.py:83
 msgid "required registration"
 msgstr "изисква регистрация"
 
-#: src/contact/models.py:90
+#: src/contact/models.py:84
 msgid "photo registration"
 msgstr "изисква снимка"
 
-#: src/contact/models.py:91
+#: src/contact/models.py:85
 msgid "required e-signature"
 msgstr "изисква ел. подпис"
 
-#: src/contact/models.py:92
+#: src/contact/models.py:86
 msgid "required name"
 msgstr "изисква име"
 
-#: src/contact/models.py:93
+#: src/contact/models.py:87
 msgid "required email"
 msgstr "изисква имейл адрес"
 
-#: src/contact/models.py:94
+#: src/contact/models.py:88
 msgid "required personal indentification code"
 msgstr "изисква ЕГН"
 
-#: src/contact/models.py:95
+#: src/contact/models.py:89
 msgid "required address"
 msgstr "изисква адрес"
 
-#: src/contact/models.py:96
-#| msgid "required name"
+#: src/contact/models.py:90
 msgid "required phone"
 msgstr "изисква телефон"
 
-#: src/contact/models.py:97
+#: src/contact/models.py:91
 msgid "required location"
 msgstr "изисква локация"
 
-#: src/contact/models.py:98
-#| msgid "required name"
+#: src/contact/models.py:92
 msgid "required other"
 msgstr "изисква нещо друго"
 
-#: src/contact/models.py:99
-#| msgid "requirements"
+#: src/contact/models.py:93
 msgid "other requirements"
 msgstr "други изисквания"
 
-#: src/contact/models.py:101
+#: src/contact/models.py:95
 msgid "created at"
 msgstr "Създаден на"
 
-#: src/contact/models.py:112 src/settings.py:309
+#: src/contact/models.py:106 src/settings.py:309
 msgid "organisations"
 msgstr "организации"
 
-#: src/contact/models.py:115 src/notification/models.py:11
+#: src/contact/models.py:109 src/notification/models.py:11
 msgid "email"
 msgstr "имейл"
 
-#: src/contact/views.py:65 src/contact_feedback/views.py:33
+#: src/contact/views.py:77 src/contact_feedback/views.py:38
 msgid "Successfully gave feedback"
 msgstr "Успешно дадохте оценка"
 
-#: src/contact_feedback/models.py:27
+#: src/contact_feedback/models.py:36
 msgid "Weak"
 msgstr "Слабо"
 
-#: src/contact_feedback/models.py:28
+#: src/contact_feedback/models.py:37
 msgid "Could be better"
 msgstr "Може и по-добре"
 
-#: src/contact_feedback/models.py:29
+#: src/contact_feedback/models.py:38
 msgid "Adequate"
 msgstr "Адекватно"
 
-#: src/contact_feedback/models.py:30
+#: src/contact_feedback/models.py:39
 msgid "Good"
 msgstr "Добро"
 
-#: src/contact_feedback/models.py:31
+#: src/contact_feedback/models.py:40
 msgid "Excellent"
 msgstr "Отлично"
 
-#: src/contact_feedback/models.py:33
+#: src/contact_feedback/models.py:43
 msgid "user"
 msgstr "потребител"
 
-#: src/contact_feedback/models.py:35
+#: src/contact_feedback/models.py:45
 msgid "Are you happy with the results of your contact?"
 msgstr "Доволни ли сте от резултатите от изпратения сигнал?"
 
-#: src/contact_feedback/models.py:36
+#: src/contact_feedback/models.py:46
 msgid "Was it easy to operate with the contact point?"
 msgstr "Лесно ли беше изпращането?"
 
-#: src/contact_feedback/models.py:37
+#: src/contact_feedback/models.py:47
 msgid "Overall rating"
 msgstr "Цялостен рейтинг"
 
@@ -2430,7 +2440,7 @@ msgstr "Паролите не съвпадат"
 msgid "New password confirmation"
 msgstr "Нова парола (повторно)"
 
-#: src/security/views/email.py:31
+#: src/security/views/email.py:34
 msgid "This activation link is invalid"
 msgstr "Този линк за активиране е невалиден"
 
@@ -2446,7 +2456,7 @@ msgstr "основно съдържание"
 msgid "taxonomy"
 msgstr "класификация"
 
-#: src/settings.py:318 src/taxonomy/models.py:34
+#: src/settings.py:318 src/taxonomy/models.py:37
 msgid "categories"
 msgstr "категории"
 
@@ -2458,55 +2468,83 @@ msgstr "потребители"
 msgid "registered"
 msgstr "регистрирани"
 
-#: src/settings.py:331 src/settings.py:334 src/signali/models.py:11
+#: src/settings.py:331 src/settings.py:334 src/signali/models.py:14
 msgid "settings"
 msgstr "настройки"
 
-#: src/settings.py:335
+#: src/settings.py:335 src/signali/models.py:47
+msgid "partners"
+msgstr "партньори"
+
+#: src/settings.py:336
 msgid "areas sizes"
 msgstr "видове местности"
 
-#: src/settings.py:339
+#: src/settings.py:340
 msgid "troubleshoot"
 msgstr "системни"
 
-#: src/settings.py:342
+#: src/settings.py:343
 msgid "user associations"
 msgstr "свързани потребители"
 
-#: src/settings.py:343
+#: src/settings.py:344
 msgid "user nonce records"
 msgstr "nonce записи"
 
-#: src/settings.py:344
+#: src/settings.py:345
 msgid "user social auth"
 msgstr "social auth записи"
 
-#: src/settings.py:345
+#: src/settings.py:346
 msgid "user groups"
 msgstr "права за достъп"
 
-#: src/signali/models.py:10
+#: src/signali/admin.py:25 src/signali_accessibility/admin.py:31
+msgid "text"
+msgstr "текст"
+
+#: src/signali/models.py:13
 msgid "setting"
 msgstr "настройка"
 
-#: src/signali/models.py:15
+#: src/signali/models.py:18
 msgid "google analytics account id"
 msgstr "номер на акаунта в Google Analytics"
 
-#: src/signali/models.py:17
+#: src/signali/models.py:20
 msgid "Which size denotes address-level area"
 msgstr "Вид местност считана за адрес"
 
-#: src/signali/models.py:19 src/signali_accessibility/models.py:12
+#: src/signali/models.py:22 src/signali_accessibility/models.py:13
 msgid "cover"
 msgstr "фонова снимка"
 
-#: src/signali_accessibility/admin.py:14 src/signali_contact/admin.py:51
+#: src/signali/models.py:45
+msgid "partner"
+msgstr "партньор"
+
+#: src/signali/models.py:51
+msgid "url"
+msgstr "линк"
+
+#: src/signali/models.py:52
+msgid "provides"
+msgstr "предоставя"
+
+#: src/signali/models.py:53
+msgid "logo"
+msgstr "лого"
+
+#: src/signali_accessibility/admin.py:14 src/signali_contact/admin.py:54
+#: src/signali_contact/admin.py:150 src/signali_location/admin.py:8
+#: src/signali_taxonomy/admin.py:18
 msgid "basic"
 msgstr "основни"
 
-#: src/signali_accessibility/admin.py:15 src/signali_contact/admin.py:52
+#: src/signali_accessibility/admin.py:15 src/signali_contact/admin.py:55
+#: src/signali_contact/admin.py:151 src/signali_location/admin.py:9
+#: src/signali_taxonomy/admin.py:19
 msgid "visibility"
 msgstr "видимост"
 
@@ -2514,37 +2552,39 @@ msgstr "видимост"
 msgid "meta"
 msgstr "допълнителни"
 
-#: src/signali_accessibility/admin.py:31
-msgid "text"
-msgstr "текст"
-
-#: src/signali_accessibility/admin.py:35 src/signali_contact/admin.py:84
+#: src/signali_accessibility/admin.py:35 src/signali_contact/admin.py:105
 msgid "visuals"
 msgstr "графични"
 
-#: src/signali_accessibility/models.py:11
+#: src/signali_accessibility/models.py:12
 msgid "preview"
 msgstr "Основна снимка"
 
-#: src/signali_contact/admin.py:54
+#: src/signali_contact/admin.py:57
 msgid "proposed by user"
 msgstr ""
 
-#: src/signali_contact/admin.py:72
+#: src/signali_contact/admin.py:81
 msgid "key content"
 msgstr "ключово съдържание"
 
-#: src/signali_contact/admin.py:76
+#: src/signali_contact/admin.py:85
 msgid "features"
 msgstr "характеристики"
 
-#: src/signali_contact/admin.py:88
+#: src/signali_contact/admin.py:89
 msgid "requirements"
 msgstr "изисквания"
 
-#: src/signali_contact/admin.py:104
+#: src/signali_contact/admin.py:113
 msgid "extra"
 msgstr ""
+
+#: src/signali_contact/models.py:135
+#, fuzzy
+#| msgid "visibility"
+msgid "visits"
+msgstr "видимост"
 
 #: src/signali_location/models.py:16
 msgid "size"
@@ -2554,7 +2594,7 @@ msgstr "вид"
 msgid "Successfully subscribed for contact point"
 msgstr "Успешно се записахте за напомняния към мястото"
 
-#: src/taxonomy/models.py:35
+#: src/taxonomy/models.py:38
 msgid "parent category"
 msgstr "главна категория"
 
@@ -2568,7 +2608,7 @@ msgstr "Валидиран имейл"
 
 #: src/user/models.py:13
 msgid "Designates whether this user has validated their email."
-msgstr ""
+msgstr "Опеределя дали този потребител е валидирал мейла си"
 
 #: src/user/pipeline.py:30
 msgid "Invalid data provided"
