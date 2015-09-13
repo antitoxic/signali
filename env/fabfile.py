@@ -50,9 +50,10 @@ def deploy(context=default_deployment, static=False):
 
     with virtualenv(context), cd(deploy_path):
         run('git pull')
+        with cd(THEME_DIR.replace(PROJECT_ROOT, deploy_path.rstrip('/')+'/')):
+            run('git pull')
+
         if static:
-            with cd(THEME_DIR.replace(PROJECT_ROOT, deploy_path.rstrip('/')+'/')):
-                run('git pull')
             run('mkdir -p themes/default/build')
             put(os.path.join(THEME_STATIC_DIR, '*'), THEME_STATIC_DIR.replace(PROJECT_ROOT, '').strip('/')+'/')
             run('python manage.py collectstatic --noinput')
