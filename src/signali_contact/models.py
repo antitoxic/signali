@@ -148,3 +148,7 @@ class SignaliContactPointFeedbackManager(ContactPointFeedbackManager):
 
 class SignalContactPointFeedback(ContactPointFeedback):
     objects = SignaliContactPointFeedbackManager()
+
+    def get_absolute_url(self):
+        from django.core.urlresolvers import reverse
+        return reverse('contact-point', kwargs={"slug": self.contactpoint.slug})

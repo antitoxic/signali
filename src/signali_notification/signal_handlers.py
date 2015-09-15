@@ -7,8 +7,13 @@ from django.conf import settings
 
 @receiver(post_submit_feedback)
 def new_feedback_to_admin(feedback, *args, **kwargs):
-    pass
-    # email.send('notification/new_feedback', settings.ADMIN_EMAIL)
+    email.send(
+        'notification/new_feedback',
+        settings.ADMIN_EMAIL,
+        sender=settings.NOREPLY_FROM_EMAIL,
+        internal=True,
+        feedback=feedback
+    )
 
 
 @receiver(post_visit)

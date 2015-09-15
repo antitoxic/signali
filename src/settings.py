@@ -39,6 +39,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG', False)
 
 ALLOWED_HOSTS = ['.signali.bg']
+MAIN_HOST = ['signali.bg']
 
 WSGI_APPLICATION = 'env.wsgi.application'
 
@@ -125,6 +126,7 @@ EMAIL_CONNECTIONS = {
 }
 
 DEFAULT_FROM_EMAIL = 'info@signali.bg'
+NOREPLY_FROM_EMAIL = 'noreply@signali.bg'
 ADMIN_EMAIL = DEFAULT_FROM_EMAIL
 EMAIL_CONNECTION_LABEL_INTERNAL = 'internal'
 EMAIL_CONNECTION_LABEL_PUBLIC = 'public'
