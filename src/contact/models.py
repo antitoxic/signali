@@ -94,6 +94,30 @@ class BaseContactPoint(models.Model):
 
     created_at = models.DateTimeField(_('created at'), default=timezone.now)
 
+    def has_downsides(self):
+        lacks_features = self.NO in [
+            self.is_multilingual,
+            self.is_response_guaranteed,
+            self.is_verifiable,
+            self.is_confirmation_issued,
+            self.is_mobile_friendly,
+            self.is_final_destination,
+            self.is_anonymous_allowed,
+        ]
+        has_requirements = True in [
+            self.is_registration_required,
+            self.is_photo_required,
+            self.is_esign_required,
+            self.is_name_required,
+            self.is_email_required,
+            self.is_pic_required,
+            self.is_address_required,
+            self.is_phone_required,
+            self.is_location_required,
+            self.is_other_required
+        ]
+        return lacks_features or has_requirements
+
     def __str__(self):
         return "{} ({})".format(self.title, str(self.category))
 

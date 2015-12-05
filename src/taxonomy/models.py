@@ -16,7 +16,6 @@ class BaseKeyword(models.Model):
         return 'taxonomy-keyword-'+str(self.pk)
 
 
-
 class CategoryManager(models.Manager):
     def root_categories(self):
         return self.filter(parent__isnull=True)
@@ -30,6 +29,10 @@ class CategoryManager(models.Manager):
 
     def children(self):
         return self.exclude(parent__isnull=True)
+
+    @property
+    def pk_list(self):
+        return list(self.values_list('id', flat=True))
 
 
 class BaseCategory(models.Model):
