@@ -14,6 +14,7 @@ class Setting(models.Model):
         verbose_name_plural = _('settings')
 
     title = models.CharField(_('title'), max_length=250, blank=False)
+    title_short = models.CharField(_('short title'), max_length=250, blank=False, default="")
     description = models.CharField(_('description'), max_length=250, blank=False)
     google_analytics = models.CharField(_('google analytics account id'), max_length=250, blank=False)
     areasize_address = models.ForeignKey('signali_location.AreaSize',
