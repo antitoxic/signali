@@ -61,8 +61,7 @@ createdb -O signali signali -E utf-8 -l bg_BG.utf8 -T template0
 cp env/.django-sample env/.django
 ...edit .django to your needs ....
 # include src in PYTHONPATH
-# for bash shell: export PYTHONPATH=$PWD/src
-# for fish shell: set -x PYTHONPATH $PWD/src
+export PYTHONPATH=$PWD/src # (or set -x PYTHONPATH $PWD/src )
 # initialise db
 python manage.py migrate
 # load data seed
@@ -72,18 +71,26 @@ python manage.py runserver
 # go to http://127.0.0.1:8000/
 ```
 
+#### Usual development start
+
+```
+cd signali
+export PYTHONPATH=$PWD/src # (or set -x PYTHONPATH $PWD/src )
+source env/.virtualenv/bin/activate # (or activate.fish)
+python manage.py runserver
+# go to http://127.0.0.1:8000/
+```
+
 #### Deployment
 You must have a cloned version of the repo on your deployment server and exported sensitive settings as environment variables or
 defined as `env/.django` entries.
 
-After this you just simply run:
+Execute the command in the previous *"Usual development start"* section and then:
 
 ```
 cd env
 fab debloy:live,static # or fab deploy:live
 ```
-
-from your local install.
 
 ## Dev notes
 
@@ -93,14 +100,14 @@ It's recommended to have `pyinotify` installed on your system for more performan
 ### Architecture decisions
 
 #### Conventions
- - This project tries to follow the [12factor](http://12factor.net/) specs with addition of some 
+ - This project tries to follow most of the [12factor](http://12factor.net/) specs with addition of some
  **REST**ful conventions provided by the [django-restful](https://github.com/obshtestvo-utilities/django-restful) package. 
  Other common good practices are also followed.
  Example conventions followed:
   - not in the way, only use what you want from the conventions, i.e. it can work as standard django install
   - handle all errors in one place
   - all requests and all calls should be as stateless as possible, pass what you need
-  - all http methods should be simulatable 
+  - all http methods should be simulatable, be careful to use original `POST` values when dealing with sensitive request data
   - response format should be extracted from http header but should also be simulatable
   - template names can be auto-detected based on Controller name and request method, so they should 
   - developers should have full control of data transformation in the template for any format
@@ -112,7 +119,7 @@ It's recommended to have `pyinotify` installed on your system for more performan
 #### Specificity
  - Sensitive settings and those specific to deployment are retrieved from ENV variables or `.django` file in the `env`
  directory
- - If you are making a deployment you shouldn't have to modify the `src` directory. The `env` directory holds
+ - If you are simply making a deployment you shouldn't have to modify the `src` directory. The `env` directory holds
    all environment-specific settings. If this is not the case please open an issue or submit a pull request. Changing
    things in `src` should only happen when you want to change the functionality of the project 
  - `env` directory holds settings specific to deployment environment:
@@ -121,7 +128,8 @@ It's recommended to have `pyinotify` installed on your system for more performan
   - environment-specific project settings
   - the downloaded project dependencies
  - `src` directory is not "*just API*". It holds all sorts server-code and non-html templates
- - `themes` directory is where you can place your themes
+ - `themes` directory is where you can place your themes. Deployment procedure expects `build.sh` script to exist
+   in each theme root directory. This script is responsible for compiling assets in the `build` directory of the theme.
  - The `user` and `security` apps has similar purposes 
    - The main difference between `user` app and `security` app is that `user` app includes the more project-specific 
    user things (like prepping pages and forms for login, profile editing, and making use of `security` app ).
@@ -134,7 +142,8 @@ It's recommended to have `pyinotify` installed on your system for more performan
 
 #### Database
 
-If you're not familiar with Postgres but you are with Mysql [this article could be useful](http://crashmag.net/mysql-and-postgresql-rosetta-stone).
+If you're not familiar with Postgres but you are with Mysql
+[this article could be useful](http://crashmag.net/mysql-and-postgresql-rosetta-stone).
 
 #### Settings in environment variables
 The following will read a `.ini`-like file and export each definition as environment variables.
