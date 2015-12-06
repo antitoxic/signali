@@ -39,7 +39,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG', False)
 
 ALLOWED_HOSTS = ['.signali.bg']
-MAIN_HOST = ['signali.bg']
+MAIN_HOST = env('MAIN_HOST')
 
 WSGI_APPLICATION = 'env.wsgi.application'
 
@@ -283,6 +283,7 @@ CONTACT_FEEDBACK_MODEL = 'signali_contact.SignalContactPointFeedback'
 
 ACCESSIBILITY_PAGE_MODEL = 'signali_accessibility.Page'
 
+THUMBNAIL_ENGINE = 'signali.sorl.SignaliPilEngine'
 THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
 THUMBNAIL_QUALITY = 100
 THUMBNAIL_COLORSPACE = None
@@ -290,6 +291,7 @@ THUMBNAIL_PRESERVE_FORMAT = True
 THUMBNAIL_REDIS_HOST = env('REDIS_HOST')
 THUMBNAIL_REDIS_PORT = env('REDIS_PORT')
 THUMBNAIL_REDIS_DB = env('REDIS_THUMBNAIL_DB')
+THUMBNAIL_DEBUG = DEBUG
 
 CACHEOPS_REDIS = {
     'host': env('REDIS_HOST'),
