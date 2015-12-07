@@ -68,7 +68,9 @@ class PasswordResetView(PasswordResetAbstractView):
             email.send('user/password_reset_email', user.email, request=request, user=user, url=url)
         except:
             raise failure.add_error('generic', 'Could not email reset link')
-        return redirect('user:password-reset-sent')
+        return HtmlOnlyRedirectSuccessDict({
+            "email": user.email
+        }).set_redirect('user:password-reset-sent')
 
 
 
