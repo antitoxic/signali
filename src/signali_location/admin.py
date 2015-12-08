@@ -8,6 +8,12 @@ class AreaAdmin(admin.ModelAdmin):
         ('basic', _('basic')),
         ('visibility', _('visibility')),
     )
+    list_display = ('title', 'size', 'parent')
+    list_filter = (
+        'size',
+    )
+    search_fields = ('title',)
+    ordering = ('title',)
     fieldsets = (
         (None, {
             'classes': ('suit-tab suit-tab-basic',),
