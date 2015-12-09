@@ -150,6 +150,12 @@ class OrganisationPointAdmin(ReverseModelAdmin):
         ('basic', _('basic')),
         ('visibility', _('visibility')),
     )
+    search_fields = ('title',)
+    list_display = ('title', 'email', 'operational_area', 'is_public',)
+    list_filter = (
+        'operational_area',
+        'is_public',
+    )
     fieldsets = (
         (None, {
             'classes': ('suit-tab suit-tab-basic',),
