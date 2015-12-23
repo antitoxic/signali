@@ -2642,7 +2642,7 @@ msgstr "Специфично име"
 
 #: src/signali_contact/admin.py:44
 msgid "If it's different than the organisation"
-msgstr "Ако е различно от името на организацията или има нужда от пояснение"
+msgstr "Ако е различно от името на организацията или категорията, и има нужда от пояснение"
 
 #: src/signali_contact/admin.py:68
 msgid "branch"
