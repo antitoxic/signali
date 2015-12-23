@@ -1,12 +1,26 @@
 from django.contrib import admin
-from .models import Area, AreaSize
+from django import forms
 from django.utils.translation import ugettext_lazy as _
+
+from .models import Area, AreaSize
+from location.forms import AreaAutosuggestWidget
+
+
+class AreaAdminForm(forms.ModelForm):
+    class Meta:
+        model = Area
+        exclude = []
+        widgets = {
+            'parent': AreaAutosuggestWidget,
+        }
 
 
 class AreaAdmin(admin.ModelAdmin):
+    form = AreaAdminForm
     suit_form_tabs = (
         ('basic', _('basic')),
         ('visibility', _('visibility')),
+        ('legislative', _('legislative')),
     )
     list_display = ('title', 'size', 'parent')
     list_filter = (
@@ -20,8 +34,12 @@ class AreaAdmin(admin.ModelAdmin):
             'fields': ('title', 'parent', 'size', 'is_public')
         }),
         (None, {
+            'classes': ('suit-tab suit-tab-legislative',),
+            'fields': ('regulation_code', 'regulation_codename', 'regulation_type')
+        }),
+        (None, {
             'classes': ('suit-tab suit-tab-visibility',),
-            'fields': ('is_featured', 'popularity', 'views', 'style')
+            'fields': ('is_featured', 'style')
         }),
     )
 

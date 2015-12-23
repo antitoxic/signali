@@ -13,5 +13,6 @@ class SignalCategoryManager(CategoryManager, VisibilityManagerMixin):
 class Category(BaseCategory, SignalVisibilityMixin):
     objects = SignalCategoryManager()
 
+
 class Keyword(BaseKeyword, SignalVisibilityMixin):
     pass

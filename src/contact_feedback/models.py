@@ -10,6 +10,32 @@ class ContactPointFeedbackedMixin(models.Model):
     class Meta:
         abstract = True
 
+    effectiveness = models.IntegerField(verbose_name=_("Overall effectiveness"), blank=False, default=0)
+    accessibility = models.IntegerField(verbose_name=_("Overall ease of access"), blank=False, default=0)
+    rating = models.FloatField(verbose_name=_("Overall rating"), blank=False, default=0)
+    feedback_count = models.PositiveIntegerField(verbose_name=_("Overall feedback activity"), blank=False, default=0)
+
+    def precalculate_feedback_stats(self, feedback_list=None):
+        if not feedback_list:
+            feedback_list = self.feedback.published()
+
+        ratings = []
+        effectiveness = 0
+        accessibility = 0
+        count = len(feedback_list)
+
+        for f in feedback_list:
+            ratings.append(f.rating)
+            effectiveness += 1 if f.is_effective else -1
+            accessibility += 1 if f.is_easy else -1
+
+        self.effectiveness = effectiveness
+        self.accessibility = accessibility
+        self.rating = sum(ratings)/count
+        self.feedback_count = count
+
+
+
 
 class ContactPointFeedbackManager(models.Manager):
 

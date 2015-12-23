@@ -56,13 +56,14 @@ class BaseContactPoint(models.Model):
         (DONTKNOW, _("I don't know")),
     )
 
-    title = models.CharField(_('title'), max_length=250, blank=False)
+    title = models.CharField(_('title'), max_length=250, blank=True)
     slug = models.SlugField(_('slug'), max_length=255, blank=True, null=True)
     url = models.URLField(_('URL'), max_length=255, blank=True, null=True)
+    source_url = models.URLField(_('Source URL'), max_length=255, blank=True, null=True)
     email = models.EmailField(_('Email'), max_length=255, blank=True, null=True)
     description = models.TextField(_('description'), blank=True)
     notes = models.TextField(_('notes'), blank=True)
-    operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL', noparse=True), related_name="contact_points", verbose_name=_("operational area"))
+    operational_area = models.ForeignKey(setting('CONTACT_AREA_MODEL', noparse=True), related_name="contact_points", verbose_name=_("operational area"), null=True)
     proposed_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="contactpoint_proposals", verbose_name=_("user that proposed it"), null=True, blank=True)
     response_time = models.PositiveIntegerField(verbose_name=_("Response time"), blank=True, null=True)
 
@@ -119,7 +120,12 @@ class BaseContactPoint(models.Model):
         return lacks_features or has_requirements
 
     def __str__(self):
-        return "{} ({})".format(self.title, str(self.category))
+        specific = self.title
+        if not specific:
+            specific = self.organisation.title
+        if self.parent:
+            specific += ' - ' + self.operational_area.title
+        return "{} ({})".format(specific, str(self.category))
 
 
 
@@ -139,4 +145,10 @@ class BaseOrganisation(models.Model):
                                          on_delete=models.SET_NULL)
 
     def __str__(self):
-        return '{} ({})'.format(self.title, self.email)
+        repr = '{}'
+        params = [self.title]
+        if self.email:
+            repr += ' ({})'
+            params.append(self.email)
+
+        return repr.format(*params)

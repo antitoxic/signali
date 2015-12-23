@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^contact-points/(?P<slug>[^/]+)/subscribers/$', SubscriberListView.as_view(), name='contact-point-subscriber-list'),
     url(r'^page/(?P<slug>[^/]+)$', PageView.as_view(), name='page'),
     url(r'^redactor/', include('redactor.urls')),
+    url(r'^select2/', include('django_select2.urls')),
 )
 if settings.DEBUG:
     from django.conf.urls.static import static

@@ -6,7 +6,7 @@ from django.contrib.admin.apps import AdminConfig
 original_get_url = sites.AdminSite.get_urls
 
 def redirect_view(request):
-    return redirect('admin:signali_contact_contactpoint_changelist')
+    return redirect('admin:signali_contact_contactpointgrouped_changelist')
 
 def admin_get_urls(self):
     from django.conf.urls import patterns, url

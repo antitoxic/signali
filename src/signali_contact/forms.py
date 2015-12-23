@@ -25,6 +25,11 @@ class UserCriteriaForm(BaseUserCriteriaForm):
             filters = filters | featured_filter
             score += make_score_value(featured_filter)
 
+        if self.cleaned_data['areas'].exists():
+            filters = filters & ~Q(parent=None)
+        else:
+            filters = filters & Q(parent=None)
+
         return score, filters & Q(is_public=True)
 
     def keywords_search_expressions(self):

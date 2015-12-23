@@ -318,7 +318,7 @@ SUIT_CONFIG = {
             'label': _('main content'),
             'icon': 'icon-star',
             'models': (
-                {'model': 'signali_contact.contactpoint', 'label': _('contact points')},
+                {'model': 'signali_contact.contactpointgrouped', 'label': _('contact points')},
                 {'model': 'signali_contact.organisation', 'label': _('organisations')},
                 {'model': 'signali_accessibility.page', 'label': _('pages')},
                 {'model': 'signali_location.area', 'label': _('areas')},

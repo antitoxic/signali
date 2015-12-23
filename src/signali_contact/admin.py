@@ -1,18 +1,17 @@
 from django.contrib import admin
 from django import forms
-from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from sorl.thumbnail.admin import AdminImageMixin
 from adminextra.reverseadmin import ReverseModelAdmin
 from django_bootstrap_datetimepicker.widgets import BootstrapDateTimeInput
-from redactor.widgets import RedactorEditor
 from suit.widgets import AutosizedTextarea
 
 from contact.admin import BaseContactPointAdmin
 from signali_location.models import Area
 from signali_taxonomy.models import Category
-from .models import ContactPoint, Organisation
+from location.forms import AreaAutosuggestWidget
+from .models import ContactPoint, ContactPointGrouped, Organisation
 
 betterDateTimePicker = BootstrapDateTimeInput(format="%d.%m.%Y %H:%M")
 
@@ -29,10 +28,9 @@ extended_booelan_fields = [
 
 class ContactPointForm(forms.ModelForm):
     class Meta:
-        model = ContactPoint
+        model = ContactPointGrouped
         exclude = []
         widgets = {
-            "description": RedactorEditor(),
             "other_requirements": AutosizedTextarea(),
         }
 
@@ -42,46 +40,98 @@ class ContactPointForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["category"].queryset = Category.objects.children()
+        self.fields["title"].label = _('specific name')
+        self.fields["title"].help_text = _("If it's different than the organisation")
         for fieldname in self.fields:
             if fieldname in self.force_required:
                 self.fields[fieldname].choices = ContactPoint.EXTENDED_BOOLEAN_CHOICES
 
 
+
+class ContactPointChildForm(forms.ModelForm):
+    class Meta:
+        model = ContactPointGrouped
+        exclude = []
+        widgets = {
+            'operational_area': AreaAutosuggestWidget,
+            'description': AutosizedTextarea,
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["operational_area"].required = True
+
+class ContactPointChildAdmin(admin.StackedInline):
+    model = ContactPointGrouped
+    form = ContactPointChildForm
+    suit_classes = 'suit-tab suit-tab-children'
+    verbose_name = _('branch')
+    verbose_name_plural = _('branches')
+    extra = 1
+    fieldsets = (
+        (None, {'fields': [
+            'operational_area',
+            'url',
+            'email',
+            'source_url',
+            'description',
+        ]}),
+    )
+
+
 class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
     form = ContactPointForm
+    inlines = (ContactPointChildAdmin,)
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.filter(parent=None)
+
+    def save_related(self, request, form, formsets, change):
+        for formset in formsets:
+            for childform in formset.forms:
+                if not childform.cleaned_data:
+                    continue
+                childform.instance.parent = form.instance
+                childform.instance = childform.instance.get_synced_copy_of_parent(form.instance)
+        super().save_related(request, form, formsets, change)
+
     prepopulated_fields = {"slug": ("title",)}
     suit_form_tabs = (
         ('basic', _('basic')),
+        ('children', _('branches')),
         ('visibility', _('visibility')),
-        # ('meta', _('meta')),
         ('user-proposed', _('proposed by user')),
     )
-    # formfield_overrides = {
-    #     models.DateTimeField: {'widget': betterDateTimePicker},
-    # }
 
-    radio_fields = dict((field,admin.HORIZONTAL) for field in extended_booelan_fields)
+    def children_count(self, obj):
+        return obj.children.count()
+    children_count.short_description = _('Number of branches')
 
-    list_display = ('title', 'category',  'is_featured', 'is_public',)
+    radio_fields = dict((field, admin.HORIZONTAL) for field in extended_booelan_fields)
+
+    list_per_page = 40
+    list_display = ('__str__', 'children_count', 'category', 'is_featured', 'is_public',)
     list_editable = ('is_featured', 'is_public', )
-    list_display_links = ('title',)
+    list_display_links = ('__str__',)
     list_filter = (
         'category',
         'keywords',
         'is_public',
     )
-    search_fields = ('title', 'description',)
+    search_fields = ('organisation__title', 'title', 'description',)
 
     fieldsets = (
 
         (None, {
             'classes': ('suit-tab suit-tab-basic',),
-            'fields': ('title', 'slug', 'is_public',)
+            'fields': ('organisation', 'title', 'slug', 'is_public',)
         }),
         (_('key content'), {
             'classes': ('suit-tab suit-tab-basic',),
-            'fields': ('url', 'category', 'keywords', 'operational_area', 'organisation', 'email')
+            'fields': ('category', 'keywords')
         }),
+        #@todo move children inline here? (by changing form html http://stackoverflow.com/questions/18734924/how-to-position-inlines-in-django-admin)
         (_('features'), {
             'classes': ('suit-tab suit-tab-basic',),
             'fields': extended_booelan_fields
@@ -106,10 +156,6 @@ class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
             'classes': ('suit-tab suit-tab-basic',),
             'fields': ('preview', 'cover')
         }),
-        (_('notes'), {
-            'classes': ('suit-tab suit-tab-basic full-width',),
-            'fields': ('description', )
-        }),
         (_('extra'), {
             'classes': ('suit-tab suit-tab-basic',),
             'fields': (
@@ -122,7 +168,7 @@ class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
         }),
         (None, {
             'classes': ('suit-tab suit-tab-visibility',),
-            'fields': ('popularity', 'views', 'is_featured', 'style')
+            'fields': ('is_featured', 'style')
         }),
         # (None, {
         #     'classes': ('suit-tab suit-tab-meta',),
@@ -135,6 +181,9 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Area
         fields = ('title', 'parent')
+        widgets = {
+            'parent': AreaAutosuggestWidget,
+        }
 
     def save(self, commit=True):
         from signali.utils import setting
@@ -168,5 +217,5 @@ class OrganisationPointAdmin(ReverseModelAdmin):
     )
 
 
-admin.site.register(ContactPoint, ContactPointAdmin)
+admin.site.register(ContactPointGrouped, ContactPointAdmin)
 admin.site.register(Organisation, OrganisationPointAdmin)

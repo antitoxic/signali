@@ -14,6 +14,7 @@ class CategoryForm(forms.ModelForm, VisibilityColoredStyleFormMixin):
 
 class CategoryAdmin(admin.ModelAdmin):
     form = CategoryForm
+    search_fields = ('title',)
     suit_form_tabs = (
         ('basic', _('basic')),
         ('visibility', _('visibility')),
@@ -33,10 +34,27 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class KeywordForm(forms.ModelForm, VisibilityColoredStyleFormMixin):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["title"].label = _('keyword')
 
 class KeywordAdmin(BaseKeywordAdmin):
     form = KeywordForm
+    search_fields = ('title',)
+    suit_form_tabs = (
+        ('basic', _('basic')),
+        ('visibility', _('visibility')),
+    )
+    fieldsets = (
+        (None, {
+            'classes': ('suit-tab suit-tab-basic',),
+            'fields': ('title', 'is_public')
+        }),
+        (None, {
+            'classes': ('suit-tab suit-tab-visibility',),
+            'fields': ('is_featured', 'popularity', 'views', 'style')
+        }),
+    )
 
 
 admin.site.register(Category, CategoryAdmin)

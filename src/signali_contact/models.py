@@ -1,8 +1,11 @@
+from copy import copy
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.db.models import Count, Avg, Case, When, Q
-from django.db.models.functions import Coalesce
+from django.db.models import Sum, Avg, Min, Q
+from django.template.defaultfilters import slugify
 
+from unidecode import unidecode
 from contact.models import BaseContactPoint, ContactPointManager, BaseOrganisation
 from accessibility.models import VisibilityManagerMixin
 from signali_accessibility.models import SignalVisibilityMixin
@@ -20,38 +23,19 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
 
     def _apply_criteria_sorting(self, queryset, sorting, score_expression):
         queryset, order_by = super()._apply_criteria_sorting(queryset, sorting, score_expression)
+        queryset = queryset.prefetch_related('children')
         sorting_match_found = False
 
-        # popularity
-        if sorting == 'popularity' or sorting == '-popularity':
-            sorting_match_found = True
-            order_by.insert(0, sorting)
-
-        # new
-        if sorting == '-created_at':
-            sorting_match_found = True
-            order_by.insert(0, sorting)
-
-        # rating
-        if sorting == '-rating':
-            sorting_match_found = True
-            order_by.insert(0, sorting)
-            queryset = self.add_average_rating(queryset)
-
-        # effectiveness
-        if sorting == '-effective':
-            sorting_match_found = True
-            order_by.insert(0, sorting)
-            queryset = self.add_effectiveness(queryset)
-
-        # ease of use
-        if sorting == '-accessibility':
-            sorting_match_found = True
-            order_by.insert(0, sorting)
-            queryset = self.add_accessibility(queryset)
-
-        # last visited
-        if sorting == '-last_visited_at':
+        valid_sorting = [
+            'popularity',
+            '-popularity',
+            '-created_at',
+            '-rating',
+            '-effectiveness',
+            '-accessibility',
+            '-last_visited_at'
+        ]
+        if sorting in valid_sorting:
             sorting_match_found = True
             order_by.insert(0, sorting)
 
@@ -75,54 +59,18 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
         return self.add_prefetch(self.public_base()).order_by('-created_at')
 
     def most_effective(self):
-        query = self.public_base()
-        return self.add_effectiveness(query).order_by('-effective')
+        return self.public_base().order_by('-effectiveness')
 
     def most_accessible(self):
-        query = self.public_base()
-        return self.add_accessibility(query).order_by('-accessibility')
+        return self.public_base().order_by('-accessibility')
 
     def rated_best(self):
-        query = self.public_base()
-        return self.add_average_rating(query).order_by('-rating')
+        return self.public_base().order_by('-rating')
 
     @staticmethod
     def add_prefetch(queryset):
         return queryset.select_related('organisation', 'category') \
             .prefetch_related('keywords')
-
-    @staticmethod
-    def add_average_rating(queryset):
-        return queryset.annotate(
-            rating=Case(
-                When(
-                    feedback__is_public=True,
-                    then=Coalesce(Avg('feedback__rating'), 0)
-                ), default=0)
-        )
-
-    @staticmethod
-    def add_effectiveness(queryset):
-        return queryset.annotate(
-            effective=Count(
-                Case(
-                    When(
-                        Q(feedback__is_effective=True, feedback__is_public=True),
-                        then=1
-                    ), default=None)
-            ))
-
-    @staticmethod
-    def add_accessibility(queryset):
-        return queryset.annotate(
-            accessibility=Count(
-                Case(
-                    When(
-                        Q(feedback__is_easy=True, feedback__is_public=True),
-                        then=1
-                    ), default=None)
-            ))
-
 
 
 class SignalOrganisationManager(models.Manager, VisibilityManagerMixin):
@@ -135,12 +83,102 @@ class Organisation(BaseOrganisation, SignalVisibilityMixin):
 
 class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedbackedMixin):
     objects = SignalContactPointManager()
+    parent = models.ForeignKey('self', related_name='children', null=True)
     visits = models.PositiveIntegerField(_('visits'), default=0)
     anonymous_visits = models.PositiveIntegerField(_('anonymous visits'), default=0)
     last_visited_at = models.DateTimeField(_('created at'), null=True, blank=True)
 
-    def rating(self):
-        return self.feedback.aggregate(average_rating=models.Avg('rating'))["average_rating"]
+    def precalculate_feedback_stats(self, feedback_list=None):
+        if self.parent is None:
+            children = self.children.filter(feedback_count__gt=0)
+            if children.count() == 0:
+                return
+            stats = children.aggregate(
+                rating=Avg('rating'),
+                effectiveness=Avg('effectiveness'),
+                accessibility=Avg('accessibility'),
+                feedback_count=Sum('feedback_count'),
+            )
+            for stat, value in stats.items():
+                setattr(self, stat, round(value))
+        else:
+            super().precalculate_feedback_stats(feedback_list)
+
+    def has_single_child(self):
+        return self.children.count() == 1
+
+    @property
+    def is_parent_with_many_children(self):
+        return self.parent is None and not self.has_single_child()
+
+    @property
+    def slug_or_child_slug(self):
+        if self.parent:
+            return self.slug
+        return self.children.all()[0].slug
+
+    def clone(self):
+        keywords = self.keywords.all()
+        clone = copy(self)
+        clone.pk = None
+        clone.save()
+        clone.keywords = keywords
+        return clone
+
+    def get_synced_copy_of_parent(self, parent):
+        if self.parent is None:
+            return
+        # reference fields that differ
+        pk = self.id
+        area = self.operational_area
+        url = self.url
+        source_url = self.source_url
+        description = self.description
+        email = self.email
+        # clone parent
+        child = copy(parent)
+        # apply fields that differ
+        child.id = pk
+        child.parent = parent
+        child.operational_area = area
+        child.source_url = source_url
+        child.url = url
+        child.description = description
+        child.email = email
+        child.slug = '{}-{}'.format(child.slug, slugify(unidecode(child.operational_area.title)))
+        child.save()
+        child.keywords = parent.keywords.all()
+        return child
+
+    def aggregate_children_visibility(self):
+        stats = self.children.aggregate(
+            last_visited_at=Min('last_visited_at'),
+            visits=Avg('visits'),
+            anonymous_visits=Avg('anonymous_visits'),
+            popularity=Avg('popularity'),
+            views=Avg('views'),
+        )
+        for stat, value in stats.items():
+            if stat != 'last_visited_at':
+                value = round(value)
+            setattr(self, stat, value)
+
+    def save(self, update_parent=True, *args, **kwargs):
+        if update_parent and self.parent is not None:
+            self.parent.precalculate_feedback_stats()
+            self.parent.aggregate_children_visibility()
+            self.parent.save()
+        super().save(*args, **kwargs)
+
+
+class ContactPointGrouped(ContactPoint):
+    class Meta:
+        proxy = True
+        verbose_name = _('Grouped contact point')
+        verbose_name_plural = _('Contact point groups')
+
+    def save(self, *args, **kwargs):
+        super().save(update_parent=False, *args, **kwargs)
 
 
 class SignaliContactPointFeedbackManager(ContactPointFeedbackManager):

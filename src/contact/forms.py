@@ -102,6 +102,18 @@ class BaseUserCriteriaForm(forms.Form):
             filters = category_filters
         return make_score_value(category_filters), filters
 
+    def get_area_ids(self):
+        first_area = self.cleaned_data['areas'][0]
+        ids = list(first_area.get_family().values_list('pk', flat=True))
+        ids = ids + list(self.cleaned_data['areas'].values_list('pk', flat=True))
+        return set(ids)
+
+    def area_search_filters(self):
+        if self.cleaned_data['areas'].exists():
+            return Q(operational_area__in=self.get_area_ids())
+        else:
+            return Q()
+
     """
     If we want we can annotate match_<fieldname>_<id> with django.db.models.Value() and know which
     field we did match, but that's easily determined from each single result
@@ -127,12 +139,7 @@ class BaseUserCriteriaForm(forms.Form):
         else:
             filters = category_filter | keyword_filter
 
-        if data['areas'].exists():
-            first_area = data['areas'][0]
-            ids = list(first_area.get_ancestors().values_list('pk', flat=True))
-            ids = ids + list(data['areas'].values_list('pk', flat=True))
-            filters = filters & Q(operational_area__in=ids)
-            self.max_score += 1
+        filters = filters & self.area_search_filters()
 
         for fieldname in self.exact_match_fields:
             if fieldname in self.data:
@@ -140,8 +147,6 @@ class BaseUserCriteriaForm(forms.Form):
                 self.max_score += 1
 
         return score, filters
-
-
 
 
 class BaseContactPointForm(forms.ModelForm):
