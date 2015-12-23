@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from copy import copy
+from django.template.defaultfilters import slugify
+from unidecode import unidecode
 
-from django.db import models, migrations
+from django.db import migrations
 
 def extract_branches(apps, schema_editor):
     # We can't import the Person model directly as it may be a newer
@@ -21,6 +22,7 @@ def extract_branches(apps, schema_editor):
             for child in points:
                 child.parent = parent
                 child.title = ''
+                child.slug = '{}-{}'.format(child.slug, slugify(unidecode(child.operational_area.title)))
                 if child.email:
                     child.source_url = child.url
                     child.url = None

@@ -168,6 +168,7 @@ class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedback
             self.parent.precalculate_feedback_stats()
             self.parent.aggregate_children_visibility()
             self.parent.save()
+        self.precalculate_feedback_stats()
         super().save(*args, **kwargs)
 
 

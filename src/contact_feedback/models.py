@@ -23,6 +23,8 @@ class ContactPointFeedbackedMixin(models.Model):
         effectiveness = 0
         accessibility = 0
         count = len(feedback_list)
+        if count == 0:
+            return
 
         for f in feedback_list:
             ratings.append(f.rating)
