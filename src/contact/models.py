@@ -126,6 +126,7 @@ class BaseContactPoint(models.Model):
         if self.parent:
             specific += ' - ' + self.operational_area.title
         return "{} ({})".format(specific, str(self.category))
+    __str__.admin_order_field = 'title'
 
 
 

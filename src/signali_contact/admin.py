@@ -115,7 +115,7 @@ class ContactPointAdmin(BaseContactPointAdmin, AdminImageMixin):
     list_editable = ('is_featured', 'is_public', )
     list_display_links = ('__str__',)
     list_filter = (
-        'category',
+        ('category', admin.RelatedOnlyFieldListFilter),
         'keywords',
         'is_public',
     )

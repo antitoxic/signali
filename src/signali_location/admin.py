@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .models import Area, AreaSize
 from location.forms import AreaAutosuggestWidget
+from signali_contact.models import ContactPoint
 
 
 class AreaAdminForm(forms.ModelForm):
@@ -17,10 +18,20 @@ class AreaAdminForm(forms.ModelForm):
 
 class AreaAdmin(admin.ModelAdmin):
     form = AreaAdminForm
+    suit_form_includes = (
+        ('admin/area_contact_points.html', 'bottom', 'points'),
+    )
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["related_points"] = ContactPoint.objects.filter(children__operational_area_id=object_id)
+        return super().change_view(request, object_id, form_url, extra_context)
+
     suit_form_tabs = (
         ('basic', _('basic')),
         ('visibility', _('visibility')),
         ('legislative', _('legislative')),
+        ('points', _('contact points')),
     )
     list_display = ('title', 'size', 'parent')
     list_filter = (
