@@ -19,6 +19,7 @@ deployments = {
 }
 default_deployment = 'live'
 
+
 @_contextmanager
 def virtualenv(context):
     if context not in deployments.keys():
