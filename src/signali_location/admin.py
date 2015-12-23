@@ -19,7 +19,7 @@ class AreaAdminForm(forms.ModelForm):
 class AreaAdmin(admin.ModelAdmin):
     form = AreaAdminForm
     suit_form_includes = (
-        ('admin/area_contact_points.html', 'bottom', 'points'),
+        ('admin/_area_contact_points.html', 'top', 'points'),
     )
 
     def change_view(self, request, object_id, form_url='', extra_context=None):

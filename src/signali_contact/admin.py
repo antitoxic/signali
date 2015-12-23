@@ -195,9 +195,19 @@ class AddressForm(forms.ModelForm):
 class OrganisationPointAdmin(ReverseModelAdmin):
     inline_type = 'tabular'
     inline_reverse = (('address', AddressForm),)
+    suit_form_includes = (
+        ('admin/_area_contact_points.html', 'top', 'points'),
+    )
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        extra_context["related_points"] = ContactPoint.objects.filter(parent=None, organisation_id=object_id)
+        return super().change_view(request, object_id, form_url, extra_context)
+
     suit_form_tabs = (
         ('basic', _('basic')),
         ('visibility', _('visibility')),
+        ('points', _('contact points')),
     )
     search_fields = ('title',)
     list_display = ('title', 'email', 'operational_area', 'is_public',)
