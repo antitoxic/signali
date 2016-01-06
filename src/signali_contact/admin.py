@@ -192,7 +192,17 @@ class AddressForm(forms.ModelForm):
         return super().save(commit)
 
 
-class OrganisationPointAdmin(ReverseModelAdmin):
+class OrganisationForm(forms.ModelForm):
+    class Meta:
+        model = Organisation
+        exclude = []
+        widgets = {
+            'operational_area': AreaAutosuggestWidget,
+        }
+
+
+class OrganisationAdmin(ReverseModelAdmin):
+    form = OrganisationForm
     inline_type = 'tabular'
     inline_reverse = (('address', AddressForm),)
     suit_form_includes = (
@@ -228,4 +238,4 @@ class OrganisationPointAdmin(ReverseModelAdmin):
 
 
 admin.site.register(ContactPointGrouped, ContactPointAdmin)
-admin.site.register(Organisation, OrganisationPointAdmin)
+admin.site.register(Organisation, OrganisationAdmin)
