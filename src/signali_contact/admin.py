@@ -222,7 +222,6 @@ class OrganisationAdmin(ReverseModelAdmin):
     search_fields = ('title',)
     list_display = ('title', 'email', 'operational_area', 'is_public',)
     list_filter = (
-        'operational_area',
         'is_public',
     )
     fieldsets = (
