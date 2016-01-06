@@ -179,7 +179,7 @@ INSTALLED_APPS = (
     'signali_contact.apps.FeedbackConfig',
     'signali_contact.apps.SignaliContactConfig',
     'signali_accessibility',
-    'signali_location',
+    'signali_location.apps.SignaliAreaConfig',
     'signali_taxonomy',
     'themes.'+THEME+'.widgets',
     'django_bootstrap_datetimepicker',
@@ -304,6 +304,16 @@ CACHEOPS = {
     'signali_accessibility.*': {'ops': 'all', 'timeout': 60*60*5}, # 5 hours
     'signali_location.*': {'ops': 'all', 'timeout': 60*60*5}, # 5 hours
     'signali.*': {'ops': 'all', 'timeout': 60*60*5}, # 5 hours
+}
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://{}:{}/{}".format(env('REDIS_HOST'), env('REDIS_PORT'), env('REDIS_DJANGO_DB')),
+        'TIMEOUT': 1200,
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }
 
 # If you are developing without access to images, please refer to:

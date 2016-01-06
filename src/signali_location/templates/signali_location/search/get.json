@@ -1,0 +1,8 @@
+{% load restful %}[{% for result in results %}
+{% if not forloop.first %},{% endif %}
+    {
+        "id": {{result.meta.id | jsonify | safe}},
+        "title": {{result.title | jsonify | safe}},
+        "score": {{result.watson_rank | jsonify | safe}}
+    }
+{% endfor %}]

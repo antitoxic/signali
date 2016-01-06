@@ -186,7 +186,8 @@ class BaseContactPointForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        self.fields["category"].queryset = Category.objects.children().select_related('parent')
+        
         for fieldname in self.fields:
             if fieldname in self.force_required:
                 self.fields[fieldname].required = True

@@ -58,6 +58,7 @@ class UserCriteriaForm(BaseUserCriteriaForm):
 class ContactPointForm(BaseContactPointForm):
     def __init__(self, instance, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields["operational_area"].queryset = Area.objects.non_address()
 
         if instance is not None:
             instance.is_public = False

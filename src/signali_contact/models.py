@@ -69,8 +69,8 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
 
     @staticmethod
     def add_prefetch(queryset):
-        return queryset.select_related('organisation', 'category') \
-            .prefetch_related('keywords')
+        return queryset.select_related('organisation', 'category', 'operational_area') \
+            .prefetch_related('keywords', 'children', 'children__operational_area')
 
 
 class SignalOrganisationManager(models.Manager, VisibilityManagerMixin):

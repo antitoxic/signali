@@ -15,6 +15,7 @@ rules==0.4
 singlemodeladmin==0.4
 PyYAML
 redis==2.10.3
+django-redis==4.3.0
 sorl-thumbnail==12.3
 django-cacheops==2.4
 bleach==1.4.1

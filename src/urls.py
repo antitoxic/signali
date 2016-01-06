@@ -3,6 +3,7 @@ from accessibility.views.intro import IntroView
 from accessibility.views.page import PageView
 from contact import views as contactpoint
 from signali_contact import views as signalicontact
+from signali_location.views import SearchView
 from contact_feedback.views import ListView as FeedbackListView
 from signali_notification.views import SubscriberListView
 from django.conf import settings
@@ -13,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^security/', include('security.urls', namespace='security')),
     url(r'^user/', include('user.urls', namespace='user')),
+    url(r'^areas/search/$', SearchView.as_view(), name='area-list-search'),
     url(r'^contact-points/$', contactpoint.ListView.as_view(), name='contact-point-list'),
     url(r'^contact-points/search/$', signalicontact.SearchView.as_view(), name='contact-point-list-search'),
     url(r'^contact-points/(?P<slug>[^/]+)/$', contactpoint.SingleView.as_view(), name='contact-point'),
