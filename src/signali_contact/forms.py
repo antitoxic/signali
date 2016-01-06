@@ -25,7 +25,7 @@ class UserCriteriaForm(BaseUserCriteriaForm):
             filters = filters | featured_filter
             score += make_score_value(featured_filter)
 
-        if self.cleaned_data['areas'].exists():
+        if self.has_specific_area():
             filters = filters & ~Q(parent=None)
         else:
             filters = filters & Q(parent=None)

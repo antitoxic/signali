@@ -16,6 +16,18 @@ class VisibilityMixin(models.Model):
     style = models.CharField(blank=True, null=True, max_length=255, verbose_name=_('Style [technical]'))
 
 
+class VisibilityQuerySetMixin(object):
+    def public(self):
+        return self.filter(is_public=True)
+
+    def popular(self, is_public=True):
+        base = self.public() if is_public else self
+        return base.order_by('popularity', 'is_featured')
+
+    def featured(self, is_public=True):
+        base = self.public() if is_public else self
+        return base.filter(is_featured=True)
+
 class VisibilityManagerMixin(object):
     @staticmethod
     def add_public_requirement(queryset):

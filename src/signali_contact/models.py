@@ -7,19 +7,45 @@ from django.template.defaultfilters import slugify
 
 from unidecode import unidecode
 from contact.models import BaseContactPoint, ContactPointManager, BaseOrganisation
-from accessibility.models import VisibilityManagerMixin
+from accessibility.models import VisibilityManagerMixin, VisibilityQuerySetMixin
 from signali_accessibility.models import SignalVisibilityMixin
 from contact_feedback.models import ContactPointFeedback, ContactPointFeedbackedMixin, ContactPointFeedbackManager
 
 
-class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
+class SignalPointQuerySet(models.QuerySet, VisibilityQuerySetMixin):
+    def children(self):
+        return self.exclude(parent=None)
 
-    @staticmethod
-    def add_public_requirement(queryset):
-        return VisibilityManagerMixin.add_public_requirement(queryset).exclude(Q(slug=None) | Q(slug=""))
+    def parents(self):
+        return self.filter(parent=None)
+
+    def public(self):
+        return self.filter(is_public=True).exclude(Q(slug=None) | Q(slug=""))
+
+    def visited_last(self):
+        return self.public().prefetch().order_by('-last_visited_at')
+
+    def added_last(self):
+        return self.public().prefetch().order_by('-created_at')
+
+    def most_effective(self):
+        return self.public().prefetch().order_by('-effectiveness')
+
+    def most_accessible(self):
+        return self.public().prefetch().order_by('-accessibility')
+
+    def rated_best(self):
+        return self.public().prefetch().order_by('-rating')
+
+    def prefetch(self):
+        return self.select_related('organisation', 'category', 'operational_area') \
+            .prefetch_related('keywords', 'children', 'children__operational_area')
+
+
+class SignalContactPointManager(ContactPointManager):
 
     def _transform_criteria_base(self, queryset):
-        return self.add_public_requirement(queryset)
+        return queryset.public()
 
     def _apply_criteria_sorting(self, queryset, sorting, score_expression):
         queryset, order_by = super()._apply_criteria_sorting(queryset, sorting, score_expression)
@@ -47,30 +73,9 @@ class SignalContactPointManager(ContactPointManager, VisibilityManagerMixin):
 
     def get_by_slug(self, slug):
         try:
-            query = self.public_base().filter(slug=slug)
-            return self.add_prefetch(query).nocache()[0]
+            return self.public().filter(slug=slug).prefetch().nocache()[0]
         except:
             raise ContactPoint.DoesNotExist()
-
-    def visited_last(self):
-        return self.add_prefetch(self.public_base()).order_by('-last_visited_at')
-
-    def added_last(self):
-        return self.add_prefetch(self.public_base()).order_by('-created_at')
-
-    def most_effective(self):
-        return self.public_base().order_by('-effectiveness')
-
-    def most_accessible(self):
-        return self.public_base().order_by('-accessibility')
-
-    def rated_best(self):
-        return self.public_base().order_by('-rating')
-
-    @staticmethod
-    def add_prefetch(queryset):
-        return queryset.select_related('organisation', 'category', 'operational_area') \
-            .prefetch_related('keywords', 'children', 'children__operational_area')
 
 
 class SignalOrganisationManager(models.Manager, VisibilityManagerMixin):
@@ -82,7 +87,7 @@ class Organisation(BaseOrganisation, SignalVisibilityMixin):
 
 
 class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedbackedMixin):
-    objects = SignalContactPointManager()
+    objects = SignalContactPointManager.from_queryset(SignalPointQuerySet)()
     parent = models.ForeignKey('self', related_name='children', null=True)
     visits = models.PositiveIntegerField(_('visits'), default=0)
     anonymous_visits = models.PositiveIntegerField(_('anonymous visits'), default=0)
@@ -170,6 +175,13 @@ class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedback
             self.parent.save()
         self.precalculate_feedback_stats()
         super().save(*args, **kwargs)
+
+    @property
+    def title_or_organisation(self):
+        specific = self.title
+        if not specific:
+            specific = self.organisation.title
+        return specific
 
 
 class ContactPointGrouped(ContactPoint):

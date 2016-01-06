@@ -108,8 +108,12 @@ class BaseUserCriteriaForm(forms.Form):
         ids = ids + list(self.cleaned_data['areas'].values_list('pk', flat=True))
         return set(ids)
 
+    def has_specific_area(self):
+        area = self.cleaned_data['areas']
+        return area.exists() and not area[0].is_root_node()
+
     def area_search_filters(self):
-        if self.cleaned_data['areas'].exists():
+        if self.has_specific_area():
             return Q(operational_area__in=self.get_area_ids())
         else:
             return Q()
@@ -187,7 +191,7 @@ class BaseContactPointForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["category"].queryset = Category.objects.children().select_related('parent')
-        
+
         for fieldname in self.fields:
             if fieldname in self.force_required:
                 self.fields[fieldname].required = True
