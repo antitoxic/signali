@@ -90,7 +90,7 @@ class PasswordResetConfirmView(PasswordResetConfirmAbstractView):
         failure = VerboseHtmlOnlyRedirectException()
         failure.set_redirect('user:password-reset-confirm', uidb64=uidb64, token=token)
         self.reset_password(request, uidb64, token, failure)
-        return redirect('user:password-reset-complete')
+        return HtmlOnlyRedirectSuccessDict().set_redirect('user:password-reset-complete')
 
 
 @restful_view_templates
