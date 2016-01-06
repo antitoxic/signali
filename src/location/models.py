@@ -31,13 +31,15 @@ class BaseArea(MPTTModel):
         order_insertion_by = ['title']
 
     def __str__(self):
+        repr = self.title
         if self.is_root_node():
-            return self.title
-        repr = '{} ({})'.format(self.title, self.size.title)
-        if self.parent and not self.parent.is_root_node():
-            repr += ' — ' + self.parent.title
+            return repr
         if self.regulation_type:
-            repr = self.regulation_type + ' ' + repr
+            repr = '{} {}'.format(self.regulation_type, repr)
+        else:
+            repr = '{} ({})'.format(repr, self.size.title)
+        if self.parent and not self.parent.is_root_node():
+            repr = '{} — {}'.format(repr, self.parent.title)
 
         return repr
 
