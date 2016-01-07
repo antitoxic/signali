@@ -1,5 +1,5 @@
 from contact import apps as conttactapps
-import watson
+from watson import search as watson
 
 class SignaliAreaConfig(conttactapps.ContactConfig):
     name = 'signali_location'

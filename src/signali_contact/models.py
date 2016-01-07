@@ -176,24 +176,20 @@ class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedback
         self.precalculate_feedback_stats()
         super().save(*args, **kwargs)
 
-    @property
     def title_or_organisation(self):
         specific = self.title
         if not specific:
             specific = self.organisation.title
         return specific
 
-    @property
     def full_title(self):
         title = self.title
         if not title:
             title = self.organisation.title
         else:
             title = "{} — {}".format(title, self.organisation.title)
-
-        if not self.operational_area.is_root_node():
+        if self.operational_area and not self.operational_area.is_root_node():
             title = "{} — {}".format(title, self.operational_area.title)
-
         return title
 
 

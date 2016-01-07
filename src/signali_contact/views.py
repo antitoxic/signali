@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from restful.decorators import restful_view_templates
 from restful.exception.verbose import VerboseHtmlOnlyRedirectException
-import watson
+from watson import search as watson
 from security.decorators import security_rule
 
 from .models import ContactPoint
@@ -18,7 +18,7 @@ class SearchView(View):
     def get(self, request):
         search = request.params.get('query')
         return {
-            "results": watson.search(search, models=(ContactPoint,))
+            "results": watson.search(search, models=(ContactPoint.objects.children().public(),))
         }
 
 

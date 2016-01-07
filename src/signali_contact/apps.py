@@ -1,6 +1,6 @@
 from contact import apps as conttactapps
 from contact_feedback import apps as feedbackapps
-import watson
+from watson import search as watson
 
 class SignaliContactConfig(conttactapps.ContactConfig):
     name = 'signali_contact'
@@ -9,7 +9,7 @@ class SignaliContactConfig(conttactapps.ContactConfig):
         ContactPoint = self.get_model("ContactPoint")
         from . import signal_handlers
         watson.register(
-            ContactPoint.objects.children().public(),
+            ContactPoint,
             fields=("title", "description", "slug",),
             store=("slug", "full_title",)
         )

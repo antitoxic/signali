@@ -1,6 +1,6 @@
 from django.views.generic.base import View
 
-import watson
+from watson import search as watson
 from restful.decorators import restful_view_templates
 
 from signali_location.models import Area
