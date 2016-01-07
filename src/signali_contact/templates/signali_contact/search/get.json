@@ -1,7 +1,7 @@
 {% load restful %}[{% for result in results %}
 {% if not forloop.first %},{% endif %}
     {
-        "title": {{result.meta.title | jsonify | safe}},
+        "title": {{result.meta.full_title | jsonify | safe}},
         "description": {{result.description | jsonify | safe}},
         "url": "{% url 'contact-point' slug=result.meta.slug %}",
         "id": "{% url 'contact-point' slug=result.meta.slug %}",

@@ -20,7 +20,7 @@ class SignalPointQuerySet(models.QuerySet, VisibilityQuerySetMixin):
         return self.filter(parent=None)
 
     def public(self):
-        return self.filter(is_public=True).exclude(Q(slug=None) | Q(slug=""))
+        return super().public().exclude(Q(slug=None) | Q(slug=""))
 
     def visited_last(self):
         return self.public().prefetch().order_by('-last_visited_at')
@@ -182,6 +182,20 @@ class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedback
         if not specific:
             specific = self.organisation.title
         return specific
+
+    @property
+    def full_title(self):
+        title = self.title
+        if not title:
+            title = self.organisation.title
+        else:
+            title = "{} — {}".format(title, self.organisation.title)
+
+        if not self.operational_area.is_root_node():
+            title = "{} — {}".format(title, self.operational_area.title)
+
+        return title
+
 
 
 class ContactPointGrouped(ContactPoint):
