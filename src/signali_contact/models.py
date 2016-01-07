@@ -182,6 +182,12 @@ class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedback
             specific = self.organisation.title
         return specific
 
+    def specific_title_or_organisation(self):
+        title = self.title_or_organisation()
+        if self.operational_area and not self.operational_area.is_root_node():
+            title = "{} — {}".format(title, self.operational_area.title)
+        return title
+
     def full_title(self):
         title = self.title
         if not title:
