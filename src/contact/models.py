@@ -2,7 +2,9 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.template.defaultfilters import slugify
 
+from unidecode import unidecode
 from .apps import setting
 
 class ContactPointManager(models.Manager):
@@ -118,6 +120,12 @@ class BaseContactPoint(models.Model):
             self.is_other_required
         ]
         return lacks_features or has_requirements
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base = self.title if self.title else '{}_{}'.format(self.organisation.title, self.category.title)
+            self.slug = slugify(unidecode(base))
+        super().save(*args, **kwargs)
 
     def __str__(self):
         specific = self.title
