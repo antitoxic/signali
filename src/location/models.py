@@ -36,6 +36,8 @@ class BaseArea(MPTTModel):
             return repr
         if self.regulation_type:
             repr = '{} {}'.format(self.regulation_type, repr)
+        elif self.size.abbr:
+            repr = '{} {}'.format(self.size.abbr, repr)
         else:
             repr = '{} ({})'.format(repr, self.size.title)
         if self.parent and not self.parent.is_root_node():
@@ -50,6 +52,7 @@ class BaseAreaSize(models.Model):
         verbose_name_plural = _('area sizes')
 
     title = models.CharField(_('title'), max_length=250, blank=False)
+    abbr = models.CharField(_('abbreviation'), max_length=250, blank=True)
 
     def __str__(self):
         return self.title

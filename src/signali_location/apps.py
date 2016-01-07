@@ -8,6 +8,6 @@ class SignaliAreaConfig(conttactapps.ContactConfig):
         Area = self.get_model("Area")
         watson.register(
             Area.objects.public_base(),
-            fields=("title", "parent__title", "size__title"),
+            fields=("title",),
             store=("id",)
         )

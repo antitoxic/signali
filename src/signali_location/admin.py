@@ -54,7 +54,13 @@ class AreaAdmin(admin.ModelAdmin):
         }),
     )
 
+class AreaSizeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'abbr')
+    search_fields = ('title',)
+    ordering = ('title',)
+    fields = ('title', 'abbr')
+
 
 admin.site.register(Area, AreaAdmin)
-admin.site.register(AreaSize)
+admin.site.register(AreaSize, AreaSizeAdmin)
 
