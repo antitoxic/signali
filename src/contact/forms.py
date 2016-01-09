@@ -152,6 +152,13 @@ class BaseUserCriteriaForm(forms.Form):
 
         return score, filters
 
+    @property
+    def is_detailed(self):
+        for fieldname in self.exact_match_fields:
+            if fieldname in self.data:
+                return True
+        return False
+
 
 class BaseContactPointForm(forms.ModelForm):
     class Meta:
