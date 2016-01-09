@@ -39,9 +39,7 @@ class UserCriteriaForm(BaseUserCriteriaForm):
             return
         contactpoint_table = ContactPoint._meta.db_table
         keywords_through_table = ContactPoint.keywords.through._meta.db_table
-        filters = Q()
-        if self.cleaned_data['keywords_exact_match']:
-            filters = Q(keywords__id__in=list(self.cleaned_data['keywords']))
+        filters = Q(keywords__id__in=list(self.cleaned_data['keywords']))
         ids = self.cleaned_data['keywords'].values_list('pk', flat=True)
         self.max_score += len(ids)
         score = RawSQL(

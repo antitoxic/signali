@@ -58,8 +58,8 @@ class BaseUserCriteriaForm(forms.Form):
 
     # flags
     category_and_keyword_match = forms.BooleanField(required=False, initial=False)
-    category_exact_match = forms.BooleanField(required=False, initial=False)
-    keywords_exact_match = forms.BooleanField(required=False, initial=False)
+    category_must_match = forms.BooleanField(required=False, initial=False)
+    keywords_must_match = forms.BooleanField(required=False, initial=False)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -94,13 +94,10 @@ class BaseUserCriteriaForm(forms.Form):
     def categories_search_expressions(self):
         if not self.cleaned_data['categories'].exists():
             return
-        filters = Q()
         ids = list(self.cleaned_data['categories'].values_list('pk', flat=True))
         self.max_score += len(ids)
         category_filters = Q(category__id__in=ids)
-        if self.cleaned_data['category_exact_match']:
-            filters = category_filters
-        return make_score_value(category_filters), filters
+        return make_score_value(category_filters), category_filters
 
     def get_area_ids(self):
         first_area = self.cleaned_data['areas'][0]
@@ -118,13 +115,8 @@ class BaseUserCriteriaForm(forms.Form):
         else:
             return Q()
 
-    """
-    If we want we can annotate match_<fieldname>_<id> with django.db.models.Value() and know which
-    field we did match, but that's easily determined from each single result
-    """
-    def to_search_expressions(self):
+    def category_and_keyword_search_expressions(self):
         score = 0
-        data = self.cleaned_data
 
         try:
             category_score, category_filter = self.categories_search_expressions()
@@ -138,10 +130,21 @@ class BaseUserCriteriaForm(forms.Form):
         except:
             keyword_filter = Q()
 
-        if data['category_and_keyword_match']:
-            filters = category_filter & keyword_filter
+        if category_filter and keyword_filter and not self.cleaned_data['category_and_keyword_match']:
+            if not self.cleaned_data['category_must_match']:
+                category_filter = Q()
+            if not self.cleaned_data['keywords_must_match']:
+                keyword_filter = Q()
+            return score, category_filter | keyword_filter
         else:
-            filters = category_filter | keyword_filter
+            return score, category_filter & keyword_filter
+
+    """
+    If we want we can annotate match_<fieldname>_<id> with django.db.models.Value() and know which
+    field we did match, but that's easily determined from each single result
+    """
+    def to_search_expressions(self):
+        score, filters = self.categories_search_expressions()
 
         filters = filters & self.area_search_filters()
 
