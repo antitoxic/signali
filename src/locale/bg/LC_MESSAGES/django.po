@@ -2276,7 +2276,7 @@ msgstr "гаранция за отговор"
 
 #: src/contact/models.py:78
 msgid "is verifiable"
-msgstr "опция за верификация"
+msgstr "проследимост"
 
 #: src/contact/models.py:79
 msgid "is there a confirmation issued"
