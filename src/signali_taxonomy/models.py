@@ -6,7 +6,7 @@ from signali_accessibility.models import SignalVisibilityMixin
 
 class CategoryQuerySet(QuerySet, CategoryQuerySetMixin, VisibilityQuerySetMixin):
     def non_empty(self):
-        return self.filter(contact_points=None)
+        return self.exclude(contact_points=None)
 
 class Category(BaseCategory, SignalVisibilityMixin):
     objects = CategoryQuerySet.as_manager()

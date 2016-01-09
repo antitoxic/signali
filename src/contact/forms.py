@@ -145,10 +145,18 @@ class BaseUserCriteriaForm(forms.Form):
 
         filters = filters & self.area_search_filters()
 
+        exact_match_filters = Q()
+        has_keyword_or_category_filter = self.max_score > 0
         for fieldname in self.exact_match_fields:
             if fieldname in self.data:
-                score += make_score_value(Q(**{fieldname: self.cleaned_data[fieldname]}))
-                self.max_score += 1
+                field_filter = Q(**{fieldname: self.cleaned_data[fieldname]})
+                if has_keyword_or_category_filter:
+                    exact_match_filters = exact_match_filters & field_filter
+                else:
+                    score += make_score_value(field_filter)
+                    self.max_score += 1
+
+        filters = filters & exact_match_filters
 
         return score, filters
 
