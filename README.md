@@ -2,20 +2,21 @@
 # Signali
 Web app for browsing, rating and commenting contact points of organisations.
 
-** IN ACTIVE DEVELOPMENT. DO NOT USE UNTIL STABLE **
-
 ## Related projects
 Themes are not bundled. Main theme is located at: [obshtestvo/signali-theme](https://github.com/obshtestvo/signali-theme)
 
 Place the default or your theme in the `themes` directory and set its name as value for `THEME` setting. 
 
 ## Setup
+
+If using Debian you can read through a basic [`debian.sh`](env/debian.sh) edit it to fit you setup and execute it.
+
 ### OS
 
-> The following is not made into a script, because it serves educational purposes
+> The following is not made into a script, because it varies per distribution and
+> it's good for educational purposes
 
  - python3
- - python3 virtualenv
  - postgres
  - redis
  - image manipulation libraries
@@ -23,15 +24,16 @@ Place the default or your theme in the `themes` directory and set its name as va
 
 ```sh
 # depending on distribution you might want to install 
-python-dev, python-devel, or python3-devel libpq-dev
-postgresql-devel postgresql-... python3-venv
-# for correct mimetypes installing or updating the `mailcap` package on a RedHat-based distribution, or `mime-support` on a Debian distribution.
+# python-dev, python-devel, or python3-devel libpq-dev
+# postgresql-devel postgresql-... python3-venv
+# for correct mimetypes installing or updating the `mailcap`
+# package on a RedHat-based distribution, or `mime-support` on a Debian distribution.
 
 sudo su - postgres
 psql
 SHOW hba_file;
 vim <the path to hba file>
-change `host all all 127.0.0.1/32 ident` to md5
+# change `host all all 127.0.0.1/32 ident` to md5
 
 # image manipulation support
 # for debian-based: apt-get install libjpeg62 libjpeg62-dev zlib1g-dev
@@ -59,12 +61,12 @@ createuser -S -D -R -P signali
 createdb -O signali signali -E utf-8 -l bg_BG.utf8 -T template0
 # set local settings
 cp env/.django-sample env/.django
-...edit .django to your needs ....
+<...edit .django to your needs ....>
 # include src in PYTHONPATH
-export PYTHONPATH=$PWD/src # (or set -x PYTHONPATH $PWD/src )
+export PYTHONPATH=$PWD/src # (or set -x PYTHONPATH $PWD/src for fish shell)
 # initialise db
 python manage.py migrate
-# load data seed
+# IF DEVELOPING ON LOCAL: load data seed
 bash env/utils/load_dev_fixtures.sh
 # run signali
 python manage.py runserver
@@ -90,11 +92,6 @@ Execute the command in the previous *"Usual development start"* section and then
 ```
 cd env
 fab debloy:live,static # or fab deploy:live
-```
-
-## Dev notes
-
-It's recommended to have `pyinotify` installed on your system for more performant dev server reloading
 
 
 ### Architecture decisions
@@ -112,8 +109,8 @@ It's recommended to have `pyinotify` installed on your system for more performan
   - template names can be auto-detected based on Controller name and request method, so they should 
   - developers should have full control of data transformation in the template for any format
   - DRY, use single codebase where possible
-  - always think modular, extract topical, not simply common logic
-  - if requesting html (commonly web) always redirect after anything other than 'GET'
+  - always think modular, extract logic in topical modules, not simply `/common`
+  - if requesting html (*commonly web browsers*) always redirect after anything other than 'GET'
   - let html be html, don't use framework-specific or package-specific html generators (like form-element generators)  
   
 #### Specificity
@@ -140,20 +137,6 @@ It's recommended to have `pyinotify` installed on your system for more performan
    from project to project which goes against keeping `security` app the more reusable one
    - To read more about how auth was implemented look into [`python-social-auth` developer intro](https://github.com/omab/python-social-auth/blob/master/docs/developer_intro.rst)
 
-#### Database
-
-If you're not familiar with Postgres but you are with Mysql
-[this article could be useful](http://crashmag.net/mysql-and-postgresql-rosetta-stone).
-
-#### Settings in environment variables
-The following will read a `.ini`-like file and export each definition as environment variables.
-```
-export $(cat ./env/.django | xargs)
-```
-
-### Useful packages for debugging
- - Login as another user: [impersonate](https://bitbucket.org/petersanchez/django-impersonate) or [hijack](https://github.com/arteria/django-hijack)
- - Security checkup: https://github.com/carljm/django-secure
 
 ### Common scenarios
 
@@ -221,3 +204,23 @@ return HtmlOnlyRedirectSuccessDict({
 The code above will behave the same as "Example 1" **unless** the client requests html response. 
 If the client requests html response the code above will put all data in a session variable and 
 redirect to `route-name`. Useful when you want to redirect users to the page they originated from.
+
+
+## Dev notes
+
+It's recommended to have `pyinotify` installed on your system for more performant dev server reloading
+
+### Database
+
+If you're not familiar with Postgres but you are with Mysql
+[this article could be useful](http://crashmag.net/mysql-and-postgresql-rosetta-stone).
+
+### Settings in environment variables
+The following will read a `.ini`-like file and export each definition as environment variables.
+```
+export $(cat ./env/.django | xargs)
+```
+
+### Useful packages for debugging
+ - Login as another user: [impersonate](https://bitbucket.org/petersanchez/django-impersonate) or [hijack](https://github.com/arteria/django-hijack)
+ - Security checkup: https://github.com/carljm/django-secure

@@ -1,6 +1,6 @@
 # python3
 # compile from source
-# http://www.extellisys.com/articles/python-on-debian-wheezy
+# ref: http://www.extellisys.com/articles/python-on-debian-wheezy
 apt-get install build-essential
 apt-get install libncurses5-dev libncursesw5-dev libreadline6-dev
 apt-get install libdb5.1-dev libgdbm-dev libsqlite3-dev libssl-dev
