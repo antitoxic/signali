@@ -41,6 +41,18 @@ class SignalPointQuerySet(models.QuerySet, VisibilityQuerySetMixin):
         return self.select_related('organisation', 'category', 'operational_area') \
             .prefetch_related('keywords', 'children', 'children__operational_area')
 
+    def has_search_matches(self):
+        try:
+            return self[0].score > 0
+        except AttributeError:
+            return True
+
+    def score(self):
+        try:
+            return self[0].score
+        except AttributeError:
+            return 0
+
 
 class SignalContactPointManager(ContactPointManager):
 
