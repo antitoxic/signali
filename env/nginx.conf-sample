@@ -3,6 +3,8 @@ upstream django {
   keepalive 64;
 }
 
+limit_req_zone $binary_remote_addr zone=oneperip:10m rate=1r/s;
+
 server {
     server_name demo.signali.bg www.signali.bg;
     return 301 http://signali.bg$request_uri;
@@ -25,6 +27,8 @@ server {
 
     access_log /var/www/signali.bg/env/logs/access.log;
     client_max_body_size 10M;
+    server_tokens off;
+    add_header X-Frame-Options SAMEORIGIN;
 
     gzip  on;
     gzip_http_version 1.0;
@@ -64,6 +68,7 @@ server {
     }
 
     location / {
+      limit_req zone=oneperip burst=5;
       include /etc/nginx/uwsgi_params;
       uwsgi_pass django;
     }
