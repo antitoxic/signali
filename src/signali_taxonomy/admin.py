@@ -10,7 +10,7 @@ from .models import Category, Keyword
 class CategoryForm(forms.ModelForm, VisibilityColoredStyleFormMixin):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["parent"].queryset = Category.objects.root_categories()
+        self.fields["parent"].queryset = Category.objects.roots()
 
 class CategoryAdmin(admin.ModelAdmin):
     form = CategoryForm

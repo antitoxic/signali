@@ -35,7 +35,7 @@ class BaseUserCriteriaForm(forms.Form):
     start = forms.IntegerField(required=False, min_value=0, initial=0)
     limit = forms.IntegerField(required=False, min_value=1, initial=12)
     sorting = forms.CharField(required=False, initial='-score')
-    categories = forms.ModelMultipleChoiceField(Category.objects.children().select_related('parent'), required=False)
+    categories = forms.ModelMultipleChoiceField(Category.objects.children().prefetch_parent(), required=False)
     keywords = forms.ModelMultipleChoiceField(Keyword.objects.all(), required=False)
     areas = forms.ModelMultipleChoiceField(Area.objects.all(), required=False)
 

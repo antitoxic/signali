@@ -4,6 +4,7 @@ from django.db.models.expressions import RawSQL, Q
 
 from contact.forms import BaseUserCriteriaForm, BaseContactPointForm, make_score_value
 from signali_location.models import Area
+from signali_taxonomy.models import Category
 from .models import ContactPoint
 
 class UserCriteriaForm(BaseUserCriteriaForm):
@@ -12,6 +13,7 @@ class UserCriteriaForm(BaseUserCriteriaForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["areas"].queryset = Area.objects.non_address()
+        self.fields["categories"].queryset = Category.objects.public().children().non_empty()
 
 
     """

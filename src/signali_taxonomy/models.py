@@ -1,17 +1,15 @@
-from taxonomy.models import BaseCategory, CategoryManager, BaseKeyword
-from accessibility.models import VisibilityManagerMixin
+from django.db.models import QuerySet
+
+from taxonomy.models import BaseCategory, CategoryQuerySetMixin, BaseKeyword
+from accessibility.models import VisibilityQuerySetMixin
 from signali_accessibility.models import SignalVisibilityMixin
 
-class SignalCategoryManager(CategoryManager, VisibilityManagerMixin):
-    def root_categories_plus_children(self):
-        return self.add_children_prefetch(
-            self.add_public_requirement(
-                self.filter(parent__isnull=True)
-            ))
-
+class CategoryQuerySet(QuerySet, CategoryQuerySetMixin, VisibilityQuerySetMixin):
+    def non_empty(self):
+        return self.filter(contact_points=None)
 
 class Category(BaseCategory, SignalVisibilityMixin):
-    objects = SignalCategoryManager()
+    objects = CategoryQuerySet.as_manager()
 
 
 class Keyword(BaseKeyword, SignalVisibilityMixin):

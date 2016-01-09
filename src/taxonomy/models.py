@@ -16,19 +16,18 @@ class BaseKeyword(models.Model):
         return 'taxonomy-keyword-'+str(self.pk)
 
 
-class CategoryManager(models.Manager):
-    def root_categories(self):
-        return self.filter(parent__isnull=True)
-
-    def root_categories_plus_children(self):
-        return self.add_children_prefetch(self.filter(parent__isnull=True))
-
-    @staticmethod
-    def add_children_prefetch(queryset):
-        return queryset.prefetch_related('children')
-
+class CategoryQuerySetMixin(object):
     def children(self):
-        return self.exclude(parent__isnull=True)
+        return self.exclude(parent=None)
+
+    def roots(self):
+        return self.filter(parent=None)
+
+    def prefetch_children(self):
+        return self.prefetch_related('children')
+
+    def prefetch_parent(self):
+        return self.select_related('parent')
 
     @property
     def pk_list(self):
@@ -36,7 +35,6 @@ class CategoryManager(models.Manager):
 
 
 class BaseCategory(models.Model):
-    objects = CategoryManager()
 
     class Meta:
         abstract = True
