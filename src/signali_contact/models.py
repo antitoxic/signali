@@ -95,6 +95,10 @@ class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedback
         if self.parent is None:
             children = self.children.filter(feedback_count__gt=0)
             if children.count() == 0:
+                self.rating = 0
+                self.effectiveness = 0
+                self.accessibility = 0
+                self.feedback_count = 0
                 return
             stats = children.aggregate(
                 rating=Avg('rating'),
