@@ -1,10 +1,10 @@
 {% load restful %}[{% for result in results %}
 {% if not forloop.first %},{% endif %}
     {
-        "title": {{result.meta.full_title | jsonify | safe}},
+        "title": {{result.full_title | jsonify | safe}},
         "description": {{result.description | jsonify | safe}},
-        "url": "{% url 'contact-point' slug=result.meta.slug %}",
-        "id": "{% url 'contact-point' slug=result.meta.slug %}",
+        "url": "{% url 'contact-point' slug=result.slug %}",
+        "id": "{% url 'contact-point' slug=result.slug %}",
         "score": {{result.watson_rank | jsonify | safe}}
     }
 {% endfor %}]

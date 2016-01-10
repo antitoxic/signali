@@ -46,22 +46,33 @@ class ListView(View):
         if not form.is_valid():
             raise failure.add_error(prefix+'form', form.errors)
 
-        sorting = form.get_sorting()
+        taxonomy_score = None
+        score, filters, term = form.to_search_expressions()
+        sorting = form.get_sorting(score)
         start = form.get_start()
         limit = form.get_limit()
-        score, filters = form.to_search_expressions()
-        points = ContactPointModel.objects.apply_criteria(score, filters, sorting)
+        points = ContactPointModel.objects.apply_criteria(score, filters, sorting, term)
         total = points.count()
+        if total == 0 and term:
+            term = None
+            sorting = form.get_sorting(score, form.SEARCH_EXPRESSION_TAXONOMY_SORTING)
+            taxonomy_score = form.taxonomy_score()
+            points = ContactPointModel.objects.apply_criteria(score, filters, sorting, term, taxonomy_score)
+            total = points.count()
+
         try:
             pages = RestfulPaging(total, form.get_start(), form.get_limit())
         except:
             pages = None
+        points = points[start:(start+limit)]
         return {
+             "term": term,
+             "taxonomy_term": taxonomy_score,
+             "is_loose_search": taxonomy_score or (score and not term),
              "sorting": sorting,
              "form": form,
              "pages": pages,
-             "points": points[start:(start+limit)],
-             "total": total,
+             "points": points,
              "limit": limit,
         }
 

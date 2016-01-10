@@ -13,6 +13,7 @@ from contact_feedback.models import ContactPointFeedback, ContactPointFeedbacked
 
 
 class SignalPointQuerySet(models.QuerySet, VisibilityQuerySetMixin):
+
     def children(self):
         return self.exclude(parent=None)
 
@@ -41,17 +42,21 @@ class SignalPointQuerySet(models.QuerySet, VisibilityQuerySetMixin):
         return self.select_related('organisation', 'category', 'operational_area') \
             .prefetch_related('keywords', 'children', 'children__operational_area')
 
-    def has_search_matches(self):
-        try:
-            return self[0].score > 0
-        except AttributeError:
-            return True
-
     def score(self):
         try:
             return self[0].score
         except AttributeError:
             return 0
+
+    def taxonomy_score(self):
+        try:
+            return self[0].taxonomy_score
+        except AttributeError:
+            return 0
+
+    def zero_score(self):
+        return self.score() + self.taxonomy_score() == 0
+
 
 
 class SignalContactPointManager(ContactPointManager):
@@ -59,29 +64,10 @@ class SignalContactPointManager(ContactPointManager):
     def _transform_criteria_base(self, queryset):
         return queryset.public()
 
-    def _apply_criteria_sorting(self, queryset, sorting, score_expression):
-        queryset, order_by = super()._apply_criteria_sorting(queryset, sorting, score_expression)
+    def _apply_criteria_sorting(self, queryset, sorting, score_expression, taxonomy_score_expression=None):
+        queryset, sorting = super()._apply_criteria_sorting(queryset, sorting, score_expression, taxonomy_score_expression)
         queryset = queryset.prefetch_related('children')
-        sorting_match_found = False
-
-        valid_sorting = [
-            'popularity',
-            '-popularity',
-            '-created_at',
-            '-rating',
-            '-effectiveness',
-            '-accessibility',
-            '-last_visited_at'
-        ]
-        if sorting in valid_sorting:
-            sorting_match_found = True
-            order_by.insert(0, sorting)
-
-        if sorting_match_found and '-score' in order_by:
-            order_by.remove('-score')
-
-        return queryset, order_by
-
+        return queryset, sorting
 
     def get_by_slug(self, slug):
         try:
@@ -187,12 +173,6 @@ class ContactPoint(BaseContactPoint, SignalVisibilityMixin, ContactPointFeedback
             self.parent.save()
         self.precalculate_feedback_stats()
         super().save(*args, **kwargs)
-
-    def title_or_organisation(self):
-        specific = self.title
-        if not specific:
-            specific = self.organisation.title
-        return specific
 
     def specific_title_or_organisation(self):
         title = self.title_or_organisation()

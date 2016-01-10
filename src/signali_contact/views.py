@@ -18,7 +18,7 @@ class SearchView(View):
     def get(self, request):
         search = request.params.get('query')
         return {
-            "results": watson.search(search, models=(ContactPoint.objects.children().public(),))
+            "results": watson.filter(ContactPoint.objects.children().public(), search)
         }
 
 

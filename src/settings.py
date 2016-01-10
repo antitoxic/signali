@@ -40,6 +40,7 @@ DEBUG = env('DEBUG', False)
 
 ALLOWED_HOSTS = ['.signali.bg']
 MAIN_HOST = env('MAIN_HOST')
+ALWAYS_USE_HTTPS = env('ALWAYS_USE_HTTPS')
 
 WSGI_APPLICATION = 'env.wsgi.application'
 
@@ -202,7 +203,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'watson.middleware.SearchContextMiddleware',
-    'restful.error_handler.ErrorHandler',
+    # 'restful.error_handler.ErrorHandler',
     'restful.middleware.TemplateExtensionByAcceptedType',
 )
 

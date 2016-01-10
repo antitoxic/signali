@@ -9,11 +9,21 @@ from .models import ContactPoint
 
 class UserCriteriaForm(BaseUserCriteriaForm):
     is_featured = forms.BooleanField(required=False)
+    SEARCH_SORTING_CHOICES = BaseUserCriteriaForm.SEARCH_SORTING_CHOICES + (
+        ('popularity', 'Most unpopular'),
+        ('-popularity', 'Most popular'),
+        ('-created_at', 'Created last'),
+        ('-rating', 'Rated best'),
+        ('-effectiveness', 'Most effective'),
+        ('-accessibility', 'Most accessible'),
+        ('-last_visited_at', 'Last visited'),
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["areas"].queryset = Area.objects.non_address()
         self.fields["categories"].queryset = Category.objects.public().children().non_empty()
+        self.fields["sorting"].choices = self.SEARCH_SORTING_CHOICES
 
 
     """
@@ -21,25 +31,26 @@ class UserCriteriaForm(BaseUserCriteriaForm):
     field we did match, but that's easily determined from each single result
     """
     def to_search_expressions(self):
-        score, filters = super().to_search_expressions()
+        score, filters, term = super().to_search_expressions()
         if 'is_featured' in self.data:
             featured_filter = Q(is_featured=self.cleaned_data['is_featured'])
-            filters = filters | featured_filter
+            if self.is_narrow:
+                filters = filters & featured_filter
             score += make_score_value(featured_filter)
+            self.max_score += 1
 
         if self.has_specific_area():
             filters = filters & ~Q(parent=None)
         else:
             filters = filters & Q(parent=None)
 
-        return score, filters & Q(is_public=True)
+        return score, filters & Q(is_public=True), term
 
-    def keywords_search_expressions(self):
+    def keywords_score(self):
         if not self.cleaned_data['keywords'].exists():
-            return
+            return 0
         contactpoint_table = ContactPoint._meta.db_table
         keywords_through_table = ContactPoint.keywords.through._meta.db_table
-        filters = Q(keywords__id__in=list(self.cleaned_data['keywords']))
         ids = self.cleaned_data['keywords'].values_list('pk', flat=True)
         self.max_score += len(ids)
         score = RawSQL(
@@ -50,7 +61,7 @@ class UserCriteriaForm(BaseUserCriteriaForm):
             ),
             [], output_field=IntegerField()
         )
-        return score, filters
+        return score
 
 
 

@@ -11,7 +11,6 @@ class SearchView(View):
 
     def get(self, request):
         search = request.params.get('query')
-        print(search)
         return {
             "results": watson.search(search, models=(Area.objects.non_address(),))
         }

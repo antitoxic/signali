@@ -2,6 +2,7 @@ DEBUG=True
 SECRET_KEY=supersecretkey
 
 MAIN_HOST=signali.bg
+ALWAYS_USE_HTTPS=False
 
 DATABASE_NAME=signali
 DATABASE_USER=signali

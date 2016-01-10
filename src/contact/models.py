@@ -5,17 +5,20 @@ from django.conf import settings
 from django.template.defaultfilters import slugify
 
 from unidecode import unidecode
+from watson import search as watson
 from .apps import setting
 
 class ContactPointManager(models.Manager):
-    def apply_criteria(self, score_expression, filters, sorting):
+    def apply_criteria(self, score_expression, filters, sorting, term=None, taxonomy_score_expression=None):
         queryset = self.all()
         try:
             queryset = self._transform_criteria_base(queryset)
         except NotImplementedError:
             pass
         queryset = queryset.filter(filters)
-        queryset, orderby = self._apply_criteria_sorting(queryset, sorting, score_expression)
+        if term:
+            queryset = watson.filter(queryset, term)
+        queryset, orderby = self._apply_criteria_sorting(queryset, sorting, score_expression, taxonomy_score_expression)
         if orderby:
             queryset = queryset.order_by(*orderby)
 
@@ -24,15 +27,12 @@ class ContactPointManager(models.Manager):
     def get_by_slug(self, slug):
         return self.get(slug=slug)
 
-    def _apply_criteria_sorting(self, queryset, sorting, score_expression):
-        order_by = []
-
-        # matching
+    def _apply_criteria_sorting(self, queryset, sorting, score_expression, taxonomy_score_expression=None):
         if score_expression != 0:
-            order_by.insert(0, '-score')
             queryset = queryset.annotate(score=score_expression)
-
-        return queryset, order_by
+        if taxonomy_score_expression:
+            queryset = queryset.annotate(taxonomy_score=taxonomy_score_expression)
+        return queryset, sorting
 
     """
     Called before applying criteria with user filters
@@ -120,6 +120,12 @@ class BaseContactPoint(models.Model):
             self.is_other_required
         ]
         return lacks_features or has_requirements
+
+    def title_or_organisation(self):
+        specific = self.title
+        if not specific:
+            specific = self.organisation.title
+        return specific
 
     def save(self, *args, **kwargs):
         if not self.slug:
