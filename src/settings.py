@@ -333,6 +333,7 @@ SUIT_CONFIG = {
                 {'model': 'signali_contact.organisation', 'label': _('organisations')},
                 {'model': 'signali_accessibility.page', 'label': _('pages')},
                 {'model': 'signali_location.area', 'label': _('areas')},
+                {'model': 'signali_contact.signalcontactpointfeedback', 'label': _('feedback')},
             )
         },
         {

@@ -66,6 +66,7 @@ class ListView(View):
             pages = None
         points = points[start:(start+limit)]
         return {
+             "total": total,
              "term": term,
              "taxonomy_term": taxonomy_score,
              "is_loose_search": taxonomy_score or (score and not term),

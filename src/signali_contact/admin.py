@@ -11,7 +11,7 @@ from contact.admin import BaseContactPointAdmin
 from signali_location.models import Area
 from signali_taxonomy.models import Category
 from location.forms import AreaAutosuggestWidget
-from .models import ContactPoint, ContactPointGrouped, Organisation
+from .models import ContactPoint, ContactPointGrouped, Organisation, SignalContactPointFeedback
 
 betterDateTimePicker = BootstrapDateTimeInput(format="%d.%m.%Y %H:%M")
 
@@ -236,5 +236,31 @@ class OrganisationAdmin(ReverseModelAdmin):
     )
 
 
+
+class ContactPointFeedbackAdmin(admin.ModelAdmin):
+    suit_form_tabs = (
+        ('basic', _('basic')),
+    )
+
+    list_per_page = 40
+    list_display = ('user', 'contactpoint', 'rating', 'added_at', 'is_public',)
+    list_editable = ('is_public', )
+    list_filter = (
+        ('user', admin.RelatedOnlyFieldListFilter),
+        ('contactpoint', admin.RelatedOnlyFieldListFilter),
+        'is_public',
+    )
+    search_fields = ('user', 'contactpoint', 'comment',)
+
+    fieldsets = (
+        (None, {
+            'classes': ('suit-tab suit-tab-basic',),
+            'fields': ('is_public', 'comment', 'user', 'rating', 'is_effective', 'is_easy',)
+        }),
+    )
+
+
+admin.site.register(SignalContactPointFeedback, ContactPointFeedbackAdmin)
 admin.site.register(ContactPointGrouped, ContactPointAdmin)
+admin.site.register(ContactPoint)
 admin.site.register(Organisation, OrganisationAdmin)
