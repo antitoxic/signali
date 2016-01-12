@@ -31,6 +31,10 @@ class Setting(models.Model):
     def cover_url(self):
         return self.cover.url
 
+    @property
+    def facebook_cover_url(self):
+        return self.facebook_share.url
+
     @classmethod
     def main(cls):
         return cls.objects.all()[:1].get()
