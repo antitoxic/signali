@@ -21,6 +21,7 @@ class Setting(models.Model):
                                          verbose_name=_('Which size denotes address-level area'),
                                          blank=False)
     cover = ImageField(verbose_name=_("cover"), null=True, blank=True, upload_to=Uploader('signali'))
+    facebook_share = ImageField(verbose_name=_("facebook share image"), null=True, blank=True, upload_to=Uploader('signali'))
 
     @property
     def contact_address_areasize(self):
