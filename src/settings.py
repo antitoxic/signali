@@ -281,6 +281,8 @@ CONTACT_KEYWORD_MODEL = 'signali_taxonomy.Keyword'
 CONTACT_CATEGORY_MODEL = 'signali_taxonomy.Category'
 CONTACT_AREA_MODEL = 'signali_location.Area'
 CONTACT_FEEDBACK_MODEL = 'signali_contact.SignalContactPointFeedback'
+CONTACT_POINT_LOOSE_SEARCH = False
+WATSON_BACKEND = 'signali.search.SignaliPostgresBackend'
 
 ACCESSIBILITY_PAGE_MODEL = 'signali_accessibility.Page'
 

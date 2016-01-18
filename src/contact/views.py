@@ -53,7 +53,7 @@ class ListView(View):
         limit = form.get_limit()
         points = ContactPointModel.objects.apply_criteria(score, filters, sorting, term)
         total = points.count()
-        if total == 0 and term:
+        if total == 0 and term and setting('CONTACT_POINT_LOOSE_SEARCH'):
             term = None
             sorting = form.get_sorting(score, form.SEARCH_EXPRESSION_TAXONOMY_SORTING)
             taxonomy_score = form.taxonomy_score()
