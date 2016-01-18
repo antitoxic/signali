@@ -9,7 +9,7 @@ from watson import search as watson
 from .apps import setting
 
 class ContactPointManager(models.Manager):
-    def apply_criteria(self, score_expression, filters, sorting, term=None, taxonomy_score_expression=None):
+    def apply_criteria(self, score_expression, filters, sorting, term=None, search_backend=None):
         queryset = self.all()
         try:
             queryset = self._transform_criteria_base(queryset)
@@ -17,8 +17,8 @@ class ContactPointManager(models.Manager):
             pass
         queryset = queryset.filter(filters)
         if term:
-            queryset = watson.filter(queryset, term)
-        queryset, orderby = self._apply_criteria_sorting(queryset, sorting, score_expression, taxonomy_score_expression)
+            queryset = watson.filter(queryset, term, backend_name=search_backend)
+        queryset, orderby = self._apply_criteria_sorting(queryset, sorting, score_expression)
         if orderby:
             queryset = queryset.order_by(*orderby)
 
@@ -27,11 +27,9 @@ class ContactPointManager(models.Manager):
     def get_by_slug(self, slug):
         return self.get(slug=slug)
 
-    def _apply_criteria_sorting(self, queryset, sorting, score_expression, taxonomy_score_expression=None):
+    def _apply_criteria_sorting(self, queryset, sorting, score_expression):
         if score_expression != 0:
             queryset = queryset.annotate(score=score_expression)
-        if taxonomy_score_expression:
-            queryset = queryset.annotate(taxonomy_score=taxonomy_score_expression)
         return queryset, sorting
 
     """

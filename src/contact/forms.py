@@ -16,7 +16,6 @@ class BaseUserCriteriaForm(forms.Form):
     NO = ContactPoint.NO
     DONTKNOW = ContactPoint.DONTKNOW
     SEARCH_EXPRESSION_SORTING = '-score'
-    SEARCH_EXPRESSION_TAXONOMY_SORTING = '-taxonomy_score'
     SEARCH_SORTING_CHOICES = (
         (SEARCH_EXPRESSION_SORTING, 'Order by search relevance'),
     )
@@ -106,13 +105,6 @@ class BaseUserCriteriaForm(forms.Form):
     def keywords_score(self):
         raise NotImplementedError('Must implement')
 
-    def categories_score(self):
-        if not self.cleaned_data['categories'].exists():
-            return 0
-        ids = list(self.cleaned_data['categories'].values_list('pk', flat=True))
-        self.max_score += len(ids)
-        return make_score_value(Q(category__id__in=ids))
-
     def get_area_ids(self):
         first_area = self.cleaned_data['areas'][0]
         ids = list(first_area.get_family().values_list('pk', flat=True))
@@ -155,9 +147,6 @@ class BaseUserCriteriaForm(forms.Form):
         if data['keywords'].exists():
             term = term + ' ' + ' '.join(self.cleaned_data['keywords'].values_list('title', flat=True))
         return term.strip()
-
-    def taxonomy_score(self):
-        return self.categories_score() + self.keywords_score()
 
     """
     If we want we can annotate match_<fieldname>_<id> with django.db.models.Value() and know which

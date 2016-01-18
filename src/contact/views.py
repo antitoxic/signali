@@ -14,6 +14,7 @@ from .signals import post_submit
 
 ContactPointModel = setting('CONTACT_POINT_MODEL')
 UserCriteriaFormClass = setting('CONTACT_USER_CRITERIA_FORM')
+LooseSearchBackend = setting('CONTACT_POINT_LOOSE_SEARCH_BACKEND')
 
 
 @restful_view_templates
@@ -46,18 +47,16 @@ class ListView(View):
         if not form.is_valid():
             raise failure.add_error(prefix+'form', form.errors)
 
-        taxonomy_score = None
+        is_loose_search = False
         score, filters, term = form.to_search_expressions()
         sorting = form.get_sorting(score)
         start = form.get_start()
         limit = form.get_limit()
         points = ContactPointModel.objects.apply_criteria(score, filters, sorting, term)
         total = points.count()
-        if total == 0 and term and setting('CONTACT_POINT_LOOSE_SEARCH'):
-            term = None
-            sorting = form.get_sorting(score, form.SEARCH_EXPRESSION_TAXONOMY_SORTING)
-            taxonomy_score = form.taxonomy_score()
-            points = ContactPointModel.objects.apply_criteria(score, filters, sorting, term, taxonomy_score)
+        if total == 0 and term and LooseSearchBackend:
+            is_loose_search = True
+            points = ContactPointModel.objects.apply_criteria(score, filters, sorting, term, LooseSearchBackend)
             total = points.count()
 
         try:
@@ -68,8 +67,7 @@ class ListView(View):
         return {
              "total": total,
              "term": term,
-             "taxonomy_term": taxonomy_score,
-             "is_loose_search": taxonomy_score or (score and not term),
+             "is_loose_search": is_loose_search,
              "sorting": sorting,
              "form": form,
              "pages": pages,

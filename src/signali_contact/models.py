@@ -48,14 +48,8 @@ class SignalPointQuerySet(models.QuerySet, VisibilityQuerySetMixin):
         except AttributeError:
             return 0
 
-    def taxonomy_score(self):
-        try:
-            return self[0].taxonomy_score
-        except AttributeError:
-            return 0
-
     def zero_score(self):
-        return self.score() + self.taxonomy_score() == 0
+        return self.score() == 0
 
 
 
@@ -64,8 +58,8 @@ class SignalContactPointManager(ContactPointManager):
     def _transform_criteria_base(self, queryset):
         return queryset.public()
 
-    def _apply_criteria_sorting(self, queryset, sorting, score_expression, taxonomy_score_expression=None):
-        queryset, sorting = super()._apply_criteria_sorting(queryset, sorting, score_expression, taxonomy_score_expression)
+    def _apply_criteria_sorting(self, queryset, sorting, score_expression):
+        queryset, sorting = super()._apply_criteria_sorting(queryset, sorting, score_expression)
         queryset = queryset.prefetch_related('children')
         return queryset, sorting
 
