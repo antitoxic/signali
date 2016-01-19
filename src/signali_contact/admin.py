@@ -227,7 +227,7 @@ class OrganisationAdmin(ReverseModelAdmin):
     fieldsets = (
         (None, {
             'classes': ('suit-tab suit-tab-basic',),
-            'fields': ('title', 'email', 'is_public', 'operational_area')
+            'fields': ('title', 'email', 'is_public', 'type', 'operational_area')
         }),
         (None, {
             'classes': ('suit-tab suit-tab-visibility',),

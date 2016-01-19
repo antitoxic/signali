@@ -147,6 +147,16 @@ class BaseOrganisation(models.Model):
         abstract = True
         verbose_name = _('organisation')
         verbose_name_plural = _('organisations')
+
+    GOVERNMENT = 'gov'
+    NGO = 'ngo'
+    UNOFFICIAL = 'unofficial'
+    TYPES = (
+        (GOVERNMENT, _('Government')),
+        (NGO, _('NGO')),
+        (UNOFFICIAL, _("Unofficial")),
+    )
+    type = models.CharField(_('type'), max_length=20, choices=TYPES, default=GOVERNMENT)
     address = models.OneToOneField(setting('CONTACT_AREA_MODEL', noparse=True), blank=True, null=True, on_delete=models.SET_NULL, parent_link=True)
     title = models.CharField(_('title'), max_length=250, blank=False)
     email = models.EmailField(_('email'), max_length=250, blank=True)
