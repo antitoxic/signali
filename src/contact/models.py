@@ -151,10 +151,12 @@ class BaseOrganisation(models.Model):
     GOVERNMENT = 'gov'
     NGO = 'ngo'
     UNOFFICIAL = 'unofficial'
+    COMMERCIAL = 'commercial'
     TYPES = (
         (GOVERNMENT, _('Government')),
         (NGO, _('NGO')),
         (UNOFFICIAL, _("Unofficial")),
+        (COMMERCIAL, _("Commercial")),
     )
     type = models.CharField(_('type'), max_length=20, choices=TYPES, default=GOVERNMENT)
     address = models.OneToOneField(setting('CONTACT_AREA_MODEL', noparse=True), blank=True, null=True, on_delete=models.SET_NULL, parent_link=True)
@@ -166,6 +168,10 @@ class BaseOrganisation(models.Model):
                                          blank=True,
                                          null=True,
                                          on_delete=models.SET_NULL)
+
+    @property
+    def is_governmental(self):
+        return self.type == self.GOVERNMENT
 
     def __str__(self):
         repr = '{}'
