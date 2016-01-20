@@ -29,7 +29,6 @@ class CategoryQuerySetMixin(object):
     def prefetch_parent(self):
         return self.select_related('parent')
 
-    @property
     def pk_list(self):
         return list(self.values_list('id', flat=True))
 
