@@ -20,7 +20,7 @@ class CategoryAdmin(admin.ModelAdmin):
         ('visibility', _('visibility')),
     )
     list_display = ('title', 'is_featured', 'is_public',)
-    list_editable = ('is_featured', 'is_public', )
+    # list_editable = ('is_featured', 'is_public', )
     fieldsets = (
         (None, {
             'classes': ('suit-tab suit-tab-basic',),
